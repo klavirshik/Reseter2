@@ -10,9 +10,10 @@ using System.Windows.Forms;
 
 namespace Reseter2
 {
-    public partial class Form1 : Form
+    [DefaultEvent(nameof(TaskControl))]
+    public partial class TaskControl : UserControl
     {
-        public Form1()
+        public TaskControl()
         {
             InitializeComponent();
         }
