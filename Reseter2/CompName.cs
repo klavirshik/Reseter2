@@ -11,6 +11,11 @@ namespace Reseter2
         private string Name { get; set; }
         private string Description { get; set; }
         private string Ip { get; set; }
+
+        public CompId(string name)
+        {
+            this.Name = name; 
+        }
         public CompId(string name, string description)
         {
             this.Name = name;

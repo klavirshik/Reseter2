@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="IComp.cs" />
     <Compile Include="IStatusTask.cs" />
+    <Compile Include="Pinger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="reseter.cs" />

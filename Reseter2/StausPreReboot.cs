@@ -8,10 +8,16 @@ namespace Reseter2
 {
     internal class StatusPreReboot : AStatusTask
     {
+        private int time;
         public StatusPreReboot(ReseterTask reseterTask) : base(reseterTask)
         {
         }
 
+        public override void Tick()
+        {
+            time++;
+            resetertask.DataContrl(time.ToString());
+        }
         public override void Next()
         {
 

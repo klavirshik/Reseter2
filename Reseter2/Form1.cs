@@ -14,12 +14,24 @@ namespace Reseter2
     {
         public Form1()
         {
+            
             InitializeComponent();
+            Reseter.SetForm(flowLayoutPanel1);
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void bt_reset_Click(object sender, EventArgs e)
+        {
+            Reseter.AddTask(tb_comp.Text) ;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Reseter.Tick();
         }
     }
 }
