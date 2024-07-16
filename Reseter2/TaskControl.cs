@@ -26,9 +26,10 @@ namespace Reseter2
             lb_name.Text = reseterTask.GetName(); 
         }
 
-        public void DataContrl(string ping)
+        public void DataContrl(string ping, string timeout)
         {
-            label5.Text = ping;
+            lb_ping.Text = ping;
+            lb_timeout.Text = timeout;
            
         }
         private void label1_Click(object sender, EventArgs e)

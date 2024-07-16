@@ -36,7 +36,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lb_ping = new System.Windows.Forms.Label();
             this.Timeout = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lb_timeout = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -116,14 +116,13 @@
             this.Timeout.TabIndex = 7;
             this.Timeout.Text = "Timeout";
             // 
-            // label5
+            // lb_timeout
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(225, 49);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(25, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "123";
+            this.lb_timeout.AutoSize = true;
+            this.lb_timeout.Location = new System.Drawing.Point(225, 49);
+            this.lb_timeout.Name = "lb_timeout";
+            this.lb_timeout.Size = new System.Drawing.Size(0, 13);
+            this.lb_timeout.TabIndex = 8;
             // 
             // button1
             // 
@@ -160,7 +159,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lb_timeout);
             this.Controls.Add(this.Timeout);
             this.Controls.Add(this.lb_ping);
             this.Controls.Add(this.label4);
@@ -187,7 +186,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lb_ping;
         private System.Windows.Forms.Label Timeout;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lb_timeout;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.PictureBox pictureBox1;
