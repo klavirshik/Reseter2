@@ -8,10 +8,13 @@ namespace Reseter2
 {
      class ReseterTask
     {
+        private Task task;
         private IComp Comp;
         private AStatusTask StatusTask;
         private TaskControl taskControl;
         private Pinger Pingers;
+        public delegate void DataEvents(string ping, string timeout);
+        public event DataEvents DataChange;
 
         public ReseterTask(IComp comp, TaskControl taskCntrl)
         {
@@ -19,15 +22,30 @@ namespace Reseter2
             taskControl = taskCntrl;
             StatusTask = new StatusPreReboot(this);
             Pingers = new Pinger(Comp.GetName());
+            DataChange += taskControl.DataContrl;
         }
         public string GetName()
         {
             return Comp.GetName();
         }
 
-        public void Tick()
+        public async Task Tick()
         {
-            StatusTask.Tick();
+            if (task != null)
+            {
+                if (task.IsCompleted){
+                    //this.DataContrl(Ping().ToString(), Timeout().ToString());
+                    await task;
+                    
+                    task = Task.Run(StatusTask.Tick);
+                }
+            }
+            else
+            {
+                task = Task.Run(StatusTask.Tick);
+            }
+            
+            
         }
 
         public long Ping()
@@ -41,7 +59,8 @@ namespace Reseter2
         
         public void DataContrl(string ping, string timeout)
         {
-            taskControl.DataContrl(ping, timeout);
+          //  taskControl.Invoke(DataChange);
+            DataChange.Invoke(ping, timeout);
         }
         private void Clear()
         {

@@ -16,8 +16,8 @@ namespace Reseter2
         public override void Tick()
         {
             time++;
-            
             resetertask.DataContrl(resetertask.Ping().ToString(), resetertask.Timeout().ToString());
+            
         }
         public override void Next()
         {
