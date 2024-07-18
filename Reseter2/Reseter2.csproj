@@ -56,10 +56,12 @@
     <Compile Include="IComp.cs" />
     <Compile Include="IStatusTask.cs" />
     <Compile Include="Pinger.cs" />
+    <Compile Include="PingResult.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="reseter.cs" />
     <Compile Include="ReseteTask.cs" />
+    <Compile Include="StatusReboot.cs" />
     <Compile Include="StausPreReboot.cs" />
     <Compile Include="TaskControl.cs">
       <SubType>UserControl</SubType>

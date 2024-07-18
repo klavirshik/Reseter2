@@ -32,7 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lb_name = new System.Windows.Forms.Label();
             this.lb_ip = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lb_stage = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lb_ping = new System.Windows.Forms.Label();
             this.Timeout = new System.Windows.Forms.Label();
@@ -80,14 +80,14 @@
             this.lb_ip.TabIndex = 3;
             this.lb_ip.Text = "10.3.123.123";
             // 
-            // label3
+            // lb_stage
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(74, 10);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Перезагружаеться";
+            this.lb_stage.AutoSize = true;
+            this.lb_stage.Location = new System.Drawing.Point(74, 10);
+            this.lb_stage.Name = "lb_stage";
+            this.lb_stage.Size = new System.Drawing.Size(104, 13);
+            this.lb_stage.TabIndex = 4;
+            this.lb_stage.Text = "Перезагружаеться";
             // 
             // label4
             // 
@@ -103,9 +103,8 @@
             this.lb_ping.AutoSize = true;
             this.lb_ping.Location = new System.Drawing.Point(108, 49);
             this.lb_ping.Name = "lb_ping";
-            this.lb_ping.Size = new System.Drawing.Size(38, 13);
+            this.lb_ping.Size = new System.Drawing.Size(0, 13);
             this.lb_ping.TabIndex = 6;
-            this.lb_ping.Text = "100ms";
             // 
             // Timeout
             // 
@@ -163,7 +162,7 @@
             this.Controls.Add(this.Timeout);
             this.Controls.Add(this.lb_ping);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lb_stage);
             this.Controls.Add(this.lb_ip);
             this.Controls.Add(this.lb_name);
             this.Controls.Add(this.label2);
@@ -182,7 +181,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lb_name;
         private System.Windows.Forms.Label lb_ip;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lb_stage;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lb_ping;
         private System.Windows.Forms.Label Timeout;

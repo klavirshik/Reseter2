@@ -32,6 +32,10 @@ namespace Reseter2
             lb_timeout.Text = timeout;
            
         }
+        public void SetNameStage(string nameStage)
+        {
+            lb_stage.Text = nameStage;
+        }
         private void label1_Click(object sender, EventArgs e)
         {
            

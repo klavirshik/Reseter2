@@ -20,7 +20,7 @@ namespace Reseter2
         public int Timeout() {
             return TimeoutCount;       
         }
-        public long PingHost()
+        public PingResult PingHost()
         {
             bool pingable = false;
             long ping = 0;
@@ -44,7 +44,7 @@ namespace Reseter2
                 }
             }
             if (pingable) TimeoutCount++;
-            return ping;
+            return new PingResult(ping, TimeoutCount);
         }
 
     }

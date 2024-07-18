@@ -11,12 +11,19 @@ namespace Reseter2
         private int time;
         public StatusPreReboot(ReseterTask reseterTask) : base(reseterTask)
         {
+            resetertask.SetNameStage("Проверка связи");
         }
 
-        public override void Tick()
+        public override Task<PingResult> Tick()
         {
             time++;
-            resetertask.DataContrl(resetertask.Ping().ToString(), resetertask.Timeout().ToString());
+            PingResult result = resetertask.Ping();
+            if (result.Ping > 0)
+            {
+                resetertask.StatusTask = new StatusReboot(resetertask);
+            }
+            return Task.FromResult(result);
+           // return resetertask.DataContrl(pingResult.Ping.ToString(), pingResult.Ping.ToString());
             
         }
         public override void Next()

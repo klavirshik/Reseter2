@@ -13,7 +13,7 @@ namespace Reseter2
         {
             resetertask = reseterTask;
         }
-        public abstract void Tick();
+        public abstract Task<PingResult> Tick();
         public abstract void Stop();
         public abstract void Next();
     }
