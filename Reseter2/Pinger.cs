@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Net.NetworkInformation;
+using System.Net;
 
 namespace Reseter2
 {
@@ -12,6 +13,7 @@ namespace Reseter2
     {
         private string NameOrAddress;
         private int TimeoutCount;
+        private IPAddress Ip;
        
         public Pinger(string nameOrAddress)
         {
@@ -31,6 +33,7 @@ namespace Reseter2
                 PingReply reply = pinger.Send(this.NameOrAddress);
                 pingable = reply.Status == IPStatus.TimedOut;
                 ping = reply.RoundtripTime;
+                Ip = reply.Address;
             }
             catch (PingException)
             {
@@ -44,7 +47,7 @@ namespace Reseter2
                 }
             }
             if (pingable) TimeoutCount++;
-            return new PingResult(ping, TimeoutCount);
+           return new PingResult(ping, TimeoutCount, Ip); 
         }
 
     }

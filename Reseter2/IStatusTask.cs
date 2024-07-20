@@ -14,7 +14,14 @@ namespace Reseter2
             resetertask = reseterTask;
         }
         public abstract Task<PingResult> Tick();
-        public abstract void Stop();
         public abstract void Next();
+        public void Stop() {
+            resetertask.StatusTask = new StatusRebootStop(resetertask);
+        }
+        public void RebootReturn()
+        {
+            resetertask.StatusTask = new StatusPreReboot(resetertask);
+        }
+        
     }
 }

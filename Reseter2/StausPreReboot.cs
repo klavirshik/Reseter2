@@ -9,30 +9,32 @@ namespace Reseter2
     internal class StatusPreReboot : AStatusTask
     {
         private int time;
+        private PingResult PingResult = new PingResult(0,0,null);
         public StatusPreReboot(ReseterTask reseterTask) : base(reseterTask)
         {
             resetertask.SetNameStage("Проверка связи");
+            resetertask.sw.Restart();
         }
 
         public override Task<PingResult> Tick()
         {
             time++;
-            PingResult result = resetertask.Ping();
-            if (result.Ping > 0)
-            {
-                resetertask.StatusTask = new StatusReboot(resetertask);
-            }
-            return Task.FromResult(result);
+            PingResult = resetertask.Ping();
+            return Task.FromResult(PingResult);
            // return resetertask.DataContrl(pingResult.Ping.ToString(), pingResult.Ping.ToString());
             
         }
         public override void Next()
         {
-
+            if (PingResult.Ping != null)
+            {
+                if (PingResult.Ping > 0)
+                {
+                resetertask.StatusTask = new StatusReboot(resetertask);
+                }
+            }
+                
         }
-        public override void Stop()
-        {
 
-        }
     }
 }

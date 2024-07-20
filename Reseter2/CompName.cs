@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,11 +11,16 @@ namespace Reseter2
     {
         private string Name { get; set; }
         private string Description { get; set; }
-        private string Ip { get; set; }
+        private IPAddress Ip { get; set; }
 
         public CompId(string name)
         {
             this.Name = name; 
+        }
+
+        public CompId(IPAddress ip)
+        {
+            this.Ip = ip;
         }
         public CompId(string name, string description)
         {
@@ -22,7 +28,7 @@ namespace Reseter2
             this.Description = description;
         }
 
-        public CompId(string name, string description, string ip)
+        public CompId(string name, string description, IPAddress ip)
         {
             this.Name = name;
             this.Description = description;
@@ -33,6 +39,22 @@ namespace Reseter2
         public string GetName()
         {
             return Name;
+        }
+
+        public IPAddress GetIP()
+        {
+            return Ip;
+        }
+
+        public void SetIP(IPAddress ip)
+        {
+            Ip = ip;
+        }
+
+        public string GetResetName()
+        {
+            if (Name != null) return Name;
+            return Ip.ToString();
         }
 
     public string GetDescription()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Reflection.Emit;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
@@ -21,8 +22,22 @@ namespace Reseter2
         }
         public static void AddTask(String name)
         {
-            CompId compid = new CompId(name);
-            AddTask(compid);
+            try
+            {
+                IPAddress ip = IPAddress.Parse(name);
+                CompId compid = new CompId(ip);
+                AddTask(compid);
+            }
+            catch (FormatException e)
+            {
+                CompId compid = new CompId(name);
+                AddTask(compid);
+            }
+            catch
+            {
+                
+            }
+            
         }
         public static void AddTask(IComp compName)
         {
@@ -34,18 +49,27 @@ namespace Reseter2
             list_task.Add(reseterTask);
         }
 
-        public static void Clear(ReseterTask reseterTask, TaskControl taskControl)
+        public static async void Clear(ReseterTask reseterTask, TaskControl taskControl)
         {
             flow_conteiner.Controls.Remove(taskControl);
             list_task.Remove(reseterTask);
 
         }
-        public static void Tick()
+        public static async void Tick()
         {
-            foreach (var item in list_task)
+            try
             {
-                item.Tick();
+                foreach (var item in list_task)
+                {
+                
+                    item.Tick();
+               
+               
+                } 
             }
+            catch 
+                { 
+                }
         }
     }
 }

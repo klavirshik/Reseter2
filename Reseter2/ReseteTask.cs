@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
@@ -10,26 +11,22 @@ namespace Reseter2
      class ReseterTask
     {
         private Task<PingResult> task;
-        private IComp Comp;
+        public IComp Comp { get; }
         public AStatusTask StatusTask { get; set; }
         private TaskControl taskControl;
         private Pinger Pingers;
-        public delegate void DataEvents(string ping, string timeout);
-        public event DataEvents DataChange;
+        public Stopwatch sw = new Stopwatch();
+
+
 
         public ReseterTask(IComp comp, TaskControl taskCntrl)
         {
             Comp = comp;
             taskControl = taskCntrl;
             StatusTask = new StatusPreReboot(this);
-            Pingers = new Pinger(Comp.GetName());
-            DataChange += taskControl.DataContrl;
+            Pingers = new Pinger(Comp.GetResetName());
         }
-        public string GetName()
-        {
-            return Comp.GetName();
-        }
-
+        
         public async Task Tick()
         {
             if (task != null)
@@ -37,16 +34,34 @@ namespace Reseter2
                 if (task.IsCompleted){
                     //this.DataContrl(Ping().ToString(), Timeout().ToString());
                     PingResult pingResult = await task;
-                    taskControl.DataContrl(pingResult.Ping.ToString() + "ms", pingResult.TimeoutPing.ToString());
+                    taskControl.DataContrl(pingResult.Ping.ToString() + "ms", pingResult.TimeoutPing.ToString(), pingResult.Ip, sw.Elapsed);
+                    StatusTask.Next();
                     task = Task.Run(StatusTask.Tick);
                 }
             }
             else
             {
                 task = Task.Run(StatusTask.Tick);
+                   
             }
+
+            taskControl.TimeContrl(sw.Elapsed);
             
-            
+        }
+
+        public string GetName()
+        {
+            return Comp.GetName();
+        }
+
+        public void RebootStop()
+        {
+            StatusTask.Stop();
+        }
+
+        public void RebootReturn()
+        {
+            StatusTask.RebootReturn();
         }
 
         public void SetNameStage(string nameStage)

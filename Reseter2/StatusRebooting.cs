@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace Reseter2
 {
-    internal class StatusReboot : AStatusTask
+    internal class StatusRebooting : AStatusTask
     {
         private int TimeCount;
         private PingResult PingResult = new PingResult(0, 0, null);
-        public StatusReboot(ReseterTask reseterTask) : base(reseterTask)
+        public StatusRebooting(ReseterTask reseterTask) : base(reseterTask)
         {
-            resetertask.SetNameStage("Отправляем команду перезагрузки");
-            //Shutdown.RestartPC(reseterTask.Comp.GetName());
+            resetertask.SetNameStage("Перезагрузка");
+            
         }
 
         public override Task<PingResult> Tick()
@@ -24,13 +23,13 @@ namespace Reseter2
         }
         public override void Next()
         {
-            if (PingResult.Ping == 0)
+            if (PingResult.Ping > 0)
             {
                 TimeCount++;
             }
-            if (TimeCount > 2)
+            if (TimeCount > 10)
             {
-                resetertask.StatusTask = new StatusRebooting(resetertask);
+                resetertask.StatusTask = new StatusPreReboot(resetertask);
             }
         }
     }
