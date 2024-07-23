@@ -15,7 +15,11 @@ namespace Reseter2
         }
         public static void RestartPC(string param)
         {
-            StartShutDown("-f -r -t 5" + param);
+            if (param.Length > 0)
+            {
+                StartShutDown("-r -m \\\\" + param + "-f -t 5");
+            }
+            
         }
         public static void LogOff()
         {

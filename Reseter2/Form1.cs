@@ -16,6 +16,8 @@ namespace Reseter2
         {
             
             InitializeComponent();
+            flowLayoutPanel1.AutoScrollMinSize = new Size(0, 655) ;
+            flowLayoutPanel1.VerticalScroll.Visible  = true;
             Reseter.SetForm(flowLayoutPanel1);
         }
 

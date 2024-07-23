@@ -12,7 +12,7 @@ namespace Reseter2
         public StatusRebootStop(ReseterTask reseterTask) : base(reseterTask)
         {
             resetertask.SetNameStage("Перезагрузка остановленна");
-            PingResult = resetertask.Ping();
+            PingResult = resetertask.pingResult;
             reseterTask.sw.Stop();
         }
 

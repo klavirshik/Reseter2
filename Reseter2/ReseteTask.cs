@@ -16,7 +16,7 @@ namespace Reseter2
         private TaskControl taskControl;
         private Pinger Pingers;
         public Stopwatch sw = new Stopwatch();
-
+        public PingResult pingResult;
 
 
         public ReseterTask(IComp comp, TaskControl taskCntrl)
@@ -33,7 +33,7 @@ namespace Reseter2
             {
                 if (task.IsCompleted){
                     //this.DataContrl(Ping().ToString(), Timeout().ToString());
-                    PingResult pingResult = await task;
+                    pingResult = await task;
                     taskControl.DataContrl(pingResult.Ping.ToString() + "ms", pingResult.TimeoutPing.ToString(), pingResult.Ip, sw.Elapsed);
                     StatusTask.Next();
                     task = Task.Run(StatusTask.Tick);
