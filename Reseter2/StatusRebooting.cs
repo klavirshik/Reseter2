@@ -9,7 +9,7 @@ namespace Reseter2
     internal class StatusRebooting : AStatusTask
     {
         private int TimeCount;
-        private PingResult PingResult = new PingResult(0, 0, null);
+        private PingResult PingResult = new PingResult(0, 0, null, false);
         public StatusRebooting(ReseterTask reseterTask) : base(reseterTask)
         {
             resetertask.SetNameStage("Перезагрузка");
@@ -23,13 +23,13 @@ namespace Reseter2
         }
         public override void Next()
         {
-            if (PingResult.Ping > 0)
+            if (PingResult.TimedOut == false)
             {
                 TimeCount++;
             }
-            if (TimeCount > 10)
+            if (TimeCount > 50)
             {
-                resetertask.StatusTask = new StatusPreReboot(resetertask);
+                resetertask.StatusTask = new StatusRebootSucces(resetertask);
             }
         }
     }

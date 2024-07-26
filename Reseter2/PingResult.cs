@@ -13,11 +13,13 @@ namespace Reseter2
         public long Ping { get; set; }
         public int TimeoutPing { get; set; }
         public IPAddress Ip;
-        public PingResult(long ping, int timeoutPing, IPAddress ip)
+        public bool TimedOut;
+        public PingResult(long ping, int timeoutPing, IPAddress ip, bool timedOut)
         {
             Ping = ping;
-            TimeoutPing = timeoutPing; 
+            TimeoutPing = timeoutPing;
             Ip = ip;
+            TimedOut = timedOut;
         }
     }
 }

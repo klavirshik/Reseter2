@@ -47,7 +47,7 @@ namespace Reseter2
                 }
             }
             if (pingable) TimeoutCount++;
-           return new PingResult(ping, TimeoutCount, Ip); 
+           return new PingResult(ping, TimeoutCount, Ip, pingable); 
         }
 
     }

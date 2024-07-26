@@ -10,11 +10,12 @@ namespace Reseter2
     internal class StatusReboot : AStatusTask
     {
         private int TimeCount;
-        private PingResult PingResult = new PingResult(0, 0, null);
+
+        private PingResult PingResult = new PingResult(0, 0, null, false);
         public StatusReboot(ReseterTask reseterTask) : base(reseterTask)
         {
             resetertask.SetNameStage("Отправляем команду перезагрузки");
-            //Shutdown.RestartPC(reseterTask.Comp.GetName());
+            Shutdown.RestartPC(reseterTask.Comp.GetResetName());
         }
 
         public override Task<PingResult> Tick()
@@ -24,11 +25,11 @@ namespace Reseter2
         }
         public override void Next()
         {
-            if (PingResult.Ping == 0)
+            if (PingResult.TimedOut == true)
             {
                 TimeCount++;
             }
-            if (TimeCount > 2)
+            if (TimeCount > 3)
             {
                 resetertask.StatusTask = new StatusRebooting(resetertask);
             }

@@ -34,7 +34,17 @@ namespace Reseter2
                 if (task.IsCompleted){
                     //this.DataContrl(Ping().ToString(), Timeout().ToString());
                     pingResult = await task;
-                    taskControl.DataContrl(pingResult.Ping.ToString() + "ms", pingResult.TimeoutPing.ToString(), pingResult.Ip, sw.Elapsed);
+
+                    string p;
+                    if (pingResult.TimedOut)
+                    {
+                        p = "----";
+                    }
+                    else
+                    {
+                        p = pingResult.Ping.ToString() + "ms";
+                    }
+                    taskControl.DataContrl(p, pingResult.TimeoutPing.ToString(), pingResult.Ip, sw.Elapsed);
                     StatusTask.Next();
                     task = Task.Run(StatusTask.Tick);
                 }
