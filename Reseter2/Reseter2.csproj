@@ -53,12 +53,15 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormHistory.cs">
+    <Compile Include="History\FormHistory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormHistory.Designer.cs">
+    <Compile Include="History\FormHistory.Designer.cs">
       <DependentUpon>FormHistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="History\HistoryItem.cs" />
+    <Compile Include="History\HistoryList.cs" />
+    <Compile Include="History\SHistory.cs" />
     <Compile Include="IComp.cs" />
     <Compile Include="IStatusTask.cs" />
     <Compile Include="Pinger.cs" />
@@ -82,7 +85,7 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormHistory.resx">
+    <EmbeddedResource Include="History\FormHistory.resx">
       <DependentUpon>FormHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -110,8 +113,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

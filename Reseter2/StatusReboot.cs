@@ -34,5 +34,9 @@ namespace Reseter2
                 resetertask.StatusTask = new StatusRebooting(resetertask);
             }
         }
+        public override string GetName()
+        {
+            return "Отправляем команду перезагрузки";
+        }
     }
 }

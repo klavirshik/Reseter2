@@ -23,5 +23,9 @@ namespace Reseter2
         public override void Next()
         {
         }
+        public override string GetName()
+        {
+            return "Успешно перезагруженно";
+        }
     }
 }

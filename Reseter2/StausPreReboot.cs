@@ -33,6 +33,10 @@ namespace Reseter2
             
                 
         }
+        public override string GetName()
+        {
+            return "Проверка связи";
+        }
 
     }
 }

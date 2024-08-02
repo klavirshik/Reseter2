@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reseter2.History;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ namespace Reseter2
 {
     public partial class Form1 : Form
     {
+        private FormHistory formHistory;
         public Form1()
         {
             
@@ -34,6 +36,23 @@ namespace Reseter2
         private void timer1_Tick(object sender, EventArgs e)
         {
             Reseter.Tick();
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            if (formHistory == null)
+            {
+                formHistory = new FormHistory();
+                HistoryList.SetControl(formHistory);
+                formHistory.Show();
+            }
+            else 
+            { 
+           
+            formHistory.Activate();
+            }
+            
+            
         }
     }
 }

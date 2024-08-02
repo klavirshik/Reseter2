@@ -11,6 +11,7 @@ namespace Reseter2
      class ReseterTask
     {
         private Task<PingResult> task;
+        public DateTime StartTime = DateTime.Now;
         public IComp Comp { get; }
         public AStatusTask StatusTask { get; set; }
         private TaskControl taskControl;
