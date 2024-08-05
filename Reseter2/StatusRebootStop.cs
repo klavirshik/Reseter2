@@ -13,6 +13,7 @@ namespace Reseter2
         {
             resetertask.SetNameStage("Остановленно");
             PingResult = resetertask.pingResult;
+            resetertask.historyItem.SetEndTime(DateTime.Now);       
             reseterTask.sw.Stop();
         }
 

@@ -16,6 +16,7 @@ namespace Reseter2.History
         private AStatusTask statusTask;
         private DateTime startTime;
         private string statusName;
+        private DateTime endTime;
         public HistoryItem(IComp comp, AStatusTask statusTask, DateTime startTime)
         {
             this.comp = comp;
@@ -35,6 +36,11 @@ namespace Reseter2.History
         
         }
 
+        public void SetEndTime(DateTime endTime)
+        {
+            this.endTime = endTime;
+        }
+
         public void ClearTask()
         {
             this.task = null;
@@ -49,7 +55,7 @@ namespace Reseter2.History
                     this.statusTask = this.task.StatusTask;
                     this.statusName = this.statusTask.GetName();
                 }
-                string output = string.Format("{0,5}|{1,10}|{2,10}", startTime.ToString(), comp.GetResetName(), this.statusName, startTime.ToString());
+                string output = string.Format("{0,17:dd.MM.yy HH:mm:ss} {1,-12}{2,-22} {3,8:HH:mm:ss}", startTime, comp.GetResetName().ToString(), this.statusName, endTime);
                 return output;
             }
         }

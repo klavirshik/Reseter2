@@ -21,7 +21,7 @@ namespace Reseter2.History
         {
 
             HistoryItem historyItem = new HistoryItem(reseterTask);
-            Hitem.Add(historyItem);
+            Hitem.Insert(0, historyItem);
             Update();
             
             return historyItem;
@@ -31,6 +31,9 @@ namespace Reseter2.History
         {
             Update();
         }
-        
+        static public void Clear()
+        {
+            Hitem.Clear();
+        }
     }
 }

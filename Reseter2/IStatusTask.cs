@@ -23,6 +23,7 @@ namespace Reseter2
         }
         public void RebootReturn()
         {
+            resetertask.historyItem.SetEndTime(DateTime.Now);
             resetertask.historyItem.ClearTask();
             resetertask.StatusTask = new StatusPreReboot(resetertask);
             resetertask.historyItem = HistoryList.Add(resetertask);

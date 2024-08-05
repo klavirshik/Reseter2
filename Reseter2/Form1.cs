@@ -14,14 +14,14 @@ namespace Reseter2
     public partial class Form1 : Form
     {
         //private FormHistory formHistory;
-        public bool Focus;
+        //public bool Focus;
         public Form1()
         {
             
             
 
             InitializeComponent();
-            flowLayoutPanel1.AutoScrollMinSize = new Size(0, 666) ;
+            flowLayoutPanel1.AutoScrollMinSize = new Size(0, 683) ;
             flowLayoutPanel1.VerticalScroll.Visible  = true;
             Reseter.SetForm(flowLayoutPanel1);
             HistoryList.Update += Update_lb;
@@ -49,6 +49,13 @@ namespace Reseter2
             lb_history.DataSource = HistoryList.Hitem;
             lb_history.DisplayMember = "ToStr";
         }
-       
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            HistoryList.Clear();
+            lb_history.DataSource = null;
+            lb_history.DataSource = HistoryList.Hitem;
+            lb_history.DisplayMember = "ToStr";
+        }
     }
 }

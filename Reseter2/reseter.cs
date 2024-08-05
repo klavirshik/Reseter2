@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reseter2.History;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -51,6 +52,8 @@ namespace Reseter2
 
         public static async void Clear(ReseterTask reseterTask, TaskControl taskControl)
         {
+            reseterTask.historyItem.SetEndTime(DateTime.Now);
+            HistoryList.Updated();
             flow_conteiner.Controls.Remove(taskControl);
             list_task.Remove(reseterTask);
 

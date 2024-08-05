@@ -12,6 +12,7 @@ namespace Reseter2
         public StatusRebootSucces(ReseterTask reseterTask) : base(reseterTask)
         {
             resetertask.SetNameStage("Успешно перезагруженно");
+            resetertask.historyItem.SetEndTime(DateTime.Now);
             PingResult = resetertask.Ping();
             reseterTask.sw.Stop();
         }
