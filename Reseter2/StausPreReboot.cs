@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reseter2.History;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,10 +27,11 @@ namespace Reseter2
         }
         public override void Next()
         {
-                if (!PingResult.TimedOut)
+                if (PingResult.TimedOut == false)
                 {
                 resetertask.StatusTask = new StatusReboot(resetertask);
-                }
+                HistoryList.Updated();
+            }
             
                 
         }

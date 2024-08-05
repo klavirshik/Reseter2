@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reseter2.History;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Reseter2
         private PingResult PingResult = new PingResult(0, 0, null, false);
         public StatusReboot(ReseterTask reseterTask) : base(reseterTask)
         {
-            resetertask.SetNameStage("Отправляем команду перезагрузки");
+            resetertask.SetNameStage("Отправка в перезагрузки");
             Shutdown.RestartPC(reseterTask.Comp.GetResetName());
         }
 
@@ -32,11 +33,12 @@ namespace Reseter2
             if (TimeCount > 3)
             {
                 resetertask.StatusTask = new StatusRebooting(resetertask);
+                HistoryList.Updated();
             }
         }
         public override string GetName()
         {
-            return "Отправляем команду перезагрузки";
+            return "Отправка команды";
         }
     }
 }

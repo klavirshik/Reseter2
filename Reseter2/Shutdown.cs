@@ -18,7 +18,7 @@ namespace Reseter2
         {
             if (param.Length > 0)
             {
-                MessageBox.Show(@"-r -m \\" + param + " -f -t 5");
+              //  MessageBox.Show(@"-r -m \\" + param + " -f -t 5");
                 StartShutDown(@"-r -m \\" + param + " -f -t 5");
             }
             

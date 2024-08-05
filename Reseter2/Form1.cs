@@ -13,14 +13,20 @@ namespace Reseter2
 {
     public partial class Form1 : Form
     {
-        private FormHistory formHistory;
+        //private FormHistory formHistory;
+        public bool Focus;
         public Form1()
         {
             
+            
+
             InitializeComponent();
-            flowLayoutPanel1.AutoScrollMinSize = new Size(0, 655) ;
+            flowLayoutPanel1.AutoScrollMinSize = new Size(0, 666) ;
             flowLayoutPanel1.VerticalScroll.Visible  = true;
             Reseter.SetForm(flowLayoutPanel1);
+            HistoryList.Update += Update_lb;
+            lb_history.DataSource = HistoryList.Hitem;
+            lb_history.DisplayMember = "ToStr";
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -37,22 +43,12 @@ namespace Reseter2
         {
             Reseter.Tick();
         }
-
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        public void Update_lb()
         {
-            if (formHistory == null)
-            {
-                formHistory = new FormHistory();
-                HistoryList.SetControl(formHistory);
-                formHistory.Show();
-            }
-            else 
-            { 
-           
-            formHistory.Activate();
-            }
-            
-            
+            lb_history.DataSource = null;
+            lb_history.DataSource = HistoryList.Hitem;
+            lb_history.DisplayMember = "ToStr";
         }
+       
     }
 }

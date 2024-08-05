@@ -29,22 +29,25 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tb_comp = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.bt_reset = new System.Windows.Forms.Button();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.toolStrip1.SuspendLayout();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.lb_history = new System.Windows.Forms.ListBox();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_comp
             // 
-            this.tb_comp.Location = new System.Drawing.Point(65, 33);
+            this.tb_comp.Location = new System.Drawing.Point(67, 12);
             this.tb_comp.Name = "tb_comp";
             this.tb_comp.Size = new System.Drawing.Size(195, 20);
             this.tb_comp.TabIndex = 0;
@@ -52,7 +55,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 36);
+            this.label1.Location = new System.Drawing.Point(14, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 1;
@@ -61,7 +64,7 @@
             // 
             // bt_reset
             // 
-            this.bt_reset.Location = new System.Drawing.Point(266, 31);
+            this.bt_reset.Location = new System.Drawing.Point(268, 10);
             this.bt_reset.Name = "bt_reset";
             this.bt_reset.Size = new System.Drawing.Size(122, 23);
             this.bt_reset.TabIndex = 2;
@@ -69,46 +72,37 @@
             this.bt_reset.UseVisualStyleBackColor = true;
             this.bt_reset.Click += new System.EventHandler(this.bt_reset_Click);
             // 
-            // toolStrip1
+            // timer1
             // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.toolStripButton3});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(394, 25);
-            this.toolStrip1.TabIndex = 3;
-            this.toolStrip1.Text = "toolStrip1";
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // toolStripButton1
+            // tabControl1
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(54, 22);
-            this.toolStripButton1.Text = "Каталог";
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Location = new System.Drawing.Point(2, 39);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(410, 697);
+            this.tabControl1.TabIndex = 4;
             // 
-            // toolStripButton2
+            // tabPage1
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(58, 22);
-            this.toolStripButton2.Text = "История";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripButton3.Size = new System.Drawing.Size(86, 22);
-            this.toolStripButton3.Text = "О программе";
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.flowLayoutPanel1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(402, 671);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Задания";
             // 
             // flowLayoutPanel1
             // 
@@ -116,35 +110,68 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowLayoutPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 67);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(394, 654);
-            this.flowLayoutPanel1.TabIndex = 4;
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(396, 665);
+            this.flowLayoutPanel1.TabIndex = 0;
             this.flowLayoutPanel1.WrapContents = false;
             // 
-            // timer1
+            // tabPage2
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(392, 671);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Справочник";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.lb_history);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(402, 671);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "История";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(392, 671);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Настройки";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // lb_history
+            // 
+            this.lb_history.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_history.FormattingEnabled = true;
+            this.lb_history.Location = new System.Drawing.Point(3, 3);
+            this.lb_history.Name = "lb_history";
+            this.lb_history.Size = new System.Drawing.Size(396, 665);
+            this.lb_history.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(394, 717);
-            this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.toolStrip1);
+            this.ClientSize = new System.Drawing.Size(410, 753);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.bt_reset);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tb_comp);
             this.Name = "Form1";
             this.Text = "Reseter2";
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+         
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,12 +182,14 @@
         private System.Windows.Forms.TextBox tb_comp;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button bt_reset;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.ListBox lb_history;
     }
 }
 

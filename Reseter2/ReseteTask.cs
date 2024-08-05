@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reseter2.History;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Reseter2
         private Pinger Pingers;
         public Stopwatch sw = new Stopwatch();
         public PingResult pingResult;
+        public HistoryItem historyItem;
 
 
         public ReseterTask(IComp comp, TaskControl taskCntrl)
@@ -26,6 +28,7 @@ namespace Reseter2
             taskControl = taskCntrl;
             StatusTask = new StatusPreReboot(this);
             Pingers = new Pinger(Comp.GetResetName());
+            historyItem = HistoryList.Add(this);
         }
         
         public async Task Tick()

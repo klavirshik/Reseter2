@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reseter2.History;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,10 +19,14 @@ namespace Reseter2
         public abstract string GetName();
         public void Stop() {
             resetertask.StatusTask = new StatusRebootStop(resetertask);
+            HistoryList.Updated();
         }
         public void RebootReturn()
         {
+            resetertask.historyItem.ClearTask();
             resetertask.StatusTask = new StatusPreReboot(resetertask);
+            resetertask.historyItem = HistoryList.Add(resetertask);
+            HistoryList.Updated();
         }
         
     }

@@ -11,7 +11,7 @@ namespace Reseter2
         private PingResult PingResult;
         public StatusRebootStop(ReseterTask reseterTask) : base(reseterTask)
         {
-            resetertask.SetNameStage("Перезагрузка остановленна");
+            resetertask.SetNameStage("Остановленно");
             PingResult = resetertask.pingResult;
             reseterTask.sw.Stop();
         }
@@ -25,7 +25,7 @@ namespace Reseter2
         }
         public override string GetName()
         {
-            return "Перезагрузка остановленна";
+            return "Остановленно";
         }
     }
 }

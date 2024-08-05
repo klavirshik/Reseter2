@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reseter2.History;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,7 @@ namespace Reseter2
             if (TimeCount > 50)
             {
                 resetertask.StatusTask = new StatusRebootSucces(resetertask);
+                HistoryList.Updated();
             }
         }
         public override string GetName()
