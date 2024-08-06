@@ -35,6 +35,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -43,18 +44,23 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lb_history = new System.Windows.Forms.ListBox();
+            this.cm_history = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.sm_RebootItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sm_SaveItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flow_words = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.cm_history.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_comp
             // 
             this.tb_comp.Location = new System.Drawing.Point(67, 12);
             this.tb_comp.Name = "tb_comp";
-            this.tb_comp.Size = new System.Drawing.Size(195, 20);
+            this.tb_comp.Size = new System.Drawing.Size(207, 20);
             this.tb_comp.TabIndex = 0;
             // 
             // label1
@@ -69,7 +75,7 @@
             // 
             // bt_reset
             // 
-            this.bt_reset.Location = new System.Drawing.Point(268, 10);
+            this.bt_reset.Location = new System.Drawing.Point(280, 9);
             this.bt_reset.Name = "bt_reset";
             this.bt_reset.Size = new System.Drawing.Size(122, 23);
             this.bt_reset.TabIndex = 2;
@@ -109,8 +115,20 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Задания";
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(396, 682);
+            this.flowLayoutPanel1.TabIndex = 0;
+            this.flowLayoutPanel1.WrapContents = false;
+            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.flow_words);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -189,6 +207,7 @@
             // 
             this.lb_history.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_history.ContextMenuStrip = this.cm_history;
             this.lb_history.Font = new System.Drawing.Font("Cascadia Code", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_history.FormattingEnabled = true;
             this.lb_history.ItemHeight = 15;
@@ -196,6 +215,33 @@
             this.lb_history.Name = "lb_history";
             this.lb_history.Size = new System.Drawing.Size(396, 634);
             this.lb_history.TabIndex = 0;
+            this.lb_history.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lb_history_MouseDown);
+            this.lb_history.MouseLeave += new System.EventHandler(this.lb_history_MouseLeave);
+            this.lb_history.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lb_history_MouseMove);
+            // 
+            // cm_history
+            // 
+            this.cm_history.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sm_RebootItem,
+            this.sm_SaveItem});
+            this.cm_history.Name = "cm_history";
+            this.cm_history.ShowImageMargin = false;
+            this.cm_history.Size = new System.Drawing.Size(130, 48);
+            this.cm_history.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.cm_history_Closed);
+            this.cm_history.Opening += new System.ComponentModel.CancelEventHandler(this.cm_history_Opening);
+            // 
+            // sm_RebootItem
+            // 
+            this.sm_RebootItem.Name = "sm_RebootItem";
+            this.sm_RebootItem.Size = new System.Drawing.Size(129, 22);
+            this.sm_RebootItem.Text = "Перезагрузить";
+            this.sm_RebootItem.Click += new System.EventHandler(this.sm_RebootItem_Click);
+            // 
+            // sm_SaveItem
+            // 
+            this.sm_SaveItem.Name = "sm_SaveItem";
+            this.sm_SaveItem.Size = new System.Drawing.Size(129, 22);
+            this.sm_SaveItem.Text = "Сохранить";
             // 
             // tabPage4
             // 
@@ -207,16 +253,14 @@
             this.tabPage4.Text = "Настройки";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // flowLayoutPanel1
+            // flow_words
             // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(396, 682);
-            this.flowLayoutPanel1.TabIndex = 0;
-            this.flowLayoutPanel1.WrapContents = false;
+            this.flow_words.AutoScroll = true;
+            this.flow_words.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flow_words.Location = new System.Drawing.Point(3, 3);
+            this.flow_words.Name = "flow_words";
+            this.flow_words.Size = new System.Drawing.Size(396, 682);
+            this.flow_words.TabIndex = 0;
             // 
             // Form1
             // 
@@ -231,8 +275,10 @@
             this.Text = "Reseter2";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.cm_history.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -256,6 +302,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.ContextMenuStrip cm_history;
+        private System.Windows.Forms.ToolStripMenuItem sm_RebootItem;
+        private System.Windows.Forms.ToolStripMenuItem sm_SaveItem;
+        private System.Windows.Forms.FlowLayoutPanel flow_words;
     }
 }
 

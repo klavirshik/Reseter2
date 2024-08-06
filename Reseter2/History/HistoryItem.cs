@@ -36,6 +36,12 @@ namespace Reseter2.History
         
         }
 
+        public IComp GetComp()
+        {
+            return comp;
+
+        }
+
         public void SetEndTime(DateTime endTime)
         {
             this.endTime = endTime;

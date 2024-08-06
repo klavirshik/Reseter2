@@ -9,7 +9,7 @@ namespace Reseter2
 {
     internal class StatusPreReboot : AStatusTask
     {
-        private int time;
+        private int timeOut;
         private PingResult PingResult = new PingResult(0,0,null, false);
         public StatusPreReboot(ReseterTask reseterTask) : base(reseterTask)
         {
@@ -19,7 +19,7 @@ namespace Reseter2
 
         public override Task<PingResult> Tick()
         {
-            time++;
+            
             PingResult = resetertask.Ping();
             return Task.FromResult(PingResult);
            // return resetertask.DataContrl(pingResult.Ping.ToString(), pingResult.Ping.ToString());
@@ -27,12 +27,21 @@ namespace Reseter2
         }
         public override void Next()
         {
-                if (PingResult.TimedOut == false)
-                {
+            if (PingResult.Succes)
+            {
                 resetertask.StatusTask = new StatusReboot(resetertask);
                 HistoryList.Updated();
+                return;
             }
-            
+            else 
+            {
+                timeOut++;
+            }
+            if(timeOut > 2)
+            {
+                resetertask.StatusTask = new StatusRebootError(resetertask);
+                HistoryList.Updated();
+            }
                 
         }
         public override string GetName()

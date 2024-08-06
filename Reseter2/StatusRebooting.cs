@@ -24,7 +24,7 @@ namespace Reseter2
         }
         public override void Next()
         {
-            if (PingResult.TimedOut == false)
+            if (PingResult.Succes)
             {
                 TimeCount++;
             }

@@ -25,6 +25,7 @@ namespace Reseter2
         public PingResult PingHost()
         {
             bool pingable = false;
+            bool succes = false;
             long ping = 0;
             Ping pinger = null;
             try
@@ -32,6 +33,7 @@ namespace Reseter2
                 pinger = new Ping();
                 PingReply reply = pinger.Send(this.NameOrAddress);
                 pingable = reply.Status == IPStatus.TimedOut;
+                succes = reply.Status == IPStatus.Success;
                 ping = reply.RoundtripTime;
                 Ip = reply.Address;
             }
@@ -47,7 +49,7 @@ namespace Reseter2
                 }
             }
             if (pingable) TimeoutCount++;
-           return new PingResult(ping, TimeoutCount, Ip, pingable); 
+           return new PingResult(ping, TimeoutCount, Ip, pingable, succes); 
         }
 
     }

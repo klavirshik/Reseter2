@@ -65,7 +65,9 @@
     <Compile Include="reseter.cs" />
     <Compile Include="ReseteTask.cs" />
     <Compile Include="Shutdown.cs" />
+    <Compile Include="StatusCanceled.cs" />
     <Compile Include="StatusReboot.cs" />
+    <Compile Include="StatusRebootError.cs" />
     <Compile Include="StatusRebooting.cs" />
     <Compile Include="StatusRebootStop.cs" />
     <Compile Include="StatusRebootSucces.cs" />
@@ -76,6 +78,21 @@
     <Compile Include="TaskControl.Designer.cs">
       <DependentUpon>TaskControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Words\IWordsItem.cs" />
+    <Compile Include="Words\WordsCategory.cs" />
+    <Compile Include="Words\WordsCategoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Words\WordsCategoryControl.Designer.cs">
+      <DependentUpon>WordsCategoryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Words\WordsItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Words\WordsItemControl.Designer.cs">
+      <DependentUpon>WordsItemControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Words\WordsList.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +107,12 @@
     </Compile>
     <EmbeddedResource Include="TaskControl.resx">
       <DependentUpon>TaskControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Words\WordsCategoryControl.resx">
+      <DependentUpon>WordsCategoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Words\WordsItemControl.resx">
+      <DependentUpon>WordsItemControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
