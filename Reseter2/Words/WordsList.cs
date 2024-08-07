@@ -9,10 +9,10 @@ namespace Reseter2.Words
 {
     static class WordsList
     {
-        private static List<IWordsItem> wordsItems = new List<IWordsItem>();
-        private static void Add()
+        private static WordsCategory MainCategory = new WordsCategory("Main"); 
+        private static void AddItem(IWordsItem item)
         {
-
+            
         }
     }
 }

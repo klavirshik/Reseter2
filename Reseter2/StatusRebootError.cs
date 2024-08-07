@@ -25,6 +25,7 @@ namespace Reseter2
         }
         public override string GetName()
         {
+
             return "Ошибка";
         }
     }

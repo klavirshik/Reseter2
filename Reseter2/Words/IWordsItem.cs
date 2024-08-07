@@ -8,12 +8,12 @@ namespace Reseter2.Words
 {
     internal abstract class IWordsItem
     { 
-        public abstract bool Cheked();
-        public abstract string GetName();
-        public IWordsItem()
-        {
+       
+        public abstract List<WordsComp> ChekList();
+        public abstract List<WordsCategory> CategoryList();
 
-        }
+        public abstract void ChekChange(bool chek);
+       
        
 
         

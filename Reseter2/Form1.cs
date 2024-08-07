@@ -47,34 +47,7 @@ namespace Reseter2
             wcc.Add(wic10);
             WordsItemControl wic11 = new WordsItemControl();
             wcc.Add(wic11);
-            WordsItemControl wic12 = new WordsItemControl();
-            wcc.Add(wic12);
-            WordsItemControl wic13 = new WordsItemControl();
-            wcc.Add(wic13);
-            WordsItemControl wic14 = new WordsItemControl();
-            wcc.Add(wic14);
-            WordsItemControl wic21 = new WordsItemControl();
-            wcc.Add(wic21);
-            WordsItemControl wic22 = new WordsItemControl();
-            wcc.Add(wic22);
-            WordsItemControl wic23 = new WordsItemControl();
-            wcc.Add(wic23);
-            WordsItemControl wic24 = new WordsItemControl();
-            wcc.Add(wic24);
-            WordsItemControl wic25 = new WordsItemControl();
-            wcc.Add(wic25);
-            WordsItemControl wic26 = new WordsItemControl();
-            wcc.Add(wic26);
-            WordsItemControl wic30 = new WordsItemControl();
-            wcc.Add(wic30);
-            WordsItemControl wic31 = new WordsItemControl();
-            wcc.Add(wic31);
-            WordsItemControl wic32 = new WordsItemControl();
-            wcc.Add(wic32);
-            WordsItemControl wic33 = new WordsItemControl();
-            wcc.Add(wic33);
-            WordsItemControl wic34 = new WordsItemControl();
-            wcc.Add(wic34);
+       
             WordsCategoryControl wcc1 = new WordsCategoryControl();
             flow_words.Controls.Add(wcc1);
             WordsItemControl wic7 = new WordsItemControl();
@@ -159,6 +132,12 @@ namespace Reseter2
         {
            // selectItem = null;
             FocusContext = false;
+        }
+
+        private void mi_newitem_Click(object sender, EventArgs e)
+        {
+            BilderWords bilderWords = new BilderWords();
+            bilderWords.ShowDialog();
         }
     }
 }

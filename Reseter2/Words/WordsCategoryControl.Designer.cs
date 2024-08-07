@@ -91,6 +91,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.flow_wordsItem);
             this.Controls.Add(this.Select);
             this.Controls.Add(this.label1);

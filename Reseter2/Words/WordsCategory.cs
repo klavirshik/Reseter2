@@ -10,14 +10,49 @@ namespace Reseter2.Words
     {
         private string Name;
         private bool cheked;
+        private List<IWordsItem> items;
 
-        public override string GetName()
+        public WordsCategory(string name)
+        {
+            Name = name;
+
+        }
+
+        public void Add(IWordsItem newitem)
+        {
+            items.Add(newitem);
+        }
+        
+        public string GetName()
         {
             return Name;
         }
-        public override bool Cheked()
+        public override void ChekChange(bool chek)
         {
-            return cheked;
+           cheked = chek;
+           foreach(var item in items)
+            {
+                item.ChekChange(chek);
+            }
+        }       
+        public override List<WordsComp> ChekList()
+        {
+            List<WordsComp> itemsChek = new List<WordsComp>();
+            foreach (var item in items)
+            {
+                itemsChek.AddRange(item.ChekList());
+            }
+            return itemsChek;
+        }
+        public override List<WordsCategory> CategoryList()
+        {
+            List<WordsCategory> itemsCatrgory = new List<WordsCategory>();
+            itemsCatrgory.Add(this);
+            foreach (var item in items)
+            {
+                itemsCatrgory.AddRange(item.CategoryList());
+            }
+            return itemsCatrgory;
         }
     }
 }
