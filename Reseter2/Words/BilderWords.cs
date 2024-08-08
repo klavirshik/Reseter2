@@ -16,6 +16,8 @@ namespace Reseter2.Words
         public BilderWords()
         {
             InitializeComponent();
+
+           
             WordsCategory WCvebinar = new WordsCategory("Вебинарные");
             WordsList.AddCategory(WCvebinar, WordsList.MainCategory);
             WordsList.AddItem(new WordsComp(new CompId("8.8.8.8")), WCvebinar);
@@ -26,7 +28,9 @@ namespace Reseter2.Words
             
             treeView1.Nodes.AddRange(WordsList.ListNodes());
             //trno.ImageIndex = 1;
-            
+            cb_create.Items.Add("Категория");
+            cb_create.Items.Add("Компьютер");
+            cb_create.SelectedItem = 0;
 
         }
 
@@ -40,31 +44,21 @@ namespace Reseter2.Words
 
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            if(rb_category.Checked)
-            {
-
-            }
-            else
-            {
-
-            }
-         }
+      
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Tag is WordsComp)
             {
                 WordsComp wordsComp = (WordsComp)e.Node.Tag;
-                control = new WordsEditCompControl();
-                groupBox1.Controls.Add(control);
+                control = new WordsEditCompControl(wordsComp);
+                panel1.Controls.Add(control);
             }
             if (e.Node.Tag is WordsCategory)
             {
                 WordsCategory wordsCategory = (WordsCategory)e.Node.Tag;
-                control = new WordsEditCategoryControl();
-                groupBox1.Controls.Add(control);
+                control = new WordsEditCategoryControl(wordsCategory);
+                panel1.Controls.Add(control);
             }
         }
 
@@ -72,10 +66,25 @@ namespace Reseter2.Words
         {
             if(control != null)
             {
-                groupBox1.Controls.Remove(control);
+                panel1.Controls.Remove(control);
                 control.Dispose();
             }
             
+        }
+
+        private void bt_new_Click(object sender, EventArgs e)
+        {
+            switch (cb_create.SelectedIndex)
+            {
+                case 0:
+                    WordsList.AddCategory(new WordsCategory("Новая категория"), WordsList.MainCategory);
+                    break;
+                case 1:
+                    WordsList.AddItem(new WordsComp(new CompId("Новый ПК")), WordsList.MainCategory);
+                    break;
+            }
+            treeView1.Nodes.Clear();
+            treeView1.Nodes.AddRange(WordsList.ListNodes());
         }
     }
 }

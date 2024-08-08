@@ -28,75 +28,132 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rb_category = new System.Windows.Forms.RadioButton();
-            this.rb_comp = new System.Windows.Forms.RadioButton();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.bt_close = new System.Windows.Forms.Button();
+            this.bt_saveClose = new System.Windows.Forms.Button();
+            this.bt_save = new System.Windows.Forms.Button();
+            this.cb_create = new System.Windows.Forms.ComboBox();
+            this.bt_new = new System.Windows.Forms.Button();
+            this.bt_deleteItem = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // rb_category
-            // 
-            this.rb_category.AutoSize = true;
-            this.rb_category.Checked = true;
-            this.rb_category.Location = new System.Drawing.Point(13, 13);
-            this.rb_category.Name = "rb_category";
-            this.rb_category.Size = new System.Drawing.Size(78, 17);
-            this.rb_category.TabIndex = 0;
-            this.rb_category.TabStop = true;
-            this.rb_category.Text = "Категория";
-            this.rb_category.UseVisualStyleBackColor = true;
-            this.rb_category.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
-            // rb_comp
-            // 
-            this.rb_comp.AutoSize = true;
-            this.rb_comp.Location = new System.Drawing.Point(97, 13);
-            this.rb_comp.Name = "rb_comp";
-            this.rb_comp.Size = new System.Drawing.Size(83, 17);
-            this.rb_comp.TabIndex = 1;
-            this.rb_comp.Text = "Компьютер";
-            this.rb_comp.UseVisualStyleBackColor = true;
             // 
             // treeView1
             // 
             this.treeView1.AllowDrop = true;
-            this.treeView1.Location = new System.Drawing.Point(12, 63);
+            this.treeView1.Location = new System.Drawing.Point(12, 41);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(207, 434);
+            this.treeView1.Size = new System.Drawing.Size(207, 471);
             this.treeView1.TabIndex = 2;
             this.treeView1.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeSelect);
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Location = new System.Drawing.Point(225, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(268, 484);
+            this.groupBox1.Size = new System.Drawing.Size(268, 502);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры";
+            // 
+            // panel1
+            // 
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(3, 19);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(262, 480);
+            this.panel1.TabIndex = 0;
+            // 
+            // bt_close
+            // 
+            this.bt_close.Location = new System.Drawing.Point(417, 521);
+            this.bt_close.Name = "bt_close";
+            this.bt_close.Size = new System.Drawing.Size(75, 23);
+            this.bt_close.TabIndex = 4;
+            this.bt_close.Text = "Закрыть";
+            this.bt_close.UseVisualStyleBackColor = true;
+            // 
+            // bt_saveClose
+            // 
+            this.bt_saveClose.Location = new System.Drawing.Point(280, 521);
+            this.bt_saveClose.Name = "bt_saveClose";
+            this.bt_saveClose.Size = new System.Drawing.Size(131, 23);
+            this.bt_saveClose.TabIndex = 5;
+            this.bt_saveClose.Text = "Сохранить и закрыть";
+            this.bt_saveClose.UseVisualStyleBackColor = true;
+            // 
+            // bt_save
+            // 
+            this.bt_save.Location = new System.Drawing.Point(199, 521);
+            this.bt_save.Name = "bt_save";
+            this.bt_save.Size = new System.Drawing.Size(75, 23);
+            this.bt_save.TabIndex = 6;
+            this.bt_save.Text = "Сохранить";
+            this.bt_save.UseVisualStyleBackColor = true;
+            // 
+            // cb_create
+            // 
+            this.cb_create.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_create.FormattingEnabled = true;
+            this.cb_create.Location = new System.Drawing.Point(12, 13);
+            this.cb_create.Name = "cb_create";
+            this.cb_create.Size = new System.Drawing.Size(175, 21);
+            this.cb_create.TabIndex = 7;
+            // 
+            // bt_new
+            // 
+            this.bt_new.Location = new System.Drawing.Point(193, 12);
+            this.bt_new.Name = "bt_new";
+            this.bt_new.Size = new System.Drawing.Size(23, 23);
+            this.bt_new.TabIndex = 8;
+            this.bt_new.Text = "+";
+            this.bt_new.UseVisualStyleBackColor = true;
+            this.bt_new.Click += new System.EventHandler(this.bt_new_Click);
+            // 
+            // bt_deleteItem
+            // 
+            this.bt_deleteItem.Location = new System.Drawing.Point(12, 521);
+            this.bt_deleteItem.Name = "bt_deleteItem";
+            this.bt_deleteItem.Size = new System.Drawing.Size(112, 23);
+            this.bt_deleteItem.TabIndex = 9;
+            this.bt_deleteItem.Text = "Удалить элемент";
+            this.bt_deleteItem.UseVisualStyleBackColor = true;
             // 
             // BilderWords
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 504);
+            this.ClientSize = new System.Drawing.Size(504, 556);
+            this.Controls.Add(this.bt_deleteItem);
+            this.Controls.Add(this.bt_new);
+            this.Controls.Add(this.cb_create);
+            this.Controls.Add(this.bt_save);
+            this.Controls.Add(this.bt_saveClose);
+            this.Controls.Add(this.bt_close);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.rb_comp);
-            this.Controls.Add(this.rb_category);
             this.Name = "BilderWords";
-            this.Text = "BilderWords";
+            this.Text = "Редактор справочника";
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.RadioButton rb_category;
-        private System.Windows.Forms.RadioButton rb_comp;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button bt_close;
+        private System.Windows.Forms.Button bt_saveClose;
+        private System.Windows.Forms.Button bt_save;
+        private System.Windows.Forms.ComboBox cb_create;
+        private System.Windows.Forms.Button bt_new;
+        private System.Windows.Forms.Button bt_deleteItem;
     }
 }

@@ -22,6 +22,19 @@ namespace Reseter2.Words
         {
             return Comp.GetName();
         }
+
+        public string GetDescription()
+        {
+            return Comp.GetDescription();
+        }
+        public string GetIP()
+        { 
+            if(Comp.GetIP() != null)
+            {
+                return Comp.GetIP().ToString();
+            }
+            return null;
+        }
         public override void ChekChange(bool chek)
         {
             cheked = chek;
