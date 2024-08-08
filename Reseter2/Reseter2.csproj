@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -86,6 +87,11 @@
       <DependentUpon>BilderWords.cs</DependentUpon>
     </Compile>
     <Compile Include="Words\IWordsItem.cs" />
+    <Compile Include="Words\Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
     <Compile Include="Words\WordsCategory.cs" />
     <Compile Include="Words\WordsCategoryControl.cs">
       <SubType>UserControl</SubType>
@@ -131,6 +137,10 @@
     <EmbeddedResource Include="Words\BilderWords.resx">
       <DependentUpon>BilderWords.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Words\Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Words\WordsCategoryControl.resx">
       <DependentUpon>WordsCategoryControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -156,6 +166,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\comp.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

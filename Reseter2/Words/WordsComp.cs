@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Reseter2.Words
 {
@@ -35,6 +36,13 @@ namespace Reseter2.Words
         public override List<WordsCategory> CategoryList()
         {
             return new List<WordsCategory>();
+        }
+        public override TreeNode NodeList() 
+        { 
+            TreeNode treeNode = new TreeNode(GetName());
+            treeNode.Tag = this;
+            treeNode.ImageIndex = 2;
+            return treeNode;
         }
     }
 }

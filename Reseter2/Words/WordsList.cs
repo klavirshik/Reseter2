@@ -4,15 +4,30 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Reseter2.Words
 {
     static class WordsList
     {
-        private static WordsCategory MainCategory = new WordsCategory("Main"); 
-        private static void AddItem(IWordsItem item)
+        public static WordsCategory MainCategory = new WordsCategory("Main");
+        public static void AddItem(IWordsItem item, WordsCategory wordsCategory)
         {
-            
+            wordsCategory.Add(item);
+        }
+        public static void AddCategory(IWordsItem item, WordsCategory wordsCategory)
+        {
+            wordsCategory.Add(item);
+        }
+        public static TreeNode[] ListNodes()
+        {
+            TreeNode[] treeNodes = new TreeNode[MainCategory.Count()];
+            for(int i = 0; i < MainCategory.Count(); i++)
+            {
+                treeNodes[i] = MainCategory.Items(i).NodeList();
+            }           
+
+            return treeNodes;
         }
     }
 }

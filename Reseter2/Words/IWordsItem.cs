@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Reseter2.Words
 {
@@ -13,6 +14,7 @@ namespace Reseter2.Words
         public abstract List<WordsCategory> CategoryList();
 
         public abstract void ChekChange(bool chek);
+        public abstract TreeNode NodeList();
        
        
 

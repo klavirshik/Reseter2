@@ -30,6 +30,8 @@
         {
             this.rb_category = new System.Windows.Forms.RadioButton();
             this.rb_comp = new System.Windows.Forms.RadioButton();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
             // 
             // rb_category
@@ -55,11 +57,32 @@
             this.rb_comp.Text = "Компьютер";
             this.rb_comp.UseVisualStyleBackColor = true;
             // 
+            // treeView1
+            // 
+            this.treeView1.AllowDrop = true;
+            this.treeView1.Location = new System.Drawing.Point(12, 63);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(207, 434);
+            this.treeView1.TabIndex = 2;
+            this.treeView1.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeSelect);
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(225, 13);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(268, 484);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Параметры";
+            // 
             // BilderWords
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(327, 264);
+            this.ClientSize = new System.Drawing.Size(504, 504);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.treeView1);
             this.Controls.Add(this.rb_comp);
             this.Controls.Add(this.rb_category);
             this.Name = "BilderWords";
@@ -73,5 +96,7 @@
 
         private System.Windows.Forms.RadioButton rb_category;
         private System.Windows.Forms.RadioButton rb_comp;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

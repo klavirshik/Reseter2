@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Reseter2.Words
 {
@@ -15,6 +16,7 @@ namespace Reseter2.Words
         public WordsCategory(string name)
         {
             Name = name;
+            items = new List<IWordsItem>();
 
         }
 
@@ -22,10 +24,20 @@ namespace Reseter2.Words
         {
             items.Add(newitem);
         }
-        
+
         public string GetName()
         {
             return Name;
+        }
+
+        public IWordsItem Items(int item)
+        {
+            return items[item];
+        }
+
+        public int Count()
+        {
+            return items.Count;
         }
         public override void ChekChange(bool chek)
         {
@@ -53,6 +65,19 @@ namespace Reseter2.Words
                 itemsCatrgory.AddRange(item.CategoryList());
             }
             return itemsCatrgory;
+        }
+
+        public override TreeNode NodeList()
+        {
+            TreeNode treeNode = new TreeNode(GetName());
+            treeNode.Tag = this;
+            treeNode.ImageIndex = 1;
+           
+            foreach (var item in items)
+            {
+                treeNode.Nodes.Add(item.NodeList());
+            }
+            return treeNode;
         }
     }
 }
