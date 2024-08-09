@@ -50,6 +50,14 @@ namespace Reseter2
         {
             Ip = ip;
         }
+        public void SetName(string name)
+        {
+            Name = name;
+        }
+        public void SetDescription(string description)
+        {
+            Description = description;
+        }
 
         public string GetResetName()
         {

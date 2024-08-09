@@ -43,6 +43,7 @@
             // treeView1
             // 
             this.treeView1.AllowDrop = true;
+            this.treeView1.HideSelection = false;
             this.treeView1.Location = new System.Drawing.Point(12, 41);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(207, 471);
@@ -124,6 +125,7 @@
             this.bt_deleteItem.TabIndex = 9;
             this.bt_deleteItem.Text = "Удалить элемент";
             this.bt_deleteItem.UseVisualStyleBackColor = true;
+            this.bt_deleteItem.Click += new System.EventHandler(this.bt_deleteItem_Click);
             // 
             // BilderWords
             // 
@@ -140,6 +142,7 @@
             this.Controls.Add(this.treeView1);
             this.Name = "BilderWords";
             this.Text = "Редактор справочника";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BilderWords_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 

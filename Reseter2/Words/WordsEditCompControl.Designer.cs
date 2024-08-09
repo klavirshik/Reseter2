@@ -105,6 +105,7 @@
             this.Controls.Add(this.lb_name);
             this.Name = "WordsEditCompControl";
             this.Size = new System.Drawing.Size(254, 169);
+            this.VisibleChanged += new System.EventHandler(this.WordsEditCompControl_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 

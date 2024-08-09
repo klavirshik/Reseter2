@@ -15,10 +15,11 @@ namespace Reseter2.Words
         {
             wordsCategory.Add(item);
         }
-        public static void AddCategory(IWordsItem item, WordsCategory wordsCategory)
+        public static void InsertItem(int index,IWordsItem item, WordsCategory wordsCategory)
         {
-            wordsCategory.Add(item);
+            wordsCategory.Insert(index, item);
         }
+       
         public static TreeNode[] ListNodes()
         {
             TreeNode[] treeNodes = new TreeNode[MainCategory.Count()];

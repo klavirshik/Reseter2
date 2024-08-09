@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,6 +17,36 @@ namespace Reseter2.Words
         {
             Comp = comp;
 
+        }
+        public WordsComp(String name, String ip, String description)
+        {
+            IPAddress iPAddress;
+            try
+            {
+                iPAddress = IPAddress.Parse(ip);
+            }
+            catch
+            {
+                iPAddress = null;
+            }
+            Comp = new CompId(name,description, iPAddress);
+
+        }
+
+        public void Set(String name, String ip, String description)
+        {
+            IPAddress iPAddress;
+            try
+            {
+                iPAddress = IPAddress.Parse(ip);
+            }
+            catch
+            {
+                iPAddress = null;
+            }
+            Comp.SetIP(iPAddress);
+            Comp.SetName(name);
+            Comp.SetDescription(description);
         }
 
         public string GetName()
@@ -38,6 +69,12 @@ namespace Reseter2.Words
         public override void ChekChange(bool chek)
         {
             cheked = chek;
+        }
+
+        public override void Delete()
+        {
+           
+            Comp = null;
         }
         public override List<WordsComp> ChekList()
         {

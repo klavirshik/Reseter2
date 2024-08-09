@@ -60,6 +60,7 @@
             this.Controls.Add(this.label1);
             this.Name = "WordsEditCategoryControl";
             this.Size = new System.Drawing.Size(254, 52);
+            this.VisibleChanged += new System.EventHandler(this.WordsEditCategoryControl_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 

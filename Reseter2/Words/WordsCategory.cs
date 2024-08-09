@@ -24,10 +24,18 @@ namespace Reseter2.Words
         {
             items.Add(newitem);
         }
+        public void Insert(int index, IWordsItem newitem)
+        {
+            items.Insert(index, newitem);
+        }
 
         public string GetName()
         {
             return Name;
+        }
+        public void SetName(string name)
+        {
+            Name = name;
         }
 
         public IWordsItem Items(int item)
@@ -38,6 +46,20 @@ namespace Reseter2.Words
         public int Count()
         {
             return items.Count;
+        }
+
+        public void DeleteItem(IWordsItem wordsItem)
+        {
+            wordsItem.Delete();
+            items.Remove(wordsItem);
+        }
+
+        public override void Delete() { 
+            foreach(IWordsItem item in items) 
+            { 
+                item.Delete();
+            }
+            items.Clear();
         }
         public override void ChekChange(bool chek)
         {
