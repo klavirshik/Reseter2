@@ -78,9 +78,9 @@ namespace Reseter2
             StatusTask.RebootReturn();
         }
 
-        public void SetNameStage(string nameStage)
+        public void SetNameStage(string nameStage, int indexImg)
         {
-            taskControl.SetNameStage(nameStage);
+            taskControl.SetNameStage(nameStage, indexImg);
         }
         public PingResult Ping()
         {

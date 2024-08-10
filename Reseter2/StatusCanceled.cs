@@ -11,7 +11,7 @@ namespace Reseter2
         private PingResult PingResult;
         public StatusCanceled(ReseterTask reseterTask) : base(reseterTask)
         {
-            resetertask.SetNameStage("Отмененно");
+            resetertask.SetNameStage("Отмененно", 4);
             resetertask.historyItem.SetEndTime(DateTime.Now);
             PingResult = resetertask.Ping();
             reseterTask.sw.Stop();

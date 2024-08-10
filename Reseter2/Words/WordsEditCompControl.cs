@@ -16,18 +16,22 @@ namespace Reseter2.Words
     {
         private WordsComp wordsComp;
         private TreeNode treeNode;
+        private ImageList imageList;
         public WordsEditCompControl()
         {
             InitializeComponent();
         }
-        public WordsEditCompControl(WordsComp wordscomp, TreeNode treenode)
+        public WordsEditCompControl(WordsComp wordscomp, TreeNode treenode, ImageList imagelist)
         {
             InitializeComponent();
+            imageList = imagelist;
+            comboBox1.DataSource = imageList.Images;
             lb_name.Text = wordscomp.GetName();
             lb_ip.Text = wordscomp.GetIP();
             lb_description.Text = wordscomp.GetDescription();
             wordsComp = wordscomp;
             treeNode = treenode;
+            comboBox1.SelectedIndex = treeNode.ImageIndex;
         }
         public void Save()  
         {
@@ -37,7 +41,18 @@ namespace Reseter2.Words
         private void WordsEditCompControl_VisibleChanged(object sender, EventArgs e)
         {
             treeNode.Text = lb_name.Text;
-            wordsComp.Set(lb_name.Text, lb_ip.Text, lb_description.Text);
+            treeNode.ImageIndex = comboBox1.SelectedIndex;
+            treeNode.SelectedImageIndex = comboBox1.SelectedIndex;
+            wordsComp.Set(lb_name.Text, lb_ip.Text, lb_description.Text, comboBox1.SelectedIndex);
+        }
+
+        private void comboBox1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if(e.Index != -1)
+            {
+                e.Graphics.DrawImage(imageList.Images[e.Index],e.Bounds.Left, e.Bounds.Top, imageList.Images[e.Index].Width, imageList.Images[e.Index].Height);
+            }
+            
         }
     }
 }

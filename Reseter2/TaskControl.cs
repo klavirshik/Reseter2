@@ -41,9 +41,10 @@ namespace Reseter2
             lb_time.Text = time.ToString(@"mm\:ss");
 
         }
-        public void SetNameStage(string nameStage)
+        public void SetNameStage(string nameStage, int indexImg)
         {
             lb_stage.Text = nameStage;
+            pictureBox1.Image = imageList1.Images[indexImg];
         }
         private void label1_Click(object sender, EventArgs e)
         {

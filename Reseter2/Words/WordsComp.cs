@@ -33,7 +33,7 @@ namespace Reseter2.Words
 
         }
 
-        public void Set(String name, String ip, String description)
+        public void Set(String name, String ip, String description, int imgIndex)
         {
             IPAddress iPAddress;
             try
@@ -47,6 +47,7 @@ namespace Reseter2.Words
             Comp.SetIP(iPAddress);
             Comp.SetName(name);
             Comp.SetDescription(description);
+            Comp.SetImage(imgIndex);
         }
 
         public string GetName()
@@ -94,7 +95,8 @@ namespace Reseter2.Words
         { 
             TreeNode treeNode = new TreeNode(GetName());
             treeNode.Tag = this;
-            treeNode.ImageIndex = 2;
+            treeNode.ImageIndex = Comp.GetImage();
+            treeNode.SelectedImageIndex = Comp.GetImage();
             return treeNode;
         }
     }

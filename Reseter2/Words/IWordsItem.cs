@@ -17,6 +17,7 @@ namespace Reseter2.Words
         public abstract void Delete();
         public abstract TreeNode NodeList();
         public abstract bool ChekMove(IWordsItem wordsItem);
+        public abstract IWordsItem Clone();
        
 
         

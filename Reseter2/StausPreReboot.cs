@@ -13,7 +13,7 @@ namespace Reseter2
         private PingResult PingResult = new PingResult(0,0,null, false);
         public StatusPreReboot(ReseterTask reseterTask) : base(reseterTask)
         {
-            resetertask.SetNameStage("Проверка связи");
+            resetertask.SetNameStage("Проверка связи", 0);
             resetertask.sw.Restart();
         }
 

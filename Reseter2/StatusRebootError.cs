@@ -11,7 +11,7 @@ namespace Reseter2
         private PingResult PingResult = new PingResult(0, 0, null, false);
         public StatusRebootError(ReseterTask reseterTask) : base(reseterTask)
         {
-            resetertask.SetNameStage("Ошибка перезагрузки");
+            resetertask.SetNameStage("Ошибка перезагрузки", 5);
             resetertask.historyItem.SetEndTime(DateTime.Now);
             reseterTask.sw.Stop();
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Odbc;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace Reseter2.Words
         public BilderWords()
         {
             InitializeComponent();
-
+            WordsList.MainCategory.
 
             WordsCategory WCvebinar = new WordsCategory("Вебинарные");
             WordsList.AddItem(WCvebinar, WordsList.MainCategory);
@@ -54,7 +55,8 @@ namespace Reseter2.Words
 
         private void TreeView1_ItemDrag(object sender, ItemDragEventArgs e)
         {
-            if(e.Button == MouseButtons.Left)
+            DragOn = true;
+            if (e.Button == MouseButtons.Left)
             {
                 DoDragDrop(e.Item, DragDropEffects.Move);
             }
@@ -74,8 +76,6 @@ namespace Reseter2.Words
         private void TreeView1_DragDrop(object sender, DragEventArgs e)
         {
             DragOn = false;
-            control.Visible = false;
-            control.Dispose();
             int indexMod = 0;
             int index = 0;
             Point targetPoint = treeView1.PointToClient(new Point(e.X, e.Y));
@@ -191,7 +191,7 @@ namespace Reseter2.Words
                 if (e.Node.Tag is WordsComp)
                 {
                     WordsComp wordsComp = (WordsComp)e.Node.Tag;
-                    control = new WordsEditCompControl(wordsComp, e.Node);
+                    control = new WordsEditCompControl(wordsComp, e.Node, imageList1);
                     panel1.Controls.Add(control);
                 }
                 if (e.Node.Tag is WordsCategory)
@@ -256,13 +256,15 @@ namespace Reseter2.Words
                     item = new WordsCategory("Новая категория");
                     index = 0;
                     WordsList.InsertItem(index, (WordsCategory)item, ParentCategory);
-                    treeNode.ImageIndex = 1;
+                    treeNode.ImageIndex = 0;
+                    treeNode.SelectedImageIndex = 0;
                     treeNode.Text = "Новая категория";
                     break;
                 case 1:
                     item = new WordsComp(new CompId("Новый ПК"));
                     WordsList.InsertItem(index, (WordsComp)item, ParentCategory);
-                    treeNode.ImageIndex = 0;
+                    treeNode.ImageIndex = 1;
+                    treeNode.SelectedImageIndex = 1;
                     treeNode.Text = "Новый ПК";
                     break;
             }   
@@ -314,14 +316,29 @@ namespace Reseter2.Words
         {
             if (e.Button == MouseButtons.Left)
             {
-                Point targetPoint = treeView1.PointToClient(new Point(e.X, e.Y));
-                if (treeView1.GetNodeAt(targetPoint) == null) treeView1.SelectedNode = null;
+                
+                TreeNode tr = treeView1.GetNodeAt(e.X, e.Y);
+                if (tr == null ||   !(tr.Bounds.X < e.X && (tr.Bounds.Width + tr.Bounds.X) > e.X))
+                {
+                    if (control != null && !DragOn)
+                    {
+                    control.Visible = false;
+                    control.Dispose();
+                    }
+                    treeView1.SelectedNode = null;
+                }
+                   
             }
             else if (e.Button == MouseButtons.Right)
             {
+                if (control != null && !DragOn)
+                {
+                    control.Visible = false;
+                    control.Dispose();
+                }
                 treeView1.SelectedNode = null;
             }
-
+           
         }
 
         private void treeView1_KeyDown(object sender, KeyEventArgs e)

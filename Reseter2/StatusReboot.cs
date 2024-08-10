@@ -15,7 +15,7 @@ namespace Reseter2
         private PingResult PingResult = new PingResult(0, 0, null, false);
         public StatusReboot(ReseterTask reseterTask) : base(reseterTask)
         {
-            resetertask.SetNameStage("Отправка в перезагрузку");
+            resetertask.SetNameStage("Отправка в перезагрузку", 1);
             Shutdown.RestartPC(reseterTask.Comp.GetResetName());
         }
 

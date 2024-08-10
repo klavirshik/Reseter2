@@ -13,7 +13,7 @@ namespace Reseter2
         private PingResult PingResult = new PingResult(0, 0, null, false);
         public StatusRebooting(ReseterTask reseterTask) : base(reseterTask)
         {
-            resetertask.SetNameStage("Перезагрузка");
+            resetertask.SetNameStage("Перезагрузка", 2);
             
         }
 

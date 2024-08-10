@@ -12,9 +12,11 @@ namespace Reseter2
         string GetName();
         string GetResetName();
         IPAddress GetIP();
+        int GetImage();
 
         void SetIP(IPAddress ip);
         void SetName(string name);
+        void SetImage(int imdexImg);
         void SetDescription(string description);
 
         string GetDescription();

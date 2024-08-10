@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BilderWords));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.bt_close = new System.Windows.Forms.Button();
@@ -131,8 +132,11 @@
             this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeView1.HideSelection = false;
+            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageList = this.imageList1;
             this.treeView1.Location = new System.Drawing.Point(9, 41);
             this.treeView1.Name = "treeView1";
+            this.treeView1.SelectedImageIndex = 1;
             this.treeView1.ShowLines = false;
             this.treeView1.Size = new System.Drawing.Size(207, 471);
             this.treeView1.TabIndex = 4;
@@ -142,9 +146,17 @@
             // 
             // imageList1
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "11favicon.ico");
+            this.imageList1.Images.SetKeyName(1, "16favicon.ico");
+            this.imageList1.Images.SetKeyName(2, "12favicon.ico");
+            this.imageList1.Images.SetKeyName(3, "13favicon.ico");
+            this.imageList1.Images.SetKeyName(4, "14favicon.ico");
+            this.imageList1.Images.SetKeyName(5, "15favicon.ico");
+            this.imageList1.Images.SetKeyName(6, "17favicon.ico");
+            this.imageList1.Images.SetKeyName(7, "18favicon.ico");
+            this.imageList1.Images.SetKeyName(8, "40favicon.ico");
             // 
             // BilderWords
             // 
@@ -159,6 +171,7 @@
             this.Controls.Add(this.bt_saveClose);
             this.Controls.Add(this.bt_close);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BilderWords";
             this.Text = "Редактор справочника";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BilderWords_FormClosing);
@@ -177,6 +190,6 @@
         private System.Windows.Forms.Button bt_new;
         private System.Windows.Forms.Button bt_deleteItem;
         private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.ImageList imageList1;
+        public System.Windows.Forms.ImageList imageList1;
     }
 }

@@ -9,6 +9,7 @@ namespace Reseter2
 {
     internal class CompId : IComp
     {
+        private int imgIndex=1;
         private string Name { get; set; }
         private string Description { get; set; }
         private IPAddress Ip { get; set; }
@@ -45,6 +46,10 @@ namespace Reseter2
         {
             return Ip;
         }
+        public int GetImage()
+        {
+            return imgIndex;
+        }
 
         public void SetIP(IPAddress ip)
         {
@@ -53,6 +58,10 @@ namespace Reseter2
         public void SetName(string name)
         {
             Name = name;
+        }
+        public void SetImage(int image)
+        {
+            imgIndex = image;
         }
         public void SetDescription(string description)
         {

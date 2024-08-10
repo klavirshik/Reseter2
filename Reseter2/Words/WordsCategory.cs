@@ -20,6 +20,12 @@ namespace Reseter2.Words
             items = new List<IWordsItem>();
 
         }
+        public WordsCategory(string name, List<IWordsItem> Items)
+        {
+            Name = name;
+            items = Items;
+
+        }
 
         public void Add(IWordsItem newitem)
         {
@@ -106,19 +112,28 @@ namespace Reseter2.Words
                 itemsCatrgory.AddRange(item.CategoryList());
             }
             return itemsCatrgory;
+            
         }
 
         public override TreeNode NodeList()
         {
             TreeNode treeNode = new TreeNode(GetName());
             treeNode.Tag = this;
-            treeNode.ImageIndex = 1;
-           
+            treeNode.ImageIndex = 0;
+            treeNode.SelectedImageIndex = 0;
+
             foreach (var item in items)
             {
                 treeNode.Nodes.Add(item.NodeList());
             }
             return treeNode;
+        }
+
+        public override IWordsItem Clone()
+        {
+           // List<IWordsItem> list = items.CopyTo();
+            WordsCategory clone = new WordsCategory(Name);
+            return this;
         }
     }
 }

@@ -145,5 +145,10 @@ namespace Reseter2
             BilderWords bilderWords = new BilderWords();
             bilderWords.ShowDialog();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
