@@ -53,7 +53,10 @@ namespace Reseter2.Words
         {
             return Comp.GetName();
         }
-
+        public override bool ChekMove(IWordsItem wordsItem)
+        {
+            return true ;
+        }
         public string GetDescription()
         {
             return Comp.GetDescription();

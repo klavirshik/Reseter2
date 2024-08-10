@@ -16,7 +16,7 @@ namespace Reseter2.Words
         public abstract void ChekChange(bool chek);
         public abstract void Delete();
         public abstract TreeNode NodeList();
-       
+        public abstract bool ChekMove(IWordsItem wordsItem);
        
 
         

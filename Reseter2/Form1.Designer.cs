@@ -38,6 +38,11 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.flow_words = new System.Windows.Forms.FlowLayoutPanel();
+            this.cm_words = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mi_newitem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mi_edit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mi_delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.перезагрузитьОдинToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -49,17 +54,14 @@
             this.sm_RebootItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sm_SaveItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.cm_words = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.mi_newitem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mi_edit = new System.Windows.Forms.ToolStripMenuItem();
-            this.mi_delete = new System.Windows.Forms.ToolStripMenuItem();
-            this.перезагрузитьОдинToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bt_wordsBilder = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.cm_words.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.cm_history.SuspendLayout();
-            this.cm_words.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_comp
@@ -152,6 +154,41 @@
             this.flow_words.Name = "flow_words";
             this.flow_words.Size = new System.Drawing.Size(396, 682);
             this.flow_words.TabIndex = 0;
+            // 
+            // cm_words
+            // 
+            this.cm_words.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mi_newitem,
+            this.mi_edit,
+            this.mi_delete,
+            this.перезагрузитьОдинToolStripMenuItem});
+            this.cm_words.Name = "cm_words";
+            this.cm_words.Size = new System.Drawing.Size(185, 92);
+            // 
+            // mi_newitem
+            // 
+            this.mi_newitem.Name = "mi_newitem";
+            this.mi_newitem.Size = new System.Drawing.Size(184, 22);
+            this.mi_newitem.Text = "Новый элемент";
+            this.mi_newitem.Click += new System.EventHandler(this.mi_newitem_Click);
+            // 
+            // mi_edit
+            // 
+            this.mi_edit.Name = "mi_edit";
+            this.mi_edit.Size = new System.Drawing.Size(184, 22);
+            this.mi_edit.Text = "Изменить";
+            // 
+            // mi_delete
+            // 
+            this.mi_delete.Name = "mi_delete";
+            this.mi_delete.Size = new System.Drawing.Size(184, 22);
+            this.mi_delete.Text = "Удалить";
+            // 
+            // перезагрузитьОдинToolStripMenuItem
+            // 
+            this.перезагрузитьОдинToolStripMenuItem.Name = "перезагрузитьОдинToolStripMenuItem";
+            this.перезагрузитьОдинToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.перезагрузитьОдинToolStripMenuItem.Text = "Перезагрузить один";
             // 
             // tabPage3
             // 
@@ -261,6 +298,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.bt_wordsBilder);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -269,40 +307,15 @@
             this.tabPage4.Text = "Настройки";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // cm_words
+            // bt_wordsBilder
             // 
-            this.cm_words.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mi_newitem,
-            this.mi_edit,
-            this.mi_delete,
-            this.перезагрузитьОдинToolStripMenuItem});
-            this.cm_words.Name = "cm_words";
-            this.cm_words.Size = new System.Drawing.Size(185, 114);
-            // 
-            // mi_newitem
-            // 
-            this.mi_newitem.Name = "mi_newitem";
-            this.mi_newitem.Size = new System.Drawing.Size(180, 22);
-            this.mi_newitem.Text = "Новый элемент";
-            this.mi_newitem.Click += new System.EventHandler(this.mi_newitem_Click);
-            // 
-            // mi_edit
-            // 
-            this.mi_edit.Name = "mi_edit";
-            this.mi_edit.Size = new System.Drawing.Size(166, 22);
-            this.mi_edit.Text = "Изменить";
-            // 
-            // mi_delete
-            // 
-            this.mi_delete.Name = "mi_delete";
-            this.mi_delete.Size = new System.Drawing.Size(166, 22);
-            this.mi_delete.Text = "Удалить";
-            // 
-            // перезагрузитьОдинToolStripMenuItem
-            // 
-            this.перезагрузитьОдинToolStripMenuItem.Name = "перезагрузитьОдинToolStripMenuItem";
-            this.перезагрузитьОдинToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.перезагрузитьОдинToolStripMenuItem.Text = "Перезагрузить один";
+            this.bt_wordsBilder.Location = new System.Drawing.Point(102, 25);
+            this.bt_wordsBilder.Name = "bt_wordsBilder";
+            this.bt_wordsBilder.Size = new System.Drawing.Size(155, 23);
+            this.bt_wordsBilder.TabIndex = 0;
+            this.bt_wordsBilder.Text = "Редактор справочника";
+            this.bt_wordsBilder.UseVisualStyleBackColor = true;
+            this.bt_wordsBilder.Click += new System.EventHandler(this.bt_wordsBilder_Click);
             // 
             // Form1
             // 
@@ -318,10 +331,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.cm_words.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.cm_history.ResumeLayout(false);
-            this.cm_words.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -354,6 +368,7 @@
         private System.Windows.Forms.ToolStripMenuItem mi_edit;
         private System.Windows.Forms.ToolStripMenuItem mi_delete;
         private System.Windows.Forms.ToolStripMenuItem перезагрузитьОдинToolStripMenuItem;
+        private System.Windows.Forms.Button bt_wordsBilder;
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,7 +27,14 @@ namespace Reseter2.Words
         }
         public void Insert(int index, IWordsItem newitem)
         {
+            //if (index > items.Count) index = items.Count; 
             items.Insert(index, newitem);
+        }
+
+        public void Move(int index, IWordsItem item, WordsCategory wordsdst)
+        {
+            items.Remove(item);
+            wordsdst.Insert(index, item);
         }
 
         public string GetName()
@@ -52,6 +60,17 @@ namespace Reseter2.Words
         {
             wordsItem.Delete();
             items.Remove(wordsItem);
+        }
+
+        public override bool ChekMove(IWordsItem wordsItem)
+        {
+            if(this == wordsItem) return false;
+            foreach (var item in items)
+            {
+               if(!item.ChekMove(wordsItem)) return false;
+                
+            }
+            return true;
         }
 
         public override void Delete() { 

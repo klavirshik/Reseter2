@@ -14,6 +14,7 @@ namespace Reseter2.Words
     internal partial class BilderWords : Form
     {
         private Control control;
+        private bool DragOn; 
         public BilderWords()
         {
             InitializeComponent();
@@ -21,7 +22,18 @@ namespace Reseter2.Words
 
             WordsCategory WCvebinar = new WordsCategory("Вебинарные");
             WordsList.AddItem(WCvebinar, WordsList.MainCategory);
-            WordsList.AddItem(new WordsComp(new CompId("8.8.8.8")), WCvebinar);
+            WordsList.AddItem(new WordsComp(new CompId("8.8..8")), WCvebinar);
+            WordsList.AddItem(new WordsComp(new CompId("8.8.3.8")), WCvebinar);
+            WordsList.AddItem(new WordsComp(new CompId("8.8.2.8")), WCvebinar);
+            WordsList.AddItem(new WordsComp(new CompId("8.8.1.8")), WCvebinar);
+            WordsList.AddItem(new WordsComp(new CompId("1ma00234")), WordsList.MainCategory);
+            WordsList.AddItem(new WordsComp(new CompId("1ma003333")), WordsList.MainCategory);
+            WordsCategory WCvebinar1 = new WordsCategory("Вебинарные");
+            WordsList.AddItem(WCvebinar1, WordsList.MainCategory);
+            WordsList.AddItem(new WordsComp(new CompId("8.8.8.8")), WCvebinar1);
+            WordsList.AddItem(new WordsComp(new CompId("8.8.8.2")), WCvebinar1);
+            WordsList.AddItem(new WordsComp(new CompId("8.8.8.3")), WCvebinar1);
+            WordsList.AddItem(new WordsComp(new CompId("8.8.8.1")), WCvebinar1);
             WordsList.AddItem(new WordsComp(new CompId("1ma00234")), WordsList.MainCategory);
             WordsList.AddItem(new WordsComp(new CompId("1ma003333")), WordsList.MainCategory);
             //// TreeNode trno = new TreeNode("main");
@@ -51,6 +63,7 @@ namespace Reseter2.Words
 
         private void TreeView1_DragEnter(object sender, DragEventArgs e)
         {
+            DragOn = true;
             e.Effect = e.AllowedEffect;
         }
         private void TreeView1_DragOver(object sender, DragEventArgs e)
@@ -60,17 +73,102 @@ namespace Reseter2.Words
         }
         private void TreeView1_DragDrop(object sender, DragEventArgs e)
         {
+            DragOn = false;
+            control.Visible = false;
+            control.Dispose();
+            int indexMod = 0;
+            int index = 0;
             Point targetPoint = treeView1.PointToClient(new Point(e.X, e.Y));
-            TreeNode node = treeView1.GetNodeAt(targetPoint);
-            int PointH = targetPoint.Y - node.Bounds.Y;
-            //treeView1.GetNodeAt(targetPoint).Bounds.Top.ToString()
-            //e.Y.ToString()
-           
-            //node.Bounds.Y
+            TreeNode selectNode = treeView1.GetNodeAt(targetPoint);
+            TreeNode moveNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
+            if(selectNode == null)
+            {
+               // indexMod = 1;
+            }
+            else
+            {
+                int PointH = targetPoint.Y - selectNode.Bounds.Y;   
+                if (PointH > 6) indexMod = 1; 
+            }
+
+            //if (!((IWordsItem)moveNode.Tag).ChekMove((IWordsItem)selectNode.Tag)) return;
+
+            WordsCategory DstCategory;
+            TreeNodeCollection DstNodes;
             
-            
-            MessageBox.Show(PointH.ToString());
-           
+            if (selectNode == null)
+            {
+                DstCategory = WordsList.MainCategory;
+                DstNodes = treeView1.Nodes;
+                if(targetPoint.Y < 5)
+                {
+                    index = 0;
+                }
+                else
+                {
+                    index = treeView1.Nodes.Count;
+                }
+                
+            }
+            else if (selectNode.Tag is WordsCategory)
+            {
+                DstCategory = (WordsCategory)selectNode.Tag;
+                DstNodes = selectNode.Nodes;
+                selectNode.Expand();
+               // index = 1;
+            }
+            else if (selectNode.Parent == null)
+            {
+                DstCategory = WordsList.MainCategory;
+                DstNodes = treeView1.Nodes;
+                index = selectNode.Index + indexMod;
+            }
+            else
+            {
+                DstCategory = (WordsCategory)selectNode.Parent.Tag;
+                DstNodes = selectNode.Parent.Nodes;
+                index = selectNode.Index + indexMod;
+            }
+
+            WordsCategory SrcCategory;
+            TreeNodeCollection SrcNodes;
+            if (moveNode == null)
+            {
+                SrcCategory = WordsList.MainCategory;
+                SrcNodes = treeView1.Nodes;
+            }
+            else if (moveNode.Parent == null)
+            {
+                SrcCategory = WordsList.MainCategory;
+                SrcNodes = treeView1.Nodes;
+               
+            }
+            else
+            {
+                SrcCategory = (WordsCategory)moveNode.Parent.Tag;
+                SrcNodes = moveNode.Parent.Nodes;
+               
+            }
+            if(SrcCategory == DstCategory)
+            {
+                if(selectNode == null)
+                {
+                    if (targetPoint.Y > 5) index--;
+                }
+                else if (moveNode.Index < selectNode.Index) index--;
+            }
+
+            IWordsItem MoveItem = (IWordsItem)moveNode.Tag;
+            if (!MoveItem.ChekMove(DstCategory)) return;
+            WordsList.MoveItem(index, MoveItem, SrcCategory, DstCategory);
+
+           // treeView1.Nodes.Clear();
+           // treeView1.Nodes.AddRange(WordsList.ListNodes());
+
+            SrcNodes.Remove(moveNode);
+            DstNodes.Insert(index, moveNode);
+
+
 
         }
 
@@ -87,7 +185,8 @@ namespace Reseter2.Words
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (e.Node != null)
+            
+            if (e.Node != null && !DragOn)
             {
                 if (e.Node.Tag is WordsComp)
                 {
@@ -108,7 +207,7 @@ namespace Reseter2.Words
         private void treeView1_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
 
-            if(control != null)
+            if(control != null && !DragOn)
             {
                 control.Visible = false;
                 control.Dispose();
@@ -155,6 +254,7 @@ namespace Reseter2.Words
             {
                 case 0:
                     item = new WordsCategory("Новая категория");
+                    index = 0;
                     WordsList.InsertItem(index, (WordsCategory)item, ParentCategory);
                     treeNode.ImageIndex = 1;
                     treeNode.Text = "Новая категория";
@@ -197,9 +297,6 @@ namespace Reseter2.Words
             {
                 ParentCategory = (WordsCategory)selectNode.Parent.Tag;
                 ParentNodes = selectNode.Parent.Nodes;
-
-
-
             }
             
 
@@ -208,6 +305,32 @@ namespace Reseter2.Words
             
             ParentCategory.DeleteItem(wordsItem);
             ParentNodes.Remove(selectNode);
+           
+        }
+
+     
+
+        private void treeView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Point targetPoint = treeView1.PointToClient(new Point(e.X, e.Y));
+                if (treeView1.GetNodeAt(targetPoint) == null) treeView1.SelectedNode = null;
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                treeView1.SelectedNode = null;
+            }
+
+        }
+
+        private void treeView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        private void panel2_MouseDown(object sender, MouseEventArgs e)
+        {
            
         }
     }

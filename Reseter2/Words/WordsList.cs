@@ -19,7 +19,12 @@ namespace Reseter2.Words
         {
             wordsCategory.Insert(index, item);
         }
-       
+
+        public static void MoveItem(int index, IWordsItem item, WordsCategory SrcCategory, WordsCategory DstCategory)
+        {
+            SrcCategory.Move(index, item, DstCategory);
+        }
+
         public static TreeNode[] ListNodes()
         {
             TreeNode[] treeNodes = new TreeNode[MainCategory.Count()];

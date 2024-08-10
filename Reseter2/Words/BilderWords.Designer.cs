@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.bt_close = new System.Windows.Forms.Button();
@@ -37,23 +37,15 @@
             this.cb_create = new System.Windows.Forms.ComboBox();
             this.bt_new = new System.Windows.Forms.Button();
             this.bt_deleteItem = new System.Windows.Forms.Button();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // treeView1
-            // 
-            this.treeView1.AllowDrop = true;
-            this.treeView1.HideSelection = false;
-            this.treeView1.Location = new System.Drawing.Point(12, 41);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(207, 471);
-            this.treeView1.TabIndex = 2;
-            this.treeView1.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeSelect);
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
-            // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Location = new System.Drawing.Point(225, 13);
@@ -65,7 +57,9 @@
             // 
             // panel1
             // 
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Location = new System.Drawing.Point(3, 19);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(262, 480);
@@ -73,6 +67,7 @@
             // 
             // bt_close
             // 
+            this.bt_close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bt_close.Location = new System.Drawing.Point(417, 521);
             this.bt_close.Name = "bt_close";
             this.bt_close.Size = new System.Drawing.Size(75, 23);
@@ -82,6 +77,7 @@
             // 
             // bt_saveClose
             // 
+            this.bt_saveClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bt_saveClose.Location = new System.Drawing.Point(280, 521);
             this.bt_saveClose.Name = "bt_saveClose";
             this.bt_saveClose.Size = new System.Drawing.Size(131, 23);
@@ -91,6 +87,7 @@
             // 
             // bt_save
             // 
+            this.bt_save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bt_save.Location = new System.Drawing.Point(199, 521);
             this.bt_save.Name = "bt_save";
             this.bt_save.Size = new System.Drawing.Size(75, 23);
@@ -119,6 +116,7 @@
             // 
             // bt_deleteItem
             // 
+            this.bt_deleteItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bt_deleteItem.Location = new System.Drawing.Point(12, 521);
             this.bt_deleteItem.Name = "bt_deleteItem";
             this.bt_deleteItem.Size = new System.Drawing.Size(112, 23);
@@ -127,11 +125,33 @@
             this.bt_deleteItem.UseVisualStyleBackColor = true;
             this.bt_deleteItem.Click += new System.EventHandler(this.bt_deleteItem_Click);
             // 
+            // treeView1
+            // 
+            this.treeView1.AllowDrop = true;
+            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.treeView1.HideSelection = false;
+            this.treeView1.Location = new System.Drawing.Point(9, 41);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.ShowLines = false;
+            this.treeView1.Size = new System.Drawing.Size(207, 471);
+            this.treeView1.TabIndex = 4;
+            this.treeView1.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeSelect);
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.treeView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseClick);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // BilderWords
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(504, 556);
+            this.Controls.Add(this.treeView1);
             this.Controls.Add(this.bt_deleteItem);
             this.Controls.Add(this.bt_new);
             this.Controls.Add(this.cb_create);
@@ -139,7 +159,6 @@
             this.Controls.Add(this.bt_saveClose);
             this.Controls.Add(this.bt_close);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.treeView1);
             this.Name = "BilderWords";
             this.Text = "Редактор справочника";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BilderWords_FormClosing);
@@ -149,7 +168,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button bt_close;
@@ -158,5 +176,7 @@
         private System.Windows.Forms.ComboBox cb_create;
         private System.Windows.Forms.Button bt_new;
         private System.Windows.Forms.Button bt_deleteItem;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

@@ -139,5 +139,11 @@ namespace Reseter2
             BilderWords bilderWords = new BilderWords();
             bilderWords.ShowDialog();
         }
+
+        private void bt_wordsBilder_Click(object sender, EventArgs e)
+        {
+            BilderWords bilderWords = new BilderWords();
+            bilderWords.ShowDialog();
+        }
     }
 }
