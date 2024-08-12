@@ -17,12 +17,15 @@ namespace Reseter2
     public partial class Form1 : Form
     {
         //private FormHistory formHistory;
+        //System.Windows.Forms.CheckBox
+        
         private bool FocusContext;
         private object selectItem;
         public Form1()
         {
-            
 
+            try
+            {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = new FileStream("res.dat", FileMode.OpenOrCreate);
             HistoryList.Hitem = (List<HistoryItem>)binaryFormatter.Deserialize(file);
@@ -34,6 +37,12 @@ namespace Reseter2
             WordsList.MainCategory = (WordsCategory)binaryFormatter.Deserialize(file);
             file.Dispose();
             file.Close();
+            }
+            catch
+            {
+
+            }
+            
 
             InitializeComponent();
             flowLayoutPanel1.AutoScrollMinSize = new Size(0, 683) ;
@@ -44,7 +53,8 @@ namespace Reseter2
             lb_history.DisplayMember = "ToStr";
 
             treeView1.Nodes.AddRange(WordsList.ListNodes());
-
+            //treeView1.Check
+           //treeView1.MouseCaptureChanged.;
             tabControl1.SelectedIndex = 1;
 
 
@@ -150,29 +160,93 @@ namespace Reseter2
             file.Close();
         }
 
-        private void treeView1_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        private void treeView1_AfterCheck(object sender, TreeViewEventArgs e)
         {
+
           
-            Font font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
-            if (e.Node.IsVisible)
+            //   treeView1_treeViewChangeCheckBox(e.Node);
+
+        }
+        
+        private void treeView1_treeViewChangeCheckBox(TreeNode treeNode)
+        {
+            for (int i = 0; i < treeNode.Nodes.Count; i++)
             {
-                if (e.Node.Tag is WordsCategory)
+                treeNode.Nodes[i].Checked = treeNode.Checked;
+                treeView1_treeViewChangeCheckBox(treeNode.Nodes[i]);
+            }
+        }
+
+        private bool treeView1_treeViewChangeRootCheckBox(TreeNode treeNode)
+        {
+            if (treeNode.Nodes.Count == 0)
+            {
+                return treeNode.Checked;
+            }
+            else
+            {
+                int nodeCheked = 0;
+                for (int i = 0; i < treeNode.Nodes.Count; i++)
                 {
-                    font = new Font("Microsoft Sans Serif", 14, FontStyle.Regular);
-                    e.Graphics.FillRectangle(new SolidBrush(Color.LightBlue), e.Bounds.X, e.Bounds.Y, e.Node.TreeView.Width, e.Bounds.Height);
-                    e.Graphics.DrawString(e.Node.Text, font, new SolidBrush(Color.Black), new PointF(e.Bounds.X + 33, e.Bounds.Y));
-                }
-                else
-                {
-                    e.Graphics.DrawString(((WordsComp)e.Node.Tag).GetName(), font, new SolidBrush(Color.Black), new PointF(e.Bounds.X + 3, e.Bounds.Y));
-                    e.Graphics.DrawString(((WordsComp)e.Node.Tag).GetIP(), font, new SolidBrush(Color.Black), new PointF(e.Bounds.X + 103, e.Bounds.Y));
-                    e.Graphics.DrawString(((WordsComp)e.Node.Tag).GetDescription(), font, new SolidBrush(Color.Black), new PointF(e.Bounds.X + 3, e.Bounds.Y+12));
+                    treeView1_treeViewChangeRootCheckBox(treeNode.Nodes[i]);
+                    if (treeNode.Nodes[i].Checked) nodeCheked++;
 
                 }
-                    
+                bool Cheked = false;
+                if (treeNode.Nodes.Count == nodeCheked)
+                {
+                    Cheked = true;
+                    treeNode.Checked = Cheked;
+                }
+                else if (nodeCheked != 0)
+                {
+                     treeNode.StateImageIndex = 2;
+                }
+
+
                 
+                return Cheked;
+            
+             }
+
+        }
+
+        private void treeView1_DoubleClick(object sender, EventArgs e)
+        {
+            MessageBox.Show("dfsdf");
+        }
+
+        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            
+            if (e.Node.Tag is WordsComp)
+            {
+                WordsComp wordsComp = (WordsComp)e.Node.Tag;
+                
+                MessageBox.Show("Перезагрузить ПК: " + wordsComp.GetName());
+
             }
-            //e.Bounds
+        }
+
+        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("klic");
+            treeView1_treeViewChangeCheckBox(e.Node);
+            TreeView tree = (TreeView)sender;
+            for (int i = 0; i < tree.Nodes.Count; i++)
+            {
+                treeView1_treeViewChangeRootCheckBox(tree.Nodes[i]);
+            }
+
+            
+        }
+
+        private void treeView1_MouseCaptureChanged(object sender, EventArgs e)
+        {
+            // System.Diagnostics.Debug.WriteLine(sender.ToString());
+            //TreeView tree = (TreeView)sender;
+
+            //treeView1_treeViewChangeCheckBox(tree.Nodes[0]);
             
         }
     }

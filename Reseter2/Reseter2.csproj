@@ -83,6 +83,9 @@
     <Compile Include="TaskControl.Designer.cs">
       <DependentUpon>TaskControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="TewTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Words\BilderWords.cs">
       <SubType>Form</SubType>
     </Compile>

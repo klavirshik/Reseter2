@@ -118,6 +118,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label4);
@@ -128,7 +129,6 @@
             this.Controls.Add(this.lb_name);
             this.Name = "WordsEditCompControl";
             this.Size = new System.Drawing.Size(254, 178);
-            this.VisibleChanged += new System.EventHandler(this.WordsEditCompControl_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 
