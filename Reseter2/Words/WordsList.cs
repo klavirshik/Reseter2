@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace Reseter2.Words
 {
+    [Serializable]
     static class WordsList
     {
         public static WordsCategory MainCategory = new WordsCategory("Main");
@@ -32,6 +33,17 @@ namespace Reseter2.Words
             {
                 treeNodes[i] = MainCategory.Items(i).NodeList();
             }           
+
+            return treeNodes;
+        }
+
+        public static TreeNode[] ListNodes(WordsCategory ChangeCategory)
+        {
+            TreeNode[] treeNodes = new TreeNode[ChangeCategory.Count()];
+            for (int i = 0; i < ChangeCategory.Count(); i++)
+            {
+                treeNodes[i] = ChangeCategory.Items(i).NodeList();
+            }
 
             return treeNodes;
         }

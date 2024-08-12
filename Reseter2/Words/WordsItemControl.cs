@@ -12,12 +12,21 @@ namespace Reseter2.Words
 {
 
     [DefaultEvent(nameof(WordsItemControl))]
-    public partial class WordsItemControl : UserControl
+    internal partial class WordsItemControl : UserControl, IWordsContol
     {
 
         public WordsItemControl()
         {
             InitializeComponent();
+        }
+
+        public WordsItemControl(WordsComp wordsComp)
+        {
+            InitializeComponent();
+            lb_ip.Text = wordsComp.GetIP();
+            lb_name.Text = wordsComp.GetName();
+            lb_dsp.Text = wordsComp.GetDescription();
+            
         }
 
         private void WordsItemControl_Load(object sender, EventArgs e)

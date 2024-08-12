@@ -56,10 +56,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.lb_name);
             this.Controls.Add(this.label1);
             this.Name = "WordsEditCategoryControl";
-            this.Size = new System.Drawing.Size(254, 52);
+            this.Size = new System.Drawing.Size(254, 49);
             this.VisibleChanged += new System.EventHandler(this.WordsEditCategoryControl_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();

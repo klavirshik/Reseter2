@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Reseter2
 {
+    [Serializable]
     internal class CompId : IComp
     {
         private int imgIndex=1;

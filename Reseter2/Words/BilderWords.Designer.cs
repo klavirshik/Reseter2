@@ -45,8 +45,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Location = new System.Drawing.Point(225, 13);
@@ -75,6 +74,7 @@
             this.bt_close.TabIndex = 4;
             this.bt_close.Text = "Закрыть";
             this.bt_close.UseVisualStyleBackColor = true;
+            this.bt_close.Click += new System.EventHandler(this.bt_close_Click);
             // 
             // bt_saveClose
             // 
@@ -85,6 +85,7 @@
             this.bt_saveClose.TabIndex = 5;
             this.bt_saveClose.Text = "Сохранить и закрыть";
             this.bt_saveClose.UseVisualStyleBackColor = true;
+            this.bt_saveClose.Click += new System.EventHandler(this.bt_saveClose_Click);
             // 
             // bt_save
             // 
@@ -95,6 +96,7 @@
             this.bt_save.TabIndex = 6;
             this.bt_save.Text = "Сохранить";
             this.bt_save.UseVisualStyleBackColor = true;
+            this.bt_save.Click += new System.EventHandler(this.bt_save_Click);
             // 
             // cb_create
             // 
@@ -129,11 +131,13 @@
             // treeView1
             // 
             this.treeView1.AllowDrop = true;
-            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView1.HideSelection = false;
             this.treeView1.ImageIndex = 0;
             this.treeView1.ImageList = this.imageList1;
+            this.treeView1.ItemHeight = 16;
             this.treeView1.Location = new System.Drawing.Point(9, 41);
             this.treeView1.Name = "treeView1";
             this.treeView1.SelectedImageIndex = 1;
@@ -172,6 +176,7 @@
             this.Controls.Add(this.bt_close);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(520, 595);
             this.Name = "BilderWords";
             this.Text = "Редактор справочника";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BilderWords_FormClosing);

@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,7 +22,18 @@ namespace Reseter2
         public Form1()
         {
             
-            
+
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream file = new FileStream("res.dat", FileMode.OpenOrCreate);
+            HistoryList.Hitem = (List<HistoryItem>)binaryFormatter.Deserialize(file);
+            file.Dispose();
+            file.Close();
+
+            binaryFormatter = new BinaryFormatter();
+             file = new FileStream("base.dat", FileMode.OpenOrCreate);
+            WordsList.MainCategory = (WordsCategory)binaryFormatter.Deserialize(file);
+            file.Dispose();
+            file.Close();
 
             InitializeComponent();
             flowLayoutPanel1.AutoScrollMinSize = new Size(0, 683) ;
@@ -29,32 +42,10 @@ namespace Reseter2
             HistoryList.Update += Update_lb;
             lb_history.DataSource = HistoryList.Hitem;
             lb_history.DisplayMember = "ToStr";
-            WordsCategoryControl wcc = new WordsCategoryControl();
-            flow_words.Controls.Add(wcc);
-            WordsItemControl wic1 = new WordsItemControl();
-            wcc.Add(wic1);
-            WordsItemControl wic2 = new WordsItemControl();
-            wcc.Add(wic2);
-            WordsItemControl wic3 = new WordsItemControl();
-            wcc.Add(wic3);
-            WordsItemControl wic4 = new WordsItemControl();
-            wcc.Add(wic4);
-            WordsItemControl wic5 = new WordsItemControl();
-            wcc.Add(wic5);
-            WordsItemControl wic6 = new WordsItemControl();
-            wcc.Add(wic6);
-            WordsItemControl wic10 = new WordsItemControl();
-            wcc.Add(wic10);
-            WordsItemControl wic11 = new WordsItemControl();
-            wcc.Add(wic11);
-       
-            WordsCategoryControl wcc1 = new WordsCategoryControl();
-            flow_words.Controls.Add(wcc1);
-            WordsItemControl wic7 = new WordsItemControl();
-            wcc1.Add(wic7);
-            WordsItemControl wic8 = new WordsItemControl();
-            wcc1.Add(wic8);
 
+            treeView1.Nodes.AddRange(WordsList.ListNodes());
+
+            tabControl1.SelectedIndex = 1;
 
 
         }
@@ -149,6 +140,40 @@ namespace Reseter2
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream file = new FileStream("res.dat", FileMode.OpenOrCreate);
+            binaryFormatter.Serialize(file, HistoryList.Hitem);
+            file.Close();
+        }
+
+        private void treeView1_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+          
+            Font font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
+            if (e.Node.IsVisible)
+            {
+                if (e.Node.Tag is WordsCategory)
+                {
+                    font = new Font("Microsoft Sans Serif", 14, FontStyle.Regular);
+                    e.Graphics.FillRectangle(new SolidBrush(Color.LightBlue), e.Bounds.X, e.Bounds.Y, e.Node.TreeView.Width, e.Bounds.Height);
+                    e.Graphics.DrawString(e.Node.Text, font, new SolidBrush(Color.Black), new PointF(e.Bounds.X + 33, e.Bounds.Y));
+                }
+                else
+                {
+                    e.Graphics.DrawString(((WordsComp)e.Node.Tag).GetName(), font, new SolidBrush(Color.Black), new PointF(e.Bounds.X + 3, e.Bounds.Y));
+                    e.Graphics.DrawString(((WordsComp)e.Node.Tag).GetIP(), font, new SolidBrush(Color.Black), new PointF(e.Bounds.X + 103, e.Bounds.Y));
+                    e.Graphics.DrawString(((WordsComp)e.Node.Tag).GetDescription(), font, new SolidBrush(Color.Black), new PointF(e.Bounds.X + 3, e.Bounds.Y+12));
+
+                }
+                    
+                
+            }
+            //e.Bounds
+            
         }
     }
 }

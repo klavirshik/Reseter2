@@ -1,10 +1,15 @@
-﻿using System;
+﻿using Reseter2.History;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Odbc;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,32 +20,34 @@ namespace Reseter2.Words
     internal partial class BilderWords : Form
     {
         private Control control;
-        private bool DragOn; 
+        private bool DragOn;
+        WordsCategory ChangeCategory;
+        private byte[] hash;
+        MD5 Hash = MD5.Create();
         public BilderWords()
         {
-            InitializeComponent();
-            WordsList.MainCategory.
 
-            WordsCategory WCvebinar = new WordsCategory("Вебинарные");
-            WordsList.AddItem(WCvebinar, WordsList.MainCategory);
-            WordsList.AddItem(new WordsComp(new CompId("8.8..8")), WCvebinar);
-            WordsList.AddItem(new WordsComp(new CompId("8.8.3.8")), WCvebinar);
-            WordsList.AddItem(new WordsComp(new CompId("8.8.2.8")), WCvebinar);
-            WordsList.AddItem(new WordsComp(new CompId("8.8.1.8")), WCvebinar);
-            WordsList.AddItem(new WordsComp(new CompId("1ma00234")), WordsList.MainCategory);
-            WordsList.AddItem(new WordsComp(new CompId("1ma003333")), WordsList.MainCategory);
-            WordsCategory WCvebinar1 = new WordsCategory("Вебинарные");
-            WordsList.AddItem(WCvebinar1, WordsList.MainCategory);
-            WordsList.AddItem(new WordsComp(new CompId("8.8.8.8")), WCvebinar1);
-            WordsList.AddItem(new WordsComp(new CompId("8.8.8.2")), WCvebinar1);
-            WordsList.AddItem(new WordsComp(new CompId("8.8.8.3")), WCvebinar1);
-            WordsList.AddItem(new WordsComp(new CompId("8.8.8.1")), WCvebinar1);
-            WordsList.AddItem(new WordsComp(new CompId("1ma00234")), WordsList.MainCategory);
-            WordsList.AddItem(new WordsComp(new CompId("1ma003333")), WordsList.MainCategory);
+
+
+           
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            MemoryStream Memory = new MemoryStream();
+            binaryFormatter.Serialize(Memory, WordsList.MainCategory);
+            Memory.Position = 0;
+            hash = Hash.ComputeHash(Memory);
+            Memory.Position = 0;
+            ChangeCategory = (WordsCategory)binaryFormatter.Deserialize(Memory);
+            Memory.Dispose();
+            Memory.Close();
+            
+            InitializeComponent();
+            //WordsList.MainCategory.
+            
+           
             //// TreeNode trno = new TreeNode("main");
 
 
-            treeView1.Nodes.AddRange(WordsList.ListNodes());
+            treeView1.Nodes.AddRange(WordsList.ListNodes(ChangeCategory));
             //trno.ImageIndex = 1;
             cb_create.Items.Add("Категория");
             cb_create.Items.Add("Компьютер");
@@ -98,7 +105,7 @@ namespace Reseter2.Words
             
             if (selectNode == null)
             {
-                DstCategory = WordsList.MainCategory;
+                DstCategory = ChangeCategory;
                 DstNodes = treeView1.Nodes;
                 if(targetPoint.Y < 5)
                 {
@@ -119,7 +126,7 @@ namespace Reseter2.Words
             }
             else if (selectNode.Parent == null)
             {
-                DstCategory = WordsList.MainCategory;
+                DstCategory = ChangeCategory;
                 DstNodes = treeView1.Nodes;
                 index = selectNode.Index + indexMod;
             }
@@ -134,12 +141,12 @@ namespace Reseter2.Words
             TreeNodeCollection SrcNodes;
             if (moveNode == null)
             {
-                SrcCategory = WordsList.MainCategory;
+                SrcCategory = ChangeCategory;
                 SrcNodes = treeView1.Nodes;
             }
             else if (moveNode.Parent == null)
             {
-                SrcCategory = WordsList.MainCategory;
+                SrcCategory = ChangeCategory;
                 SrcNodes = treeView1.Nodes;
                
             }
@@ -224,7 +231,7 @@ namespace Reseter2.Words
             int index = 0;
             if(selectNode == null)
             {
-                ParentCategory = WordsList.MainCategory;
+                ParentCategory = ChangeCategory;
                 ParentNodes = treeView1.Nodes;
             }
             else if(selectNode.Tag is WordsCategory)
@@ -235,7 +242,7 @@ namespace Reseter2.Words
             }
             else if (selectNode.Parent == null)
             {
-                 ParentCategory = WordsList.MainCategory;
+                 ParentCategory = ChangeCategory;
                  ParentNodes = treeView1.Nodes;
                  index = selectNode.Index+1;
             }
@@ -292,7 +299,7 @@ namespace Reseter2.Words
             control.Dispose();
             if (selectNode.Parent == null)
             {
-                ParentCategory = WordsList.MainCategory;
+                ParentCategory = ChangeCategory;
                 ParentNodes = treeView1.Nodes;
             }
             else
@@ -349,6 +356,65 @@ namespace Reseter2.Words
         private void panel2_MouseDown(object sender, MouseEventArgs e)
         {
            
+        }
+
+        private void bt_saveClose_Click(object sender, EventArgs e)
+        {
+            control.Visible = false;
+            control.Dispose();
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream file = new FileStream("base.dat", FileMode.OpenOrCreate);
+            binaryFormatter.Serialize(file, ChangeCategory);
+            file.Close();
+            WordsList.MainCategory = ChangeCategory;
+            this.Close();
+        }
+
+        private void bt_save_Click(object sender, EventArgs e)
+        {
+            control.Visible = false;
+            control.Visible = true;
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream file = new FileStream("base.dat", FileMode.OpenOrCreate);
+            binaryFormatter.Serialize(file, ChangeCategory);
+            file.Close();
+            WordsList.MainCategory = ChangeCategory;
+        }
+
+        private void bt_close_Click(object sender, EventArgs e)
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            MemoryStream Memory = new MemoryStream();
+            binaryFormatter.Serialize(Memory, ChangeCategory);
+            Memory.Position = 0;
+            byte[] hashSave = Hash.ComputeHash(Memory);
+            if (!hash.SequenceEqual(hashSave))
+            {
+                DialogResult result = MessageBox.Show("Внесенны изменения сохранить ли?", "Изменения не сохраненны", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        FileStream file = new FileStream("base.dat", FileMode.OpenOrCreate);
+                        Memory.Position = 0;
+                        Memory.CopyTo(file);
+                        Memory.Close();
+                        Memory.Dispose();
+                        file.Close();
+                        file.Dispose();
+                        WordsList.MainCategory = ChangeCategory;
+                        this.Close();
+                        break;
+                    case DialogResult.No:
+                        this.Close();
+                        break;
+                }
+
+
+            }
+            else
+            {
+                this.Close();
+            }
         }
     }
 }

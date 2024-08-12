@@ -38,7 +38,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.flow_words = new System.Windows.Forms.FlowLayoutPanel();
             this.cm_words = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mi_newitem = new System.Windows.Forms.ToolStripMenuItem();
             this.mi_edit = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +55,7 @@
             this.sm_SaveItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.bt_wordsBilder = new System.Windows.Forms.Button();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -108,6 +108,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(2, 39);
+            this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(410, 714);
@@ -138,7 +139,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.flow_words);
+            this.tabPage2.Controls.Add(this.treeView1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -146,16 +147,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Справочник";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // flow_words
-            // 
-            this.flow_words.AutoScroll = true;
-            this.flow_words.ContextMenuStrip = this.cm_words;
-            this.flow_words.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flow_words.Location = new System.Drawing.Point(3, 3);
-            this.flow_words.Name = "flow_words";
-            this.flow_words.Size = new System.Drawing.Size(396, 682);
-            this.flow_words.TabIndex = 0;
             // 
             // cm_words
             // 
@@ -319,6 +310,19 @@
             this.bt_wordsBilder.UseVisualStyleBackColor = true;
             this.bt_wordsBilder.Click += new System.EventHandler(this.bt_wordsBilder_Click);
             // 
+            // treeView1
+            // 
+            this.treeView1.CheckBoxes = true;
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
+            this.treeView1.HideSelection = false;
+            this.treeView1.ItemHeight = 28;
+            this.treeView1.Location = new System.Drawing.Point(3, 3);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(396, 682);
+            this.treeView1.TabIndex = 0;
+            this.treeView1.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.treeView1_DrawNode);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -331,6 +335,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Reseter2";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -366,13 +371,13 @@
         private System.Windows.Forms.ContextMenuStrip cm_history;
         private System.Windows.Forms.ToolStripMenuItem sm_RebootItem;
         private System.Windows.Forms.ToolStripMenuItem sm_SaveItem;
-        private System.Windows.Forms.FlowLayoutPanel flow_words;
         private System.Windows.Forms.ContextMenuStrip cm_words;
         private System.Windows.Forms.ToolStripMenuItem mi_newitem;
         private System.Windows.Forms.ToolStripMenuItem mi_edit;
         private System.Windows.Forms.ToolStripMenuItem mi_delete;
         private System.Windows.Forms.ToolStripMenuItem перезагрузитьОдинToolStripMenuItem;
         private System.Windows.Forms.Button bt_wordsBilder;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }
 

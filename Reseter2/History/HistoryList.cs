@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace Reseter2.History
 {
+    [Serializable]
     internal static class HistoryList
     {
         static public List<HistoryItem> Hitem = new List<HistoryItem>();

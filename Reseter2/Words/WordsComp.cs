@@ -5,13 +5,14 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Reseter2.Words
 {
+    [Serializable]
     internal class WordsComp : IWordsItem
     {
         private IComp Comp;
-        private bool cheked;
 
         public WordsComp(IComp comp)
         {
@@ -70,23 +71,14 @@ namespace Reseter2.Words
             }
             return null;
         }
-        public override void ChekChange(bool chek)
-        {
-            cheked = chek;
-        }
+       
 
         public override void Delete()
         {
            
             Comp = null;
         }
-        public override List<WordsComp> ChekList()
-        {
-
-            List<WordsComp> itemsChek = new List<WordsComp>();
-            if (cheked) {itemsChek.Add(this); }
-            return itemsChek;
-        }
+     
         public override List<WordsCategory> CategoryList()
         {
             return new List<WordsCategory>();
@@ -99,5 +91,6 @@ namespace Reseter2.Words
             treeNode.SelectedImageIndex = Comp.GetImage();
             return treeNode;
         }
+       
     }
 }

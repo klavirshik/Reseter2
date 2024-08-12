@@ -89,6 +89,7 @@
     <Compile Include="Words\BilderWords.Designer.cs">
       <DependentUpon>BilderWords.cs</DependentUpon>
     </Compile>
+    <Compile Include="Words\IWordsContol.cs" />
     <Compile Include="Words\IWordsItem.cs" />
     <Compile Include="Words\Resource1.Designer.cs">
       <AutoGen>True</AutoGen>

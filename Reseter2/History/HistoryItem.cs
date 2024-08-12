@@ -7,12 +7,14 @@ using System.Xml;
 
 namespace Reseter2.History
 {
-    
 
+    [Serializable]
     internal class HistoryItem
     {
         private IComp comp;
+        [NonSerialized]
         private ReseterTask task;
+        [NonSerialized]
         private AStatusTask statusTask;
         private DateTime startTime;
         private string statusName;

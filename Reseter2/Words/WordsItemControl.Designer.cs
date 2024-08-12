@@ -33,8 +33,9 @@
             this.lb_name = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lb_ip = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lb_dsp = new System.Windows.Forms.Label();
+            this.pb_icon = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_icon)).BeginInit();
             this.SuspendLayout();
             // 
             // checkBox1
@@ -49,7 +50,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 0);
+            this.label1.Location = new System.Drawing.Point(50, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 1;
@@ -58,11 +59,10 @@
             // lb_name
             // 
             this.lb_name.AutoSize = true;
-            this.lb_name.Location = new System.Drawing.Point(84, 0);
+            this.lb_name.Location = new System.Drawing.Point(103, 0);
             this.lb_name.Name = "lb_name";
-            this.lb_name.Size = new System.Drawing.Size(65, 13);
+            this.lb_name.Size = new System.Drawing.Size(0, 13);
             this.lb_name.TabIndex = 2;
-            this.lb_name.Text = "1MA001234";
             // 
             // label2
             // 
@@ -78,34 +78,31 @@
             this.lb_ip.AutoSize = true;
             this.lb_ip.Location = new System.Drawing.Point(239, 0);
             this.lb_ip.Name = "lb_ip";
-            this.lb_ip.Size = new System.Drawing.Size(70, 13);
+            this.lb_ip.Size = new System.Drawing.Size(0, 13);
             this.lb_ip.TabIndex = 4;
-            this.lb_ip.Text = "10,3,100,252";
             // 
-            // label3
+            // lb_dsp
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Описание";
+            this.lb_dsp.AutoSize = true;
+            this.lb_dsp.Location = new System.Drawing.Point(50, 13);
+            this.lb_dsp.Name = "lb_dsp";
+            this.lb_dsp.Size = new System.Drawing.Size(0, 13);
+            this.lb_dsp.TabIndex = 6;
             // 
-            // label4
+            // pb_icon
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(88, 15);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(220, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Контролер оповещения физлица главный";
+            this.pb_icon.Location = new System.Drawing.Point(27, 3);
+            this.pb_icon.Name = "pb_icon";
+            this.pb_icon.Size = new System.Drawing.Size(20, 20);
+            this.pb_icon.TabIndex = 7;
+            this.pb_icon.TabStop = false;
             // 
             // WordsItemControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.pb_icon);
+            this.Controls.Add(this.lb_dsp);
             this.Controls.Add(this.lb_ip);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lb_name);
@@ -114,6 +111,7 @@
             this.Name = "WordsItemControl";
             this.Size = new System.Drawing.Size(371, 27);
             this.Load += new System.EventHandler(this.WordsItemControl_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pb_icon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -126,7 +124,7 @@
         private System.Windows.Forms.Label lb_name;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lb_ip;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lb_dsp;
+        private System.Windows.Forms.PictureBox pb_icon;
     }
 }

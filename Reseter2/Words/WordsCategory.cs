@@ -8,10 +8,10 @@ using System.Windows.Forms;
 
 namespace Reseter2.Words
 {
+    [Serializable]
     internal class WordsCategory : IWordsItem
     {
         private string Name;
-        private bool cheked;
         private List<IWordsItem> items;
 
         public WordsCategory(string name)
@@ -57,6 +57,11 @@ namespace Reseter2.Words
             return items[item];
         }
 
+        public List<IWordsItem> Items()
+        {
+            return items;
+        }
+
         public int Count()
         {
             return items.Count;
@@ -86,23 +91,7 @@ namespace Reseter2.Words
             }
             items.Clear();
         }
-        public override void ChekChange(bool chek)
-        {
-           cheked = chek;
-           foreach(var item in items)
-            {
-                item.ChekChange(chek);
-            }
-        }       
-        public override List<WordsComp> ChekList()
-        {
-            List<WordsComp> itemsChek = new List<WordsComp>();
-            foreach (var item in items)
-            {
-                itemsChek.AddRange(item.ChekList());
-            }
-            return itemsChek;
-        }
+
         public override List<WordsCategory> CategoryList()
         {
             List<WordsCategory> itemsCatrgory = new List<WordsCategory>();
@@ -129,11 +118,6 @@ namespace Reseter2.Words
             return treeNode;
         }
 
-        public override IWordsItem Clone()
-        {
-           // List<IWordsItem> list = items.CopyTo();
-            WordsCategory clone = new WordsCategory(Name);
-            return this;
-        }
+       
     }
 }
