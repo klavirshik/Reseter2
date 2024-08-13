@@ -14,11 +14,15 @@ namespace Reseter2
         private string Name { get; set; }
         private string Description { get; set; }
         private IPAddress Ip { get; set; }
+        private string netName;
 
-        public CompId(string name)
+        public CompId(string netname)
         {
-            this.Name = name; 
+            this.netName = netname;
+            this.Name = netname;
         }
+
+
 
         public CompId(IPAddress ip)
         {
@@ -29,6 +33,8 @@ namespace Reseter2
             this.Name = name;
             this.Description = description;
         }
+
+
 
         public CompId(string name, string description, IPAddress ip)
         {
@@ -43,9 +49,24 @@ namespace Reseter2
             return Name;
         }
 
+        public string GetNetNameStr()
+        {
+            if (netName == null) return GetIPStr();
+            return netName;
+        }
+        public string GetNetName()
+        {
+            return netName;
+        }
         public IPAddress GetIP()
         {
             return Ip;
+        }
+
+        public string GetIPStr()
+        {
+            if (Ip != null) return Ip.ToString();
+            return null;
         }
         public int GetImage()
         {
@@ -60,6 +81,12 @@ namespace Reseter2
         {
             Name = name;
         }
+
+        public void SetNetName(string netname)
+        {
+            netName = netname;
+        }
+
         public void SetImage(int image)
         {
             imgIndex = image;
@@ -71,7 +98,7 @@ namespace Reseter2
 
         public string GetResetName()
         {
-            if (Name != null) return Name;
+            if (netName != null) return netName;
             return Ip.ToString();
         }
 

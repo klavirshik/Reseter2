@@ -29,6 +29,7 @@ namespace Reseter2.Words
             lb_name.Text = wordscomp.GetName();
             lb_ip.Text = wordscomp.GetIP();
             lb_description.Text = wordscomp.GetDescription();
+            tb_netName.Text = wordscomp.GetNetName();
             wordsComp = wordscomp;
             treeNode = treenode;
             comboBox1.SelectedIndex = treeNode.ImageIndex;
@@ -40,10 +41,15 @@ namespace Reseter2.Words
 
         private void WordsEditCompControl_VisibleChanged(object sender, EventArgs e)
         {
-            treeNode.Text = lb_name.Text;
+            wordsComp.Set(lb_name.Text.Length > 0 ? lb_name.Text : null, 
+                          lb_ip.Text.Length > 0 ? lb_ip.Text : null,
+                          lb_description.Text.Length > 0 ? lb_description.Text : null,
+                          comboBox1.SelectedIndex,
+                          tb_netName.Text.Length > 0 ? tb_netName.Text : null);
+            treeNode.Text = wordsComp.NameNode();
             treeNode.ImageIndex = comboBox1.SelectedIndex;
             treeNode.SelectedImageIndex = comboBox1.SelectedIndex;
-            wordsComp.Set(lb_name.Text, lb_ip.Text, lb_description.Text, comboBox1.SelectedIndex);
+           
         }
 
         private void comboBox1_DrawItem(object sender, DrawItemEventArgs e)

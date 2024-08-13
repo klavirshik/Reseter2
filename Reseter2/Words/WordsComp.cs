@@ -34,7 +34,7 @@ namespace Reseter2.Words
 
         }
 
-        public void Set(String name, String ip, String description, int imgIndex)
+        public void Set(String name, String ip, String description, int imgIndex, string netname)
         {
             IPAddress iPAddress;
             try
@@ -49,11 +49,17 @@ namespace Reseter2.Words
             Comp.SetName(name);
             Comp.SetDescription(description);
             Comp.SetImage(imgIndex);
+            Comp.SetNetName(netname);
         }
 
         public string GetName()
         {
             return Comp.GetName();
+        }
+
+        public string GetNetName()
+        {
+            return Comp.GetNetName();
         }
         public override bool ChekMove(IWordsItem wordsItem)
         {
@@ -71,7 +77,10 @@ namespace Reseter2.Words
             }
             return null;
         }
-       
+        public IComp GetComp()
+        {
+            return Comp;
+        }
 
         public override void Delete()
         {
@@ -83,12 +92,30 @@ namespace Reseter2.Words
         {
             return new List<WordsCategory>();
         }
+
+        public string NameNode()
+        {
+            string buf;
+            if (Comp.GetName() == null)
+            {
+                buf = Comp.GetNetNameStr();
+            }
+            else
+            {
+                buf = Comp.GetName();
+                if (Comp.GetNetNameStr() != null) buf += "(" + Comp.GetNetNameStr() + ")";
+
+            }
+            return buf;
+        }
         public override TreeNode NodeList() 
         { 
-            TreeNode treeNode = new TreeNode(GetName());
+            TreeNode treeNode = new TreeNode();
+            treeNode.Text = NameNode();
             treeNode.Tag = this;
             treeNode.ImageIndex = Comp.GetImage();
             treeNode.SelectedImageIndex = Comp.GetImage();
+            treeNode.StateImageIndex = 0;
             return treeNode;
         }
        

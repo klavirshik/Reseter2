@@ -40,7 +40,13 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button2 = new System.Windows.Forms.Button();
             this.treeView1 = new Reseter2.NewTreeView();
+            this.cm_words = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mi_newitem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mi_edit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mi_delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.перезагрузитьОдинToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -53,19 +59,13 @@
             this.sm_SaveItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.bt_wordsBilder = new System.Windows.Forms.Button();
-            this.cm_words = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.mi_newitem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mi_edit = new System.Windows.Forms.ToolStripMenuItem();
-            this.mi_delete = new System.Windows.Forms.ToolStripMenuItem();
-            this.перезагрузитьОдинToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.cm_words.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.cm_history.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.cm_words.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_comp
@@ -163,7 +163,6 @@
             // 
             // treeView1
             // 
-            this.treeView1.CheckBoxes = true;
             this.treeView1.ContextMenuStrip = this.cm_words;
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Top;
             this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -186,6 +185,41 @@
             this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
             this.treeView1.MouseCaptureChanged += new System.EventHandler(this.treeView1_MouseCaptureChanged);
             // 
+            // cm_words
+            // 
+            this.cm_words.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mi_newitem,
+            this.mi_edit,
+            this.mi_delete,
+            this.перезагрузитьОдинToolStripMenuItem});
+            this.cm_words.Name = "cm_words";
+            this.cm_words.Size = new System.Drawing.Size(185, 92);
+            // 
+            // mi_newitem
+            // 
+            this.mi_newitem.Name = "mi_newitem";
+            this.mi_newitem.Size = new System.Drawing.Size(184, 22);
+            this.mi_newitem.Text = "Новый элемент";
+            this.mi_newitem.Click += new System.EventHandler(this.mi_newitem_Click);
+            // 
+            // mi_edit
+            // 
+            this.mi_edit.Name = "mi_edit";
+            this.mi_edit.Size = new System.Drawing.Size(184, 22);
+            this.mi_edit.Text = "Изменить";
+            // 
+            // mi_delete
+            // 
+            this.mi_delete.Name = "mi_delete";
+            this.mi_delete.Size = new System.Drawing.Size(184, 22);
+            this.mi_delete.Text = "Удалить";
+            // 
+            // перезагрузитьОдинToolStripMenuItem
+            // 
+            this.перезагрузитьОдинToolStripMenuItem.Name = "перезагрузитьОдинToolStripMenuItem";
+            this.перезагрузитьОдинToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.перезагрузитьОдинToolStripMenuItem.Text = "Перезагрузить один";
+            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -199,6 +233,14 @@
             this.imageList1.Images.SetKeyName(6, "17icon-24.png");
             this.imageList1.Images.SetKeyName(7, "17icon2-24.png");
             this.imageList1.Images.SetKeyName(8, "40icon-24.png");
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "off.ico");
+            this.imageList2.Images.SetKeyName(1, "on.ico");
+            this.imageList2.Images.SetKeyName(2, "or.ico");
             // 
             // tabPage3
             // 
@@ -320,56 +362,13 @@
             // 
             // bt_wordsBilder
             // 
-            this.bt_wordsBilder.Location = new System.Drawing.Point(102, 25);
+            this.bt_wordsBilder.Location = new System.Drawing.Point(11, 33);
             this.bt_wordsBilder.Name = "bt_wordsBilder";
             this.bt_wordsBilder.Size = new System.Drawing.Size(155, 23);
             this.bt_wordsBilder.TabIndex = 0;
             this.bt_wordsBilder.Text = "Редактор справочника";
             this.bt_wordsBilder.UseVisualStyleBackColor = true;
             this.bt_wordsBilder.Click += new System.EventHandler(this.bt_wordsBilder_Click);
-            // 
-            // cm_words
-            // 
-            this.cm_words.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mi_newitem,
-            this.mi_edit,
-            this.mi_delete,
-            this.перезагрузитьОдинToolStripMenuItem});
-            this.cm_words.Name = "cm_words";
-            this.cm_words.Size = new System.Drawing.Size(185, 92);
-            // 
-            // mi_newitem
-            // 
-            this.mi_newitem.Name = "mi_newitem";
-            this.mi_newitem.Size = new System.Drawing.Size(184, 22);
-            this.mi_newitem.Text = "Новый элемент";
-            this.mi_newitem.Click += new System.EventHandler(this.mi_newitem_Click);
-            // 
-            // mi_edit
-            // 
-            this.mi_edit.Name = "mi_edit";
-            this.mi_edit.Size = new System.Drawing.Size(184, 22);
-            this.mi_edit.Text = "Изменить";
-            // 
-            // mi_delete
-            // 
-            this.mi_delete.Name = "mi_delete";
-            this.mi_delete.Size = new System.Drawing.Size(184, 22);
-            this.mi_delete.Text = "Удалить";
-            // 
-            // перезагрузитьОдинToolStripMenuItem
-            // 
-            this.перезагрузитьОдинToolStripMenuItem.Name = "перезагрузитьОдинToolStripMenuItem";
-            this.перезагрузитьОдинToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.перезагрузитьОдинToolStripMenuItem.Text = "Перезагрузить один";
-            // 
-            // imageList2
-            // 
-            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "off.ico");
-            this.imageList2.Images.SetKeyName(1, "on.ico");
-            this.imageList2.Images.SetKeyName(2, "or.ico");
             // 
             // Form1
             // 
@@ -388,11 +387,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.cm_words.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.cm_history.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
-            this.cm_words.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

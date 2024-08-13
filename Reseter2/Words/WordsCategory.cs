@@ -110,6 +110,7 @@ namespace Reseter2.Words
             treeNode.Tag = this;
             treeNode.ImageIndex = 0;
             treeNode.SelectedImageIndex = 0;
+            treeNode.StateImageIndex = 0;
 
             foreach (var item in items)
             {

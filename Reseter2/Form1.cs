@@ -53,7 +53,7 @@ namespace Reseter2
             lb_history.DisplayMember = "ToStr";
 
             treeView1.Nodes.AddRange(WordsList.ListNodes());
-            //treeView1.Check
+            
            //treeView1.MouseCaptureChanged.;
             tabControl1.SelectedIndex = 1;
 
@@ -144,7 +144,13 @@ namespace Reseter2
         private void bt_wordsBilder_Click(object sender, EventArgs e)
         {
             BilderWords bilderWords = new BilderWords();
-            bilderWords.ShowDialog();
+            DialogResult result = bilderWords.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                treeView1.Nodes.Clear();
+                treeView1.Nodes.AddRange(WordsList.ListNodes());
+            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -185,11 +191,13 @@ namespace Reseter2
             }
             else
             {
+                bool nedoCheked = false;
                 int nodeCheked = 0;
                 for (int i = 0; i < treeNode.Nodes.Count; i++)
                 {
                     treeView1_treeViewChangeRootCheckBox(treeNode.Nodes[i]);
                     if (treeNode.Nodes[i].Checked) nodeCheked++;
+                    if (treeNode.Nodes[i].StateImageIndex == 2) nedoCheked = true;
 
                 }
                 bool Cheked = false;
@@ -197,23 +205,47 @@ namespace Reseter2
                 {
                     Cheked = true;
                     treeNode.Checked = Cheked;
+                    treeNode.StateImageIndex = 1;
                 }
-                else if (nodeCheked != 0)
-                {
+                else if (nodeCheked != 0 || nedoCheked)
+                { 
                      treeNode.StateImageIndex = 2;
+                }else if(nodeCheked == 0)
+                {
+                    Cheked = false;
+                    treeNode.Checked = Cheked;
+                    treeNode.StateImageIndex = 0;
                 }
 
 
-                
+               
                 return Cheked;
             
              }
 
         }
 
+        private void treeView1_ChangePrentRootCheckBox(TreeNode treeNode)
+        {
+            treeView1_treeViewChangeRootCheckBox(treeNode);
+            if (treeNode.Parent != null)
+            {
+                
+              
+                
+                    treeView1_treeViewChangeRootCheckBox(treeNode.Parent);
+                if (treeNode.Parent.Parent != null)
+                {
+                    treeView1_ChangePrentRootCheckBox(treeNode.Parent);
+
+                }
+                
+            }
+        }
+
         private void treeView1_DoubleClick(object sender, EventArgs e)
         {
-            MessageBox.Show("dfsdf");
+           
         }
 
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -223,23 +255,51 @@ namespace Reseter2
             {
                 WordsComp wordsComp = (WordsComp)e.Node.Tag;
                 
-                MessageBox.Show("Перезагрузить ПК: " + wordsComp.GetName());
-
+                DialogResult result = MessageBox.Show("Перезагрузить ПК: " + wordsComp.NameNode(),"Создание новой задачи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if(result == DialogResult.Yes)
+                {
+                    Reseter.AddTask(wordsComp.GetComp());
+                    tabControl1.SelectedIndex = 0;
+                }
             }
         }
 
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("klic");
-            treeView1_treeViewChangeCheckBox(e.Node);
+            
             TreeView tree = (TreeView)sender;
-            for (int i = 0; i < tree.Nodes.Count; i++)
+
+            if(e.Button == MouseButtons.Right)
             {
-                treeView1_treeViewChangeRootCheckBox(tree.Nodes[i]);
+                tree.SelectedNode = e.Node;
+            }
+            //tree.BeginUpdate();
+            Rectangle BoundsIcon = new Rectangle(e.Node.Bounds.X -48, e.Node.Bounds.Y, 24, 24);
+            if (BoundsIcon.Contains(e.Location))
+            {
+                e.Node.Checked = !e.Node.Checked;
+                if (e.Node.Checked)
+                {
+                    e.Node.StateImageIndex = 1;
+                }
+                else
+                {
+                    e.Node.StateImageIndex = 0;
+                }
             }
 
-            
+
+            treeView1_ChangePrentRootCheckBox(e.Node);
+
+          //  for (int i = 0; i < tree.Nodes.Count; i++)
+          //  {
+          //      treeView1_treeViewChangeRootCheckBox(tree.Nodes[i]);
+          //  }
+          tree.EndUpdate();
+
         }
+
+
 
         private void treeView1_MouseCaptureChanged(object sender, EventArgs e)
         {

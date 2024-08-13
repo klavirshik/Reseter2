@@ -58,6 +58,8 @@ namespace Reseter2.Words
             treeView1.DragDrop += new DragEventHandler(TreeView1_DragDrop);
 
 
+            this.DialogResult = DialogResult.Abort;
+
         }
 
         private void TreeView1_ItemDrag(object sender, ItemDragEventArgs e)
@@ -367,6 +369,7 @@ namespace Reseter2.Words
             binaryFormatter.Serialize(file, ChangeCategory);
             file.Close();
             WordsList.MainCategory = ChangeCategory;
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
@@ -379,6 +382,7 @@ namespace Reseter2.Words
             binaryFormatter.Serialize(file, ChangeCategory);
             file.Close();
             WordsList.MainCategory = ChangeCategory;
+            this.DialogResult = DialogResult.OK;
         }
 
         private void bt_close_Click(object sender, EventArgs e)
@@ -402,9 +406,11 @@ namespace Reseter2.Words
                         file.Close();
                         file.Dispose();
                         WordsList.MainCategory = ChangeCategory;
+                        this.DialogResult = DialogResult.OK;
                         this.Close();
                         break;
                     case DialogResult.No:
+                        this.DialogResult = DialogResult.Abort;
                         this.Close();
                         break;
                 }
@@ -413,6 +419,7 @@ namespace Reseter2.Words
             }
             else
             {
+               
                 this.Close();
             }
         }
