@@ -227,19 +227,11 @@ namespace Reseter2
 
         private void treeView1_ChangePrentRootCheckBox(TreeNode treeNode)
         {
-            treeView1_treeViewChangeRootCheckBox(treeNode);
+            
             if (treeNode.Parent != null)
-            {
-                
-              
-                
+            {       
                     treeView1_treeViewChangeRootCheckBox(treeNode.Parent);
-                if (treeNode.Parent.Parent != null)
-                {
-                    treeView1_ChangePrentRootCheckBox(treeNode.Parent);
-
-                }
-                
+                    treeView1_ChangePrentRootCheckBox(treeNode.Parent);   
             }
         }
 
@@ -288,7 +280,7 @@ namespace Reseter2
                 }
             }
 
-
+            treeView1_treeViewChangeCheckBox(e.Node);
             treeView1_ChangePrentRootCheckBox(e.Node);
 
           //  for (int i = 0; i < tree.Nodes.Count; i++)
