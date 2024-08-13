@@ -38,13 +38,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.treeView1 = new Reseter2.NewTreeView();
-            this.cm_words = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.mi_newitem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mi_edit = new System.Windows.Forms.ToolStripMenuItem();
-            this.mi_delete = new System.Windows.Forms.ToolStripMenuItem();
-            this.перезагрузитьОдинToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bt_resetAll = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -59,10 +53,10 @@
             this.sm_SaveItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.bt_wordsBilder = new System.Windows.Forms.Button();
+            this.treeView1 = new Reseter2.NewTreeView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.cm_words.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.cm_history.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -110,7 +104,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(2, 39);
+            this.tabControl1.Location = new System.Drawing.Point(2, 38);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -142,7 +136,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button2);
+            this.tabPage2.Controls.Add(this.bt_resetAll);
             this.tabPage2.Controls.Add(this.treeView1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -152,73 +146,15 @@
             this.tabPage2.Text = "Справочник";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // bt_resetAll
             // 
-            this.button2.Location = new System.Drawing.Point(224, 662);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(168, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Перезагрузить выделенное";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // treeView1
-            // 
-            this.treeView1.ContextMenuStrip = this.cm_words;
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.treeView1.HideSelection = false;
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.imageList1;
-            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.Close;
-            this.treeView1.Indent = 22;
-            this.treeView1.ItemHeight = 24;
-            this.treeView1.Location = new System.Drawing.Point(3, 3);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.ShowLines = false;
-            this.treeView1.ShowNodeToolTips = true;
-            this.treeView1.Size = new System.Drawing.Size(396, 653);
-            this.treeView1.StateImageList = this.imageList2;
-            this.treeView1.TabIndex = 0;
-            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
-            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
-            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
-            this.treeView1.MouseCaptureChanged += new System.EventHandler(this.treeView1_MouseCaptureChanged);
-            // 
-            // cm_words
-            // 
-            this.cm_words.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mi_newitem,
-            this.mi_edit,
-            this.mi_delete,
-            this.перезагрузитьОдинToolStripMenuItem});
-            this.cm_words.Name = "cm_words";
-            this.cm_words.Size = new System.Drawing.Size(185, 92);
-            // 
-            // mi_newitem
-            // 
-            this.mi_newitem.Name = "mi_newitem";
-            this.mi_newitem.Size = new System.Drawing.Size(184, 22);
-            this.mi_newitem.Text = "Новый элемент";
-            this.mi_newitem.Click += new System.EventHandler(this.mi_newitem_Click);
-            // 
-            // mi_edit
-            // 
-            this.mi_edit.Name = "mi_edit";
-            this.mi_edit.Size = new System.Drawing.Size(184, 22);
-            this.mi_edit.Text = "Изменить";
-            // 
-            // mi_delete
-            // 
-            this.mi_delete.Name = "mi_delete";
-            this.mi_delete.Size = new System.Drawing.Size(184, 22);
-            this.mi_delete.Text = "Удалить";
-            // 
-            // перезагрузитьОдинToolStripMenuItem
-            // 
-            this.перезагрузитьОдинToolStripMenuItem.Name = "перезагрузитьОдинToolStripMenuItem";
-            this.перезагрузитьОдинToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.перезагрузитьОдинToolStripMenuItem.Text = "Перезагрузить один";
+            this.bt_resetAll.Location = new System.Drawing.Point(224, 662);
+            this.bt_resetAll.Name = "bt_resetAll";
+            this.bt_resetAll.Size = new System.Drawing.Size(168, 23);
+            this.bt_resetAll.TabIndex = 1;
+            this.bt_resetAll.Text = "Перезагрузить выделенное";
+            this.bt_resetAll.UseVisualStyleBackColor = true;
+            this.bt_resetAll.Click += new System.EventHandler(this.bt_resetAll_Click);
             // 
             // imageList1
             // 
@@ -348,6 +284,7 @@
             this.sm_SaveItem.Name = "sm_SaveItem";
             this.sm_SaveItem.Size = new System.Drawing.Size(176, 22);
             this.sm_SaveItem.Text = "Сохранить";
+            this.sm_SaveItem.Click += new System.EventHandler(this.sm_SaveItem_Click);
             // 
             // tabPage4
             // 
@@ -370,6 +307,29 @@
             this.bt_wordsBilder.UseVisualStyleBackColor = true;
             this.bt_wordsBilder.Click += new System.EventHandler(this.bt_wordsBilder_Click);
             // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.treeView1.HideSelection = false;
+            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageList = this.imageList1;
+            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.Close;
+            this.treeView1.Indent = 22;
+            this.treeView1.ItemHeight = 24;
+            this.treeView1.Location = new System.Drawing.Point(3, 3);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.SelectedImageIndex = 0;
+            this.treeView1.ShowLines = false;
+            this.treeView1.ShowNodeToolTips = true;
+            this.treeView1.Size = new System.Drawing.Size(396, 653);
+            this.treeView1.StateImageList = this.imageList2;
+            this.treeView1.TabIndex = 0;
+            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
+            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
+            this.treeView1.MouseCaptureChanged += new System.EventHandler(this.treeView1_MouseCaptureChanged);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -387,7 +347,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.cm_words.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.cm_history.ResumeLayout(false);
@@ -418,13 +377,8 @@
         private System.Windows.Forms.ContextMenuStrip cm_history;
         private System.Windows.Forms.ToolStripMenuItem sm_RebootItem;
         private System.Windows.Forms.ToolStripMenuItem sm_SaveItem;
-        private System.Windows.Forms.ContextMenuStrip cm_words;
-        private System.Windows.Forms.ToolStripMenuItem mi_newitem;
-        private System.Windows.Forms.ToolStripMenuItem mi_edit;
-        private System.Windows.Forms.ToolStripMenuItem mi_delete;
-        private System.Windows.Forms.ToolStripMenuItem перезагрузитьОдинToolStripMenuItem;
         private System.Windows.Forms.Button bt_wordsBilder;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button bt_resetAll;
         public System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ImageList imageList2;
         private NewTreeView treeView1;

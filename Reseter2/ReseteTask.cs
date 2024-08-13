@@ -22,13 +22,32 @@ namespace Reseter2
         public HistoryItem historyItem;
 
 
+
         public ReseterTask(IComp comp, TaskControl taskCntrl)
         {
+
             Comp = comp;
             taskControl = taskCntrl;
-            StatusTask = new StatusPreReboot(this);
-            Pingers = new Pinger(Comp.GetResetName());
-            historyItem = HistoryList.Add(this);
+            System.Diagnostics.Debug.WriteLine(comp.GetResetName());
+            if (comp.GetResetName() == null || comp.GetResetName().Length == 0)
+            {
+                //Pingers = new Pinger("");
+                Comp.SetName("Не заданно");
+                Comp.SetNetName("Не заданно");
+                Pingers = new Pinger(Comp.GetResetName());
+                StatusTask = new StatusPreReboot(this);
+                historyItem = HistoryList.Add(this);
+                StatusTask = new StatusRebootError(this);
+
+            }
+            else
+            {
+                Pingers = new Pinger(Comp.GetResetName());
+                StatusTask = new StatusPreReboot(this);
+                historyItem = HistoryList.Add(this);
+                
+            }
+            
         }
         
         public async Task Tick()

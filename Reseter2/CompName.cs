@@ -19,8 +19,11 @@ namespace Reseter2
         public CompId(string netname)
         {
             this.netName = netname;
-            this.Name = netname;
+            //this.Name = netname;
+            
         }
+
+        
 
 
 
@@ -99,14 +102,15 @@ namespace Reseter2
         public string GetResetName()
         {
             if (netName != null) return netName;
-            return Ip.ToString();
+            return GetIPStr();
         }
 
     public string GetDescription()
         {
             return Description;
         }
-         
+       
+        
 
     }
 }

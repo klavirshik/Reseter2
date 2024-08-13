@@ -41,6 +41,7 @@ namespace Reseter2
             {
                 // Discard PingExceptions and return false;
             }
+
             finally
             {
                 if (pinger != null)

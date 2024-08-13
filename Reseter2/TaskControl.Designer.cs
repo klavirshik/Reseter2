@@ -52,26 +52,26 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(87, 23);
+            this.label1.Location = new System.Drawing.Point(85, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Имя ПК";
+            this.label1.Text = "Имя ПК:";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(87, 36);
+            this.label2.Location = new System.Drawing.Point(85, 30);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(17, 13);
+            this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "IP";
+            this.label2.Text = "Сетевое имя:";
             // 
             // lb_name
             // 
             this.lb_name.AutoSize = true;
-            this.lb_name.Location = new System.Drawing.Point(134, 23);
+            this.lb_name.Location = new System.Drawing.Point(132, 16);
             this.lb_name.Name = "lb_name";
             this.lb_name.Size = new System.Drawing.Size(64, 13);
             this.lb_name.TabIndex = 2;
@@ -80,7 +80,7 @@
             // lb_ip
             // 
             this.lb_ip.AutoSize = true;
-            this.lb_ip.Location = new System.Drawing.Point(103, 36);
+            this.lb_ip.Location = new System.Drawing.Point(156, 30);
             this.lb_ip.Name = "lb_ip";
             this.lb_ip.Size = new System.Drawing.Size(70, 13);
             this.lb_ip.TabIndex = 3;
@@ -89,25 +89,24 @@
             // lb_stage
             // 
             this.lb_stage.AutoSize = true;
-            this.lb_stage.Location = new System.Drawing.Point(87, 10);
+            this.lb_stage.Location = new System.Drawing.Point(85, 2);
             this.lb_stage.Name = "lb_stage";
-            this.lb_stage.Size = new System.Drawing.Size(104, 13);
+            this.lb_stage.Size = new System.Drawing.Size(0, 13);
             this.lb_stage.TabIndex = 4;
-            this.lb_stage.Text = "Перезагружаеться";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(186, 36);
+            this.label4.Location = new System.Drawing.Point(85, 43);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 5;
-            this.label4.Text = "Ping";
+            this.label4.Text = "Ping:";
             // 
             // lb_ping
             // 
             this.lb_ping.AutoSize = true;
-            this.lb_ping.Location = new System.Drawing.Point(220, 36);
+            this.lb_ping.Location = new System.Drawing.Point(119, 43);
             this.lb_ping.Name = "lb_ping";
             this.lb_ping.Size = new System.Drawing.Size(0, 13);
             this.lb_ping.TabIndex = 6;
@@ -115,23 +114,23 @@
             // Timeout
             // 
             this.Timeout.AutoSize = true;
-            this.Timeout.Location = new System.Drawing.Point(186, 52);
+            this.Timeout.Location = new System.Drawing.Point(159, 43);
             this.Timeout.Name = "Timeout";
-            this.Timeout.Size = new System.Drawing.Size(45, 13);
+            this.Timeout.Size = new System.Drawing.Size(48, 13);
             this.Timeout.TabIndex = 7;
-            this.Timeout.Text = "Timeout";
+            this.Timeout.Text = "Timeout:";
             // 
             // lb_timeout
             // 
             this.lb_timeout.AutoSize = true;
-            this.lb_timeout.Location = new System.Drawing.Point(237, 52);
+            this.lb_timeout.Location = new System.Drawing.Point(210, 43);
             this.lb_timeout.Name = "lb_timeout";
             this.lb_timeout.Size = new System.Drawing.Size(0, 13);
             this.lb_timeout.TabIndex = 8;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(270, 3);
+            this.button1.Location = new System.Drawing.Point(270, 1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(96, 23);
             this.button1.TabIndex = 9;
@@ -141,7 +140,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(270, 49);
+            this.button2.Location = new System.Drawing.Point(270, 51);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(96, 23);
             this.button2.TabIndex = 10;
@@ -170,16 +169,16 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(86, 52);
+            this.label3.Location = new System.Drawing.Point(85, 58);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 13);
+            this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 13;
-            this.label3.Text = "Таймер";
+            this.label3.Text = "Таймер:";
             // 
             // lb_time
             // 
             this.lb_time.AutoSize = true;
-            this.lb_time.Location = new System.Drawing.Point(131, 52);
+            this.lb_time.Location = new System.Drawing.Point(130, 58);
             this.lb_time.Name = "lb_time";
             this.lb_time.Size = new System.Drawing.Size(34, 13);
             this.lb_time.TabIndex = 14;

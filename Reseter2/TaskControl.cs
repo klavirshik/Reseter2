@@ -25,7 +25,13 @@ namespace Reseter2
         {
             reseterTask = res;
             if (reseterTask.GetName() != null) lb_name.Text = reseterTask.GetName();
-            if (reseterTask.Comp.GetIP() != null) lb_ip.Text = reseterTask.Comp.GetIP().ToString();
+            if (reseterTask.Comp.GetNetNameStr() != null)
+            {
+                lb_ip.Text = reseterTask.Comp.GetNetNameStr();
+                if (reseterTask.Comp.GetIP() != null && reseterTask.Comp.GetNetName() != null) lb_ip.Text = lb_ip.Text+"(" +reseterTask.Comp.GetIP().ToString()+")";
+            }
+           
+           
         }
 
         public void DataContrl(string ping, string timeout, IPAddress ip, TimeSpan time)

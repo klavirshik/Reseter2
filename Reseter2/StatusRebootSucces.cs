@@ -14,6 +14,7 @@ namespace Reseter2
             resetertask.SetNameStage("Успешно перезагруженно", 7);
             resetertask.historyItem.SetEndTime(DateTime.Now);
             PingResult = resetertask.Ping();
+            resetertask.Comp.SetIP(PingResult.Ip);
             reseterTask.sw.Stop();
         }
 

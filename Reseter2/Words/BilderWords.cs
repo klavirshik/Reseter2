@@ -7,6 +7,7 @@ using System.Data.Odbc;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Security.Policy;
@@ -26,10 +27,36 @@ namespace Reseter2.Words
         MD5 Hash = MD5.Create();
         public BilderWords()
         {
+            LoadForm();
+            treeView1.Nodes.AddRange(WordsList.ListNodes(ChangeCategory));
 
 
+        }
 
-           
+        public BilderWords(IComp comp)
+        {   
+            LoadForm();
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            MemoryStream memory = new MemoryStream();
+            binaryFormatter.Serialize(memory, comp);
+            memory.Position = 0;
+            CompId compId = (CompId)binaryFormatter.Deserialize(memory);
+            memory.Close();
+            memory.Dispose();
+            //TreeNode treeNode = new TreeNode();
+             WordsComp item = new WordsComp(compId);
+             WordsList.AddItem(item, ChangeCategory);
+
+                   
+            treeView1.Nodes.AddRange(WordsList.ListNodes(ChangeCategory));
+            //treeNode.ImageIndex = 1;
+            //treeNode.Text = item.NameNode();
+            //treeNode.Tag = item;
+            //treeView1.Nodes.Add(treeNode);
+        }
+
+        private void LoadForm()
+        {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             MemoryStream Memory = new MemoryStream();
             binaryFormatter.Serialize(Memory, WordsList.MainCategory);
@@ -39,16 +66,9 @@ namespace Reseter2.Words
             ChangeCategory = (WordsCategory)binaryFormatter.Deserialize(Memory);
             Memory.Dispose();
             Memory.Close();
-            
+
             InitializeComponent();
-            //WordsList.MainCategory.
-            
-           
-            //// TreeNode trno = new TreeNode("main");
-
-
-            treeView1.Nodes.AddRange(WordsList.ListNodes(ChangeCategory));
-            //trno.ImageIndex = 1;
+ 
             cb_create.Items.Add("Категория");
             cb_create.Items.Add("Компьютер");
             cb_create.SelectedIndex = 0;
@@ -57,11 +77,9 @@ namespace Reseter2.Words
             treeView1.DragOver += new DragEventHandler(TreeView1_DragOver);
             treeView1.DragDrop += new DragEventHandler(TreeView1_DragDrop);
 
-
+           
             this.DialogResult = DialogResult.Abort;
-
         }
-
         private void TreeView1_ItemDrag(object sender, ItemDragEventArgs e)
         {
             DragOn = true;
@@ -160,11 +178,22 @@ namespace Reseter2.Words
             }
             if(SrcCategory == DstCategory)
             {
-                if(selectNode == null)
+                if (selectNode == null)
                 {
                     if (targetPoint.Y > 5) index--;
                 }
-                else if (moveNode.Index < selectNode.Index) index--;
+                else if(selectNode.Tag == DstCategory)
+                {
+                    index = 0;
+                }
+                else if(selectNode.Tag == moveNode.Tag)
+                {
+                    return;
+                }
+                else if(moveNode.Index < selectNode.Index)
+                { 
+                    index--;
+                }
             }
 
             IWordsItem MoveItem = (IWordsItem)moveNode.Tag;
@@ -313,10 +342,18 @@ namespace Reseter2.Words
 
             if (selectNode.Tag == null) return;
             IWordsItem wordsItem = (IWordsItem)selectNode.Tag;
+
+            if(selectNode.NextNode != null)
+            {
+                treeView1.SelectedNode = selectNode.NextNode;
+            }else if(selectNode.PrevNode != null)
+            {
+                treeView1.SelectedNode = selectNode.PrevNode;
+            }else if(selectNode.Parent != null) treeView1.SelectedNode = selectNode.Parent ;
             
             ParentCategory.DeleteItem(wordsItem);
             ParentNodes.Remove(selectNode);
-           
+          
         }
 
      
@@ -362,12 +399,17 @@ namespace Reseter2.Words
 
         private void bt_saveClose_Click(object sender, EventArgs e)
         {
-            control.Visible = false;
-            control.Dispose();
+            if (control != null)
+            {
+                control.Visible = false;
+                control.Dispose();
+            }
+            
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = new FileStream("base.dat", FileMode.OpenOrCreate);
             binaryFormatter.Serialize(file, ChangeCategory);
             file.Close();
+            file.Dispose();
             WordsList.MainCategory = ChangeCategory;
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -375,18 +417,27 @@ namespace Reseter2.Words
 
         private void bt_save_Click(object sender, EventArgs e)
         {
-            control.Visible = false;
-            control.Visible = true;
+            if (control != null)
+            {
+                control.Visible = false;
+                control.Visible = true;
+             }
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = new FileStream("base.dat", FileMode.OpenOrCreate);
             binaryFormatter.Serialize(file, ChangeCategory);
             file.Close();
+            file.Dispose();
             WordsList.MainCategory = ChangeCategory;
-            this.DialogResult = DialogResult.OK;
+            
         }
 
         private void bt_close_Click(object sender, EventArgs e)
         {
+            if (control != null)
+            {
+                control.Visible = false;
+                control.Dispose();
+            }
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             MemoryStream Memory = new MemoryStream();
             binaryFormatter.Serialize(Memory, ChangeCategory);

@@ -40,6 +40,14 @@ namespace Reseter2
             }
             
         }
+
+        public static void AddTask(List<IComp> comps)
+        {
+            foreach (var item in comps)
+            {
+                AddTask(item);
+            }
+        }
         public static void AddTask(IComp compName)
         {
 

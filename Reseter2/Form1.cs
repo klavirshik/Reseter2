@@ -24,23 +24,28 @@ namespace Reseter2
         public Form1()
         {
 
-            try
-            {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = new FileStream("res.dat", FileMode.OpenOrCreate);
+            try
+            {
+           
             HistoryList.Hitem = (List<HistoryItem>)binaryFormatter.Deserialize(file);
-            file.Dispose();
             file.Close();
-
+            file.Dispose();
             binaryFormatter = new BinaryFormatter();
-             file = new FileStream("base.dat", FileMode.OpenOrCreate);
+            file = new FileStream("base.dat", FileMode.OpenOrCreate);
             WordsList.MainCategory = (WordsCategory)binaryFormatter.Deserialize(file);
-            file.Dispose();
             file.Close();
+            file.Dispose();
+            
             }
             catch
             {
-
+                
+                file.Close();
+                file.Dispose();
+                MessageBox.Show("Ошибка чтения конфигурационных файлов.\n Перезапустите программу.", "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
             
 
@@ -161,9 +166,21 @@ namespace Reseter2
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = new FileStream("res.dat", FileMode.OpenOrCreate);
-            binaryFormatter.Serialize(file, HistoryList.Hitem);
-            file.Close();
+            FileStream file = null;
+            try
+            {
+                file = new FileStream("res.dat", FileMode.OpenOrCreate);
+                binaryFormatter.Serialize(file, HistoryList.Hitem);
+                file.Close();
+                file.Dispose();
+            }
+            catch
+            {
+                file.Close();
+                file.Dispose();
+                MessageBox.Show("Ошибка записи конфигурационных файлов.\n Текущие данные будут потерянны.", "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
         }
 
         private void treeView1_AfterCheck(object sender, TreeViewEventArgs e)
@@ -266,7 +283,7 @@ namespace Reseter2
                 tree.SelectedNode = e.Node;
             }
             //tree.BeginUpdate();
-            Rectangle BoundsIcon = new Rectangle(e.Node.Bounds.X -48, e.Node.Bounds.Y, 24, 24);
+            Rectangle BoundsIcon = new Rectangle(e.Node.Bounds.X -43, e.Node.Bounds.Y + 2, 17, 18);
             if (BoundsIcon.Contains(e.Location))
             {
                 e.Node.Checked = !e.Node.Checked;
@@ -277,17 +294,18 @@ namespace Reseter2
                 else
                 {
                     e.Node.StateImageIndex = 0;
-                }
+                }   
+                treeView1_treeViewChangeCheckBox(e.Node);
+                treeView1_ChangePrentRootCheckBox(e.Node);
             }
 
-            treeView1_treeViewChangeCheckBox(e.Node);
-            treeView1_ChangePrentRootCheckBox(e.Node);
-
+         
+            bool k = false;
           //  for (int i = 0; i < tree.Nodes.Count; i++)
           //  {
           //      treeView1_treeViewChangeRootCheckBox(tree.Nodes[i]);
           //  }
-          tree.EndUpdate();
+          
 
         }
 
@@ -300,6 +318,53 @@ namespace Reseter2
 
             //treeView1_treeViewChangeCheckBox(tree.Nodes[0]);
             
+        }
+
+        private List<IComp> treeViewCheckOn(TreeNode node)
+        {
+            List<IComp> comps = new List<IComp>();
+            if (node.Checked && node.Tag is WordsComp)
+            {
+                WordsComp comp = (WordsComp)node.Tag;
+                comps.Add(comp.GetComp());
+            }
+            for (int i = 0; i < node.Nodes.Count; i++)
+            {
+                comps.AddRange(treeViewCheckOn(node.Nodes[i]));
+
+            }
+            return comps;
+        }
+
+        private void bt_resetAll_Click(object sender, EventArgs e)
+        {
+            List<IComp> comps = new List<IComp>();
+            for (int i = 0; i < treeView1.Nodes.Count; i++)
+            {
+                comps.AddRange(treeViewCheckOn(treeView1.Nodes[i]));
+            }
+            
+            DialogResult result = MessageBox.Show("Будет перезагруженно " + comps.Count() + " компьютеров.\nПродолжить?",
+                                                   "Запуск многопоточной перезагрузки.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes) { 
+                Reseter.AddTask(comps);
+                tabControl1.SelectedIndex = 0;
+            }
+        }
+
+        private void sm_SaveItem_Click(object sender, EventArgs e)
+        {
+
+            if (selectItem is HistoryItem historyItem)
+            {
+                BilderWords bilderWords = new BilderWords(historyItem.GetComp());
+                DialogResult result = bilderWords.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    treeView1.Nodes.Clear();
+                    treeView1.Nodes.AddRange(WordsList.ListNodes());
+                }
+            }
         }
     }
 }
