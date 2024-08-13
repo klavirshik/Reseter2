@@ -50,6 +50,7 @@ namespace Reseter2
             
 
             InitializeComponent();
+            checkControl1.updateCheck += CheckControl1_updateCheck;
             flowLayoutPanel1.AutoScrollMinSize = new Size(0, 683) ;
             flowLayoutPanel1.VerticalScroll.Visible  = true;
             Reseter.SetForm(flowLayoutPanel1);
@@ -64,6 +65,8 @@ namespace Reseter2
 
 
         }
+
+       
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -200,11 +203,16 @@ namespace Reseter2
             }
         }
 
-        private bool treeView1_treeViewChangeRootCheckBox(TreeNode treeNode)
+        private int treeView1_treeViewChangeRootCheckBox(TreeNode treeNode)
         {
             if (treeNode.Nodes.Count == 0)
             {
-                return treeNode.Checked;
+                if (treeNode.Checked)
+                {
+                    return 1;
+                }
+                else { return 0; }
+                    
             }
             else
             {
@@ -217,20 +225,22 @@ namespace Reseter2
                     if (treeNode.Nodes[i].StateImageIndex == 2) nedoCheked = true;
 
                 }
-                bool Cheked = false;
+                int Cheked = 0;
                 if (treeNode.Nodes.Count == nodeCheked)
                 {
-                    Cheked = true;
-                    treeNode.Checked = Cheked;
+                    Cheked = 0;
+                    treeNode.Checked = true;
                     treeNode.StateImageIndex = 1;
                 }
                 else if (nodeCheked != 0 || nedoCheked)
                 { 
                      treeNode.StateImageIndex = 2;
-                }else if(nodeCheked == 0)
+                    Cheked = 2;
+                }
+                else if(nodeCheked == 0)
                 {
-                    Cheked = false;
-                    treeNode.Checked = Cheked;
+                    Cheked = 0;
+                    treeNode.Checked = false;
                     treeNode.StateImageIndex = 0;
                 }
 
@@ -297,10 +307,11 @@ namespace Reseter2
                 }   
                 treeView1_treeViewChangeCheckBox(e.Node);
                 treeView1_ChangePrentRootCheckBox(e.Node);
+                CheckControl1_interdmet();
             }
 
          
-            bool k = false;
+          
           //  for (int i = 0; i < tree.Nodes.Count; i++)
           //  {
           //      treeView1_treeViewChangeRootCheckBox(tree.Nodes[i]);
@@ -366,5 +377,35 @@ namespace Reseter2
                 }
             }
         }
+        private void CheckControl1_updateCheck(bool Сhecked)
+        {
+            for (int i = 0; i < treeView1.Nodes.Count; i++)
+            {
+                treeView1.Nodes[i].Checked = Сhecked;
+                treeView1_treeViewChangeCheckBox(treeView1.Nodes[i]);
+            }
+        }
+
+        private void CheckControl1_interdmet()
+        {
+            int chek_inter = 0;
+            int interdmet = checkControl1.Checked == false ? 0 : 1 ;
+            int summ = 0;
+            for (int i = 0; i < treeView1.Nodes.Count; i++)
+            {
+
+                 if (2 == treeView1_treeViewChangeRootCheckBox(treeView1.Nodes[i])) chek_inter++;
+                 if (interdmet == treeView1_treeViewChangeRootCheckBox(treeView1.Nodes[i])) summ++;
+            }
+            if (chek_inter < treeView1.Nodes.Count)
+            {
+                checkControl1.set_intedmet();
+            }
+            else if(treeView1.Nodes.Count == summ )
+            {
+                checkControl1.set_state(interdmet == 0 ? false : true );
+            }
+        }
+
     }
 }

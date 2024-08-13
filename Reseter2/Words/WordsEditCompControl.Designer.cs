@@ -65,7 +65,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "IP адрес";
+            this.label3.Text = "IP-адрес";
             // 
             // lb_ip
             // 
