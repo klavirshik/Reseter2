@@ -199,6 +199,14 @@ namespace Reseter2
             for (int i = 0; i < treeNode.Nodes.Count; i++)
             {
                 treeNode.Nodes[i].Checked = treeNode.Checked;
+                if (treeNode.Nodes[i].Checked)
+                {
+                    treeNode.Nodes[i].StateImageIndex = 1;
+                }
+                else
+                {
+                    treeNode.Nodes[i].StateImageIndex = 0;
+                }
                 treeView1_treeViewChangeCheckBox(treeNode.Nodes[i]);
             }
         }
@@ -207,12 +215,7 @@ namespace Reseter2
         {
             if (treeNode.Nodes.Count == 0)
             {
-                if (treeNode.Checked)
-                {
-                    return 1;
-                }
-                else { return 0; }
-                    
+                return treeNode.StateImageIndex;
             }
             else
             {
@@ -220,22 +223,18 @@ namespace Reseter2
                 int nodeCheked = 0;
                 for (int i = 0; i < treeNode.Nodes.Count; i++)
                 {
-                    treeView1_treeViewChangeRootCheckBox(treeNode.Nodes[i]);
-                    if (treeNode.Nodes[i].Checked) nodeCheked++;
-                    if (treeNode.Nodes[i].StateImageIndex == 2) nedoCheked = true;
-
+                    if(treeView1_treeViewChangeRootCheckBox(treeNode.Nodes[i]) == 2) nedoCheked = true;
+                    if (treeNode.Nodes[i].StateImageIndex == 1) nodeCheked++;
+                    //treeNo
+                    
                 }
                 int Cheked = 0;
+                
                 if (treeNode.Nodes.Count == nodeCheked)
                 {
-                    Cheked = 0;
+                    Cheked = 1;
                     treeNode.Checked = true;
                     treeNode.StateImageIndex = 1;
-                }
-                else if (nodeCheked != 0 || nedoCheked)
-                { 
-                     treeNode.StateImageIndex = 2;
-                    Cheked = 2;
                 }
                 else if(nodeCheked == 0)
                 {
@@ -243,7 +242,12 @@ namespace Reseter2
                     treeNode.Checked = false;
                     treeNode.StateImageIndex = 0;
                 }
-
+                if ((nodeCheked > 0 && treeNode.Nodes.Count > nodeCheked) || nedoCheked)
+                {
+                    treeNode.Checked = false;
+                    treeNode.StateImageIndex = 2;
+                    Cheked = 2;
+                }
 
                
                 return Cheked;
@@ -257,7 +261,7 @@ namespace Reseter2
             
             if (treeNode.Parent != null)
             {       
-                    treeView1_treeViewChangeRootCheckBox(treeNode.Parent);
+                    //treeView1_treeViewChangeRootCheckBox(treeNode.Parent);
                     treeView1_ChangePrentRootCheckBox(treeNode.Parent);   
             }
         }
@@ -389,21 +393,26 @@ namespace Reseter2
         private void CheckControl1_interdmet()
         {
             int chek_inter = 0;
-            int interdmet = checkControl1.Checked == false ? 0 : 1 ;
+            
             int summ = 0;
             for (int i = 0; i < treeView1.Nodes.Count; i++)
             {
-
-                 if (2 == treeView1_treeViewChangeRootCheckBox(treeView1.Nodes[i])) chek_inter++;
-                 if (interdmet == treeView1_treeViewChangeRootCheckBox(treeView1.Nodes[i])) summ++;
+                int check = treeView1_treeViewChangeRootCheckBox(treeView1.Nodes[i]);
+                 if (2 == check) chek_inter++;
+                 if (1 == check) summ++;
             }
-            if (chek_inter < treeView1.Nodes.Count)
+           
+            if(treeView1.Nodes.Count == summ )
+            {
+                checkControl1.set_state(true);
+            }
+            else if(0 == summ)
+            {
+                checkControl1.set_state(false);
+            }
+             if (chek_inter < treeView1.Nodes.Count)
             {
                 checkControl1.set_intedmet();
-            }
-            else if(treeView1.Nodes.Count == summ )
-            {
-                checkControl1.set_state(interdmet == 0 ? false : true );
             }
         }
 
