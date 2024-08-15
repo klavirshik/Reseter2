@@ -215,7 +215,14 @@ namespace Reseter2
         {
             if (treeNode.Nodes.Count == 0)
             {
-                return treeNode.StateImageIndex;
+                if(treeNode.Checked)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
             }
             else
             {
@@ -410,7 +417,7 @@ namespace Reseter2
             {
                 checkControl1.set_state(false);
             }
-             if (chek_inter < treeView1.Nodes.Count)
+             if ((summ < treeView1.Nodes.Count && summ > 0) || chek_inter > 0)
             {
                 checkControl1.set_intedmet();
             }
