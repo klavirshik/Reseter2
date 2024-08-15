@@ -113,7 +113,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(43, 13);
             this.label1.TabIndex = 9;
-            this.label1.Text = "Значек";
+            this.label1.Text = "Значок";
             // 
             // label5
             // 

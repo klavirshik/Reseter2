@@ -54,6 +54,22 @@ namespace Reseter2.History
             this.task = null;
             this.statusTask = null;
         }
+
+        public string NameNode()
+        {
+            string buf;
+            if (comp.GetName() == null)
+            {
+                buf = comp.GetNetNameStr();
+            }
+            else
+            {
+                buf = comp.GetName();
+                if (comp.GetNetNameStr() != null) buf += "(" + comp.GetNetNameStr() + ")";
+
+            }
+            return buf;
+        }
         public string ToStr
         {
 
@@ -63,7 +79,9 @@ namespace Reseter2.History
                     this.statusTask = this.task.StatusTask;
                     this.statusName = this.statusTask.GetName();
                 }
-                string output = string.Format("{0,17:dd.MM.yy HH:mm:ss} {1,-12}{2,-22} {3,8:HH:mm:ss}", startTime, comp.GetResetName().ToString(), this.statusName, endTime);
+                string name = NameNode();
+                name = name.Length > 25 ? name.Substring(0,25): name;
+                string output = string.Format("{0,17:dd.MM.yy HH:mm:ss} {1,-25} {2,-9} {3,8:HH:mm:ss}", startTime, name, this.statusName, endTime);
                 return output;
             }
         }

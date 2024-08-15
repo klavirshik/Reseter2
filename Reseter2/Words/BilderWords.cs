@@ -275,13 +275,13 @@ namespace Reseter2.Words
             {
                  ParentCategory = ChangeCategory;
                  ParentNodes = treeView1.Nodes;
-                 index = selectNode.Index+1;
+                // index = selectNode.Index+1;
             }
             else
             {
                  ParentCategory = (WordsCategory)selectNode.Parent.Tag;
                 ParentNodes = selectNode.Parent.Nodes;
-                index = selectNode.Index+1;
+               // index = selectNode.Index+1;
             }
             
 
@@ -300,6 +300,7 @@ namespace Reseter2.Words
                     break;
                 case 1:
                     item = new WordsComp(new CompId("Новый ПК"));
+                    index = ParentCategory.Count();
                     WordsList.InsertItem(index, (WordsComp)item, ParentCategory);
                     treeNode.ImageIndex = 1;
                     treeNode.SelectedImageIndex = 1;
@@ -315,7 +316,44 @@ namespace Reseter2.Words
 
         private void BilderWords_FormClosing(object sender, FormClosingEventArgs e)
         {
-            bool save = false;
+            if (control != null)
+            {
+                control.Visible = false;
+                control.Visible = true;
+            }
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            MemoryStream Memory = new MemoryStream();
+            binaryFormatter.Serialize(Memory, ChangeCategory);
+            Memory.Position = 0;
+            byte[] hashSave = Hash.ComputeHash(Memory);
+            if (!hash.SequenceEqual(hashSave))
+            {
+                DialogResult result = MessageBox.Show("Сохранить внесенные изменения?", "Сохранение измененний", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        FileStream file = new FileStream("base.dat", FileMode.OpenOrCreate);
+                        Memory.Position = 0;
+                        Memory.CopyTo(file);
+                        Memory.Close();
+                        Memory.Dispose();
+                        file.Close();
+                        file.Dispose();
+                        WordsList.MainCategory = ChangeCategory;
+                        this.DialogResult = DialogResult.OK;
+                        break;
+                    case DialogResult.No:
+                        this.DialogResult = DialogResult.Abort;
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                        
+                }
+
+
+            }
+          
         }
 
         private void bt_deleteItem_Click(object sender, EventArgs e)
@@ -433,46 +471,7 @@ namespace Reseter2.Words
 
         private void bt_close_Click(object sender, EventArgs e)
         {
-            if (control != null)
-            {
-                control.Visible = false;
-                control.Dispose();
-            }
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            MemoryStream Memory = new MemoryStream();
-            binaryFormatter.Serialize(Memory, ChangeCategory);
-            Memory.Position = 0;
-            byte[] hashSave = Hash.ComputeHash(Memory);
-            if (!hash.SequenceEqual(hashSave))
-            {
-                DialogResult result = MessageBox.Show("Внесенны изменения сохранить ли?", "Изменения не сохраненны", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                switch (result)
-                {
-                    case DialogResult.Yes:
-                        FileStream file = new FileStream("base.dat", FileMode.OpenOrCreate);
-                        Memory.Position = 0;
-                        Memory.CopyTo(file);
-                        Memory.Close();
-                        Memory.Dispose();
-                        file.Close();
-                        file.Dispose();
-                        WordsList.MainCategory = ChangeCategory;
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
-                        break;
-                    case DialogResult.No:
-                        this.DialogResult = DialogResult.Abort;
-                        this.Close();
-                        break;
-                }
-
-
-            }
-            else
-            {
-               
-                this.Close();
-            }
+            this.Close();
         }
     }
 }

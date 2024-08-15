@@ -38,7 +38,7 @@ namespace Reseter2
         }
         public override string GetName()
         {
-            return "Отправка команды";
+            return "Send RST";
         }
     }
 }

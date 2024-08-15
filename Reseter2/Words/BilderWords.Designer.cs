@@ -178,6 +178,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(520, 595);
             this.Name = "BilderWords";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Редактор справочника";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BilderWords_FormClosing);
             this.groupBox1.ResumeLayout(false);

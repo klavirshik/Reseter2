@@ -38,10 +38,10 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             this.bt_resetAll = new System.Windows.Forms.Button();
-            this.treeView1 = new Reseter2.NewTreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -55,7 +55,8 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.bt_wordsBilder = new System.Windows.Forms.Button();
             this.checkControl1 = new Reseter2.CheckControl();
-            this.label2 = new System.Windows.Forms.Label();
+            this.treeView1 = new Reseter2.NewTreeView();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -106,6 +107,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(2, 38);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
@@ -139,8 +141,8 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.checkControl1);
             this.tabPage2.Controls.Add(this.bt_resetAll);
+            this.tabPage2.Controls.Add(this.checkControl1);
             this.tabPage2.Controls.Add(this.treeView1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -150,13 +152,14 @@
             this.tabPage2.Text = "Справочник";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // imageList2
+            // label2
             // 
-            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "off.ico");
-            this.imageList2.Images.SetKeyName(1, "on.ico");
-            this.imageList2.Images.SetKeyName(2, "or.ico");
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(32, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(80, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Все элементы";
             // 
             // bt_resetAll
             // 
@@ -167,29 +170,6 @@
             this.bt_resetAll.Text = "Перезагрузить выделенное";
             this.bt_resetAll.UseVisualStyleBackColor = true;
             this.bt_resetAll.Click += new System.EventHandler(this.bt_resetAll_Click);
-            // 
-            // treeView1
-            // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.treeView1.HideSelection = false;
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.imageList1;
-            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.treeView1.Indent = 27;
-            this.treeView1.ItemHeight = 24;
-            this.treeView1.Location = new System.Drawing.Point(3, 32);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.ShowLines = false;
-            this.treeView1.ShowNodeToolTips = true;
-            this.treeView1.Size = new System.Drawing.Size(396, 653);
-            this.treeView1.StateImageList = this.imageList2;
-            this.treeView1.TabIndex = 0;
-            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
-            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
-            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
-            this.treeView1.MouseCaptureChanged += new System.EventHandler(this.treeView1_MouseCaptureChanged);
             // 
             // imageList1
             // 
@@ -204,6 +184,14 @@
             this.imageList1.Images.SetKeyName(6, "17icon-24.png");
             this.imageList1.Images.SetKeyName(7, "17icon2-24.png");
             this.imageList1.Images.SetKeyName(8, "40icon-24.png");
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "off.ico");
+            this.imageList2.Images.SetKeyName(1, "on.ico");
+            this.imageList2.Images.SetKeyName(2, "or.ico");
             // 
             // tabPage3
             // 
@@ -245,7 +233,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Cascadia Code", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(185, 3);
+            this.label5.Location = new System.Drawing.Point(269, 3);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(43, 15);
             this.label5.TabIndex = 4;
@@ -326,7 +314,7 @@
             // 
             // bt_wordsBilder
             // 
-            this.bt_wordsBilder.Location = new System.Drawing.Point(11, 33);
+            this.bt_wordsBilder.Location = new System.Drawing.Point(113, 6);
             this.bt_wordsBilder.Name = "bt_wordsBilder";
             this.bt_wordsBilder.Size = new System.Drawing.Size(155, 23);
             this.bt_wordsBilder.TabIndex = 0;
@@ -341,14 +329,38 @@
             this.checkControl1.Size = new System.Drawing.Size(18, 18);
             this.checkControl1.TabIndex = 2;
             // 
-            // label2
+            // treeView1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 10);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Все элементы";
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.treeView1.HideSelection = false;
+            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageList = this.imageList1;
+            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.treeView1.Indent = 27;
+            this.treeView1.ItemHeight = 24;
+            this.treeView1.Location = new System.Drawing.Point(3, 32);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.SelectedImageIndex = 0;
+            this.treeView1.ShowLines = false;
+            this.treeView1.ShowNodeToolTips = true;
+            this.treeView1.Size = new System.Drawing.Size(396, 653);
+            this.treeView1.StateImageList = this.imageList2;
+            this.treeView1.TabIndex = 0;
+            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
+            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
+            this.treeView1.MouseCaptureChanged += new System.EventHandler(this.treeView1_MouseCaptureChanged);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(402, 688);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "О программе";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -405,6 +417,7 @@
         private NewTreeView treeView1;
         private CheckControl checkControl1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TabPage tabPage5;
     }
 }
 

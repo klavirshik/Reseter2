@@ -36,7 +36,7 @@ namespace Reseter2
         }
         public override string GetName()
         {
-            return "Перезагрузка";
+            return "Rebooting";
         }
     }
 }
