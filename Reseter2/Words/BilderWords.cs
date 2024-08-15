@@ -1,4 +1,5 @@
 ﻿using Reseter2.History;
+using Reseter2.Setting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,39 +37,16 @@ namespace Reseter2.Words
         public BilderWords(IComp comp)
         {   
             LoadForm();
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            MemoryStream memory = new MemoryStream();
-            binaryFormatter.Serialize(memory, comp);
-            memory.Position = 0;
-            CompId compId = (CompId)binaryFormatter.Deserialize(memory);
-            memory.Close();
-            memory.Dispose();
-            //TreeNode treeNode = new TreeNode();
-             WordsComp item = new WordsComp(compId);
-             WordsList.AddItem(item, ChangeCategory);
-
-                   
+            CompId compId = (CompId)SGlobalSetting.Clone(comp);
+            WordsComp item = new WordsComp(compId);
+            WordsList.AddItem(item, ChangeCategory);   
             treeView1.Nodes.AddRange(WordsList.ListNodes(ChangeCategory));
-            //treeNode.ImageIndex = 1;
-            //treeNode.Text = item.NameNode();
-            //treeNode.Tag = item;
-            //treeView1.Nodes.Add(treeNode);
         }
 
         private void LoadForm()
         {
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            MemoryStream Memory = new MemoryStream();
-            binaryFormatter.Serialize(Memory, WordsList.MainCategory);
-            Memory.Position = 0;
-            hash = Hash.ComputeHash(Memory);
-            Memory.Position = 0;
-            ChangeCategory = (WordsCategory)binaryFormatter.Deserialize(Memory);
-            Memory.Dispose();
-            Memory.Close();
-
+            ChangeCategory = SGlobalSetting.Clone(WordsList.MainCategory); 
             InitializeComponent();
- 
             cb_create.Items.Add("Категория");
             cb_create.Items.Add("Компьютер");
             cb_create.SelectedIndex = 0;
@@ -76,9 +54,6 @@ namespace Reseter2.Words
             treeView1.DragEnter += new DragEventHandler(TreeView1_DragEnter);
             treeView1.DragOver += new DragEventHandler(TreeView1_DragOver);
             treeView1.DragDrop += new DragEventHandler(TreeView1_DragDrop);
-
-           
-            this.DialogResult = DialogResult.Abort;
         }
         private void TreeView1_ItemDrag(object sender, ItemDragEventArgs e)
         {
@@ -87,7 +62,6 @@ namespace Reseter2.Words
             {
                 DoDragDrop(e.Item, DragDropEffects.Move);
             }
-            //throw new NotImplementedException();
         }
 
         private void TreeView1_DragEnter(object sender, DragEventArgs e)

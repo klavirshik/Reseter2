@@ -48,7 +48,7 @@ namespace Reseter2
                 this.Close();
             }
             
-
+            
             InitializeComponent();
             checkControl1.updateCheck += CheckControl1_updateCheck;
             flowLayoutPanel1.AutoScrollMinSize = new Size(0, 683) ;
@@ -60,6 +60,7 @@ namespace Reseter2
 
             treeView1.Nodes.AddRange(WordsList.ListNodes());
             
+            treeView1.SelectedNode.
            //treeView1.MouseCaptureChanged.;
             tabControl1.SelectedIndex = 1;
 
