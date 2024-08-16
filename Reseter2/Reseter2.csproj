@@ -185,9 +185,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\comp.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="reseter.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

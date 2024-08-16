@@ -35,7 +35,12 @@ namespace Reseter2.Setting
              hash = Hash.ComputeHash(memory);
         }
 
-
+        public bool HashCheck(MemoryStream memory)
+        {
+            byte[] hashSave = Hash.ComputeHash(memory);
+            return !hash.SequenceEqual(hashSave);
+        }
+      
         
     }
 }

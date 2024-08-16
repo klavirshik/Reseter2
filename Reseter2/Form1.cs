@@ -60,8 +60,8 @@ namespace Reseter2
 
             treeView1.Nodes.AddRange(WordsList.ListNodes());
             
-            treeView1.SelectedNode.
-           //treeView1.MouseCaptureChanged.;
+            //treeView1.SelectedNode.
+            //treeView1.MouseCaptureChanged.;
             tabControl1.SelectedIndex = 1;
 
 

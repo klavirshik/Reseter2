@@ -49,7 +49,7 @@ namespace Reseter2.Words
             InitializeComponent();
             cb_create.Items.Add("Категория");
             cb_create.Items.Add("Компьютер");
-            cb_create.SelectedIndex = 0;
+            cb_create.SelectedIndex = 1;
             treeView1.ItemDrag += new ItemDragEventHandler(TreeView1_ItemDrag);
             treeView1.DragEnter += new DragEventHandler(TreeView1_DragEnter);
             treeView1.DragOver += new DragEventHandler(TreeView1_DragOver);
@@ -295,39 +295,16 @@ namespace Reseter2.Words
                 control.Visible = false;
                 control.Visible = true;
             }
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            MemoryStream Memory = new MemoryStream();
-            binaryFormatter.Serialize(Memory, ChangeCategory);
-            Memory.Position = 0;
-            byte[] hashSave = Hash.ComputeHash(Memory);
-            if (!hash.SequenceEqual(hashSave))
+
+            if (!SGlobalSetting.SaveClose(ChangeCategory, this.DialogResult))
             {
-                DialogResult result = MessageBox.Show("Сохранить внесенные изменения?", "Сохранение измененний", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                switch (result)
-                {
-                    case DialogResult.Yes:
-                        FileStream file = new FileStream("base.dat", FileMode.OpenOrCreate);
-                        Memory.Position = 0;
-                        Memory.CopyTo(file);
-                        Memory.Close();
-                        Memory.Dispose();
-                        file.Close();
-                        file.Dispose();
-                        WordsList.MainCategory = ChangeCategory;
-                        this.DialogResult = DialogResult.OK;
-                        break;
-                    case DialogResult.No:
-                        this.DialogResult = DialogResult.Abort;
-                        break;
-                    case DialogResult.Cancel:
-                        e.Cancel = true;
-                        break;
-                        
-                }
-
-
+                e.Cancel = true;
             }
-          
+            else
+            {
+                WordsList.MainCategory = ChangeCategory;
+            }      
+               
         }
 
         private void bt_deleteItem_Click(object sender, EventArgs e)
@@ -411,20 +388,9 @@ namespace Reseter2.Words
 
         private void bt_saveClose_Click(object sender, EventArgs e)
         {
-            if (control != null)
-            {
-                control.Visible = false;
-                control.Dispose();
-            }
             
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = new FileStream("base.dat", FileMode.OpenOrCreate);
-            binaryFormatter.Serialize(file, ChangeCategory);
-            file.Close();
-            file.Dispose();
-            WordsList.MainCategory = ChangeCategory;
             this.DialogResult = DialogResult.OK;
-            this.Close();
+    
         }
 
         private void bt_save_Click(object sender, EventArgs e)
@@ -434,13 +400,8 @@ namespace Reseter2.Words
                 control.Visible = false;
                 control.Visible = true;
              }
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = new FileStream("base.dat", FileMode.OpenOrCreate);
-            binaryFormatter.Serialize(file, ChangeCategory);
-            file.Close();
-            file.Dispose();
-            WordsList.MainCategory = ChangeCategory;
-            
+            if(SGlobalSetting.Save(ChangeCategory)) WordsList.MainCategory = ChangeCategory;
+            SGlobalSetting.Clone(WordsList.MainCategory);
         }
 
         private void bt_close_Click(object sender, EventArgs e)
