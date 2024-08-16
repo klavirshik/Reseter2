@@ -158,6 +158,7 @@
     <EmbeddedResource Include="Words\Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Words\WordsCategoryControl.resx">
       <DependentUpon>WordsCategoryControl.cs</DependentUpon>
