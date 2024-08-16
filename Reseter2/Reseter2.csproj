@@ -76,6 +76,7 @@
     <Compile Include="reseter.cs" />
     <Compile Include="ReseteTask.cs" />
     <Compile Include="Setting\SettingWords.cs" />
+    <Compile Include="Setting\SSetting.cs" />
     <Compile Include="Shutdown.cs" />
     <Compile Include="StatusCanceled.cs" />
     <Compile Include="StatusReboot.cs" />
@@ -102,11 +103,6 @@
     </Compile>
     <Compile Include="Words\IWordsContol.cs" />
     <Compile Include="Words\IWordsItem.cs" />
-    <Compile Include="Words\Resource1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource1.resx</DependentUpon>
-    </Compile>
     <Compile Include="Words\WordsCategory.cs" />
     <Compile Include="Words\WordsCategoryControl.cs">
       <SubType>UserControl</SubType>
@@ -157,7 +153,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Words\Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Words\WordsCategoryControl.resx">

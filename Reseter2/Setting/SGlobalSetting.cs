@@ -13,31 +13,55 @@ using System.Windows.Forms;
 namespace Reseter2.Setting
 {
     [Serializable]
-    internal static class SGlobalSetting
+    internal static class SGlobalSetting 
     {
-        // public static SettingHistory settingHistory
+       
         public static SettingWords settingWords = new SettingWords();
+
+       //public static void LoadSetting()
+       // {
+
+            
+       // }
+
+
 
         public static void LoadSetting()
         {
+            object output = Load("res.dat");
+            if (!(output is SSetting)) return;
+            SSetting setting = (SSetting)output;
+            settingWords = setting .settingWords;
+            HistoryList.Hitem = setting.historyItems;
 
+           // return output;
         }
 
-        public static bool Load(string path)
+        public static WordsCategory LoadWords() 
         {
+            WordsCategory output = (WordsCategory)Load(settingWords.PathBase);
+            if (output == null)
+            {
+               output = new WordsCategory("Main");
+            }
+            return output;
+        }
+        private static object Load(string path)
+        {
+            object obj = null;
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = null;
             try
             {
                 file = new FileStream(path, FileMode.Open);
-                WordsList.MainCategory = (WordsCategory)binaryFormatter.Deserialize(file);
+                obj = binaryFormatter.Deserialize(file);
                 file.Close();
                 file.Dispose();
-                return true;
+                return obj;
             }
             catch
             {
-                return false;
+                return null;
             }
 
         }

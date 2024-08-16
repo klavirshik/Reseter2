@@ -1,4 +1,5 @@
 ﻿using Reseter2.History;
+using Reseter2.Setting;
 using Reseter2.Words;
 using System;
 using System.Collections.Generic;
@@ -24,31 +25,30 @@ namespace Reseter2
         public Form1()
         {
 
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = new FileStream("res.dat", FileMode.OpenOrCreate);
-            try
-            {
+            //BinaryFormatter binaryFormatter = new BinaryFormatter();
+            //FileStream file = new FileStream("res.dat", FileMode.OpenOrCreate);
+            //try
+            //{
            
-            HistoryList.Hitem = (List<HistoryItem>)binaryFormatter.Deserialize(file);
-            file.Close();
-            file.Dispose();
-            binaryFormatter = new BinaryFormatter();
-            file = new FileStream("base.dat", FileMode.OpenOrCreate);
-            WordsList.MainCategory = (WordsCategory)binaryFormatter.Deserialize(file);
-            file.Close();
-            file.Dispose();
+            //HistoryList.Hitem = (List<HistoryItem>)binaryFormatter.Deserialize(file);
+            //file.Close();
+            //file.Dispose();
             
-            }
-            catch
-            {
+            //}
+            //catch
+            //{
                 
-                file.Close();
-                file.Dispose();
-                MessageBox.Show("Ошибка чтения конфигурационных файлов.\n Перезапустите программу.", "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-            }
-            
-            
+            //    file.Close();
+            //    file.Dispose();
+            //    MessageBox.Show("Ошибка чтения конфигурационных файлов.\n Перезапустите программу.", "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    this.Close();
+            //}
+
+
+            SGlobalSetting.LoadSetting();
+            WordsList.MainCategory = SGlobalSetting.LoadWords();
+
+
             InitializeComponent();
             checkControl1.updateCheck += CheckControl1_updateCheck;
             flowLayoutPanel1.AutoScrollMinSize = new Size(0, 683) ;
