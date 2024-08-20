@@ -3,6 +3,7 @@ using Reseter2.Words;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Policy;
@@ -69,18 +70,27 @@ namespace Reseter2.Setting
         private static object Load(string path)
         {
             object obj = null;
+            GZipStream compressStream = null;
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = null;
             try
             {
                 file = new FileStream(path, FileMode.Open);
-                obj = binaryFormatter.Deserialize(file);
+                compressStream = new GZipStream(file, CompressionMode.Decompress);
+                obj = binaryFormatter.Deserialize(compressStream);
+                compressStream.Close();
+                compressStream.Dispose();
                 file.Close();
                 file.Dispose();
                 return obj;
             }
             catch
             {
+                if (compressStream != null)
+                {
+                    compressStream.Close();
+                    compressStream.Dispose();
+                }
                 if (file != null)
                 {
                     file.Close();
@@ -119,6 +129,7 @@ namespace Reseter2.Setting
 
         public static bool SaveClose(WordsCategory output, DialogResult ok = DialogResult.No)
         {
+            GZipStream compressStream = null;
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             MemoryStream Memory = new MemoryStream();
             binaryFormatter.Serialize(Memory, output);
@@ -141,11 +152,14 @@ namespace Reseter2.Setting
                        
                           try
                             {
-                                file = new FileStream(settingWords.PathBase, FileMode.OpenOrCreate);
+                                file = new FileStream(settingWords.PathBase, FileMode.Create);
+                                compressStream = new GZipStream(file, CompressionMode.Compress);
                                 Memory.Position = 0;
-                                Memory.CopyTo(file);
+                                Memory.CopyTo(compressStream);
                                 Memory.Close();
                                 Memory.Dispose();
+                                compressStream.Close();
+                                compressStream.Dispose();
                                 file.Close();
                                 file.Dispose();
                             }
@@ -153,8 +167,11 @@ namespace Reseter2.Setting
                             {
                                 Memory.Close();
                                 Memory.Dispose();
+                                compressStream.Close();
+                                compressStream.Dispose();
                                 file.Close();
                                 file.Dispose();
+                             
                                 return SaveCheck(settingWords.PathBase, output);
                             }
                      
@@ -176,23 +193,33 @@ namespace Reseter2.Setting
         }
         public static bool Save(string path, object output)
         {
+            GZipStream compressStream = null;
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = null;
             try
             {
-                file = new FileStream(path, FileMode.OpenOrCreate);
-                binaryFormatter.Serialize(file, output);
+                file = new FileStream(path, FileMode.Create);
+                compressStream = new GZipStream(file, CompressionMode.Compress);
+                binaryFormatter.Serialize(compressStream, output);
+                compressStream.Close();
+                compressStream.Dispose();
                 file.Close();
                 file.Dispose();
                 return true;
             }
             catch
             {
-                if(file != null)
+                if (compressStream != null)
                 {
-                file.Close();
-                file.Dispose();
+                    compressStream.Close();
+                    compressStream.Dispose();
                 }
+                if (file != null)
+                {
+                    file.Close();
+                    file.Dispose();
+                }
+               
                 return SaveCheck(path, output);
                
             }

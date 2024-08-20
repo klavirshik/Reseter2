@@ -24,8 +24,8 @@ namespace Reseter2.Words
         private Control control;
         private bool DragOn;
         WordsCategory ChangeCategory;
-        private byte[] hash;
-        MD5 Hash = MD5.Create();
+        //private byte[] hash;
+        //MD5 Hash = MD5.Create();
         public BilderWords()
         {
             LoadForm();
@@ -47,9 +47,8 @@ namespace Reseter2.Words
         {
             ChangeCategory = SGlobalSetting.Clone(WordsList.MainCategory); 
             InitializeComponent();
-            cb_create.Items.Add("Категория");
-            cb_create.Items.Add("Компьютер");
-            cb_create.SelectedIndex = 1;
+     
+            //cb_create.SelectedIndex = 1;
             treeView1.ItemDrag += new ItemDragEventHandler(TreeView1_ItemDrag);
             treeView1.DragEnter += new DragEventHandler(TreeView1_DragEnter);
             treeView1.DragOver += new DragEventHandler(TreeView1_DragOver);
@@ -262,9 +261,9 @@ namespace Reseter2.Words
             
             object item = null;
             TreeNode treeNode = new TreeNode();
-            switch (cb_create.SelectedIndex)
+            switch (listBox.SelectedIndex)
             {
-                case 0:
+                case 1:
                     item = new WordsCategory("Новая категория");
                     index = 0;
                     WordsList.InsertItem(index, (WordsCategory)item, ParentCategory);
@@ -272,7 +271,7 @@ namespace Reseter2.Words
                     treeNode.SelectedImageIndex = 0;
                     treeNode.Text = "Новая категория";
                     break;
-                case 1:
+                case 0:
                     item = new WordsComp(new CompId("Новый ПК"));
                     index = ParentCategory.Count();
                     WordsList.InsertItem(index, (WordsComp)item, ParentCategory);
@@ -280,7 +279,8 @@ namespace Reseter2.Words
                     treeNode.SelectedImageIndex = 1;
                     treeNode.Text = "Новый ПК";
                     break;
-            }   
+            }
+           listBox.SelectedIndex = -1;
            treeNode.Tag = item;
            ParentNodes.Insert(index,treeNode);
           
@@ -303,6 +303,7 @@ namespace Reseter2.Words
             else
             {
                 WordsList.MainCategory = ChangeCategory;
+                this.DialogResult = DialogResult.OK;
             }      
                
         }

@@ -71,10 +71,7 @@ namespace Reseter2
 
        
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
+  
 
         private void bt_reset_Click(object sender, EventArgs e)
         {

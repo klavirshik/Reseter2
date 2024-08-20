@@ -11,19 +11,26 @@ using System.Windows.Forms;
 
 namespace Reseter2
 {
+    
     [DefaultEvent(nameof(CheckControl))]
-    public partial class CheckControl : UserControl
+    
+    partial class CheckControl : UserControl
     {
+        
         public bool Checked = false;
         // public ImageList imageList;
         public delegate void UpdateCheck(bool check);
         public event UpdateCheck updateCheck;
             
-        public CheckControl()
+        public CheckControl():base()
         {
             // imageList = imagelist;
-            InitializeComponent();
-            pictureBox1.Image = imageList2.Images[0];
+            if (!this.DesignMode)
+            {
+                InitializeComponent();
+                pictureBox1.Image = imageList2.Images[0];
+            }
+            
         }
 
         public void pictureBox1_Click(object sender, EventArgs e)

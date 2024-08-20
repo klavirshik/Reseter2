@@ -18,7 +18,11 @@ namespace Reseter2
         public TaskControl()
         {
             reseterTask = null;
-            InitializeComponent();
+            if (!this.DesignMode)
+            {
+                InitializeComponent();
+            }
+            
         }
 
         public void Intit(ReseterTask res)
