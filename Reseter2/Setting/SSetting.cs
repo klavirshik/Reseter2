@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace Reseter2.Setting
 {
+    [Serializable]
     internal struct SSetting
     {
         public SettingWords settingWords;
         public List<HistoryItem> historyItems;
+        public SettingExpand settingExpand;
         
     }
 }

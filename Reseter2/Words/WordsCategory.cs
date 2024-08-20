@@ -107,6 +107,7 @@ namespace Reseter2.Words
         public override TreeNode NodeList()
         {
             TreeNode treeNode = new TreeNode(GetName());
+            treeNode.Name = GetName();
             treeNode.Tag = this;
             treeNode.ImageIndex = 0;
             treeNode.SelectedImageIndex = 0;
@@ -114,7 +115,8 @@ namespace Reseter2.Words
 
             foreach (var item in items)
             {
-                treeNode.Nodes.Add(item.NodeList());
+                int i = treeNode.Nodes.Add(item.NodeList());
+                treeNode.Nodes[i].Name += treeNode.Nodes[i].Index;
             }
             return treeNode;
         }

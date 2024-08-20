@@ -32,6 +32,7 @@ namespace Reseter2.Words
             for(int i = 0; i < MainCategory.Count(); i++)
             {
                 treeNodes[i] = MainCategory.Items(i).NodeList();
+                treeNodes[i].Name += i;
             }           
 
             return treeNodes;

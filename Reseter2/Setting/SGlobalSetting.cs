@@ -9,6 +9,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 
 namespace Reseter2.Setting
 {
@@ -17,6 +18,7 @@ namespace Reseter2.Setting
     {
        
         public static SettingWords settingWords = new SettingWords();
+        public static SettingExpand settingExpand = new SettingExpand();
 
        //public static void LoadSetting()
        // {
@@ -31,10 +33,28 @@ namespace Reseter2.Setting
             object output = Load("res.dat");
             if (!(output is SSetting)) return;
             SSetting setting = (SSetting)output;
-            settingWords = setting .settingWords;
+            if (setting.settingWords != null) settingWords = setting.settingWords;
+            if (setting.settingExpand != null) settingExpand = setting.settingExpand;
             HistoryList.Hitem = setting.historyItems;
 
            // return output;
+        }
+
+        public static bool SaveSettig()
+        {
+            SSetting sSetting = new SSetting();
+            sSetting.settingWords = settingWords;
+            sSetting.historyItems = HistoryList.Hitem;
+            sSetting.settingExpand = settingExpand;
+            if(Save("res.dat", sSetting))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
         public static WordsCategory LoadWords() 
@@ -61,6 +81,11 @@ namespace Reseter2.Setting
             }
             catch
             {
+                if (file != null)
+                {
+                    file.Close();
+                    file.Dispose();
+                }
                 return null;
             }
 
@@ -130,7 +155,7 @@ namespace Reseter2.Setting
                                 Memory.Dispose();
                                 file.Close();
                                 file.Dispose();
-                                return SaveCheck(output);
+                                return SaveCheck(settingWords.PathBase, output);
                             }
                      
                             WordsList.MainCategory = output;
@@ -149,7 +174,7 @@ namespace Reseter2.Setting
         {
             return Save(settingWords.PathBase, output);
         }
-            public static bool Save(string path, object output)
+        public static bool Save(string path, object output)
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = null;
@@ -163,19 +188,22 @@ namespace Reseter2.Setting
             }
             catch
             {
+                if(file != null)
+                {
                 file.Close();
                 file.Dispose();
-                return SaveCheck(output);
+                }
+                return SaveCheck(path, output);
                
             }
         }
-        public static bool SaveCheck(object output)
+        public static bool SaveCheck(string path, object output)
         {
             DialogResult result1 = MessageBox.Show("Файл занят другой программой.\nПовторить еще раз?", "Ошибка сохранения", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
             switch (result1)
             {
                 case (DialogResult.Retry):
-                    return SaveCheck(output);
+                    return Save(path, output);
                 case (DialogResult.Abort):
                     return true;
             }

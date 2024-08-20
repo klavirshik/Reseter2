@@ -46,8 +46,9 @@ namespace Reseter2
 
 
             SGlobalSetting.LoadSetting();
+            
             WordsList.MainCategory = SGlobalSetting.LoadWords();
-
+           
 
             InitializeComponent();
             checkControl1.updateCheck += CheckControl1_updateCheck;
@@ -57,9 +58,10 @@ namespace Reseter2
             HistoryList.Update += Update_lb;
             lb_history.DataSource = HistoryList.Hitem;
             lb_history.DisplayMember = "ToStr";
+            treeView1.PathSeparator = "/";
 
             treeView1.Nodes.AddRange(WordsList.ListNodes());
-            
+            SGlobalSetting.settingExpand.ExpendAll(treeView1.Nodes);
             //treeView1.SelectedNode.
             //treeView1.MouseCaptureChanged.;
             tabControl1.SelectedIndex = 1;
@@ -169,22 +171,8 @@ namespace Reseter2
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = null;
-            try
-            {
-                file = new FileStream("res.dat", FileMode.OpenOrCreate);
-                binaryFormatter.Serialize(file, HistoryList.Hitem);
-                file.Close();
-                file.Dispose();
-            }
-            catch
-            {
-                file.Close();
-                file.Dispose();
-                MessageBox.Show("Ошибка записи конфигурационных файлов.\n Текущие данные будут потерянны.", "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-           
+            SGlobalSetting.settingExpand.SaveExpand(treeView1.Nodes);
+            SGlobalSetting.SaveSettig();
         }
 
         private void treeView1_AfterCheck(object sender, TreeViewEventArgs e)

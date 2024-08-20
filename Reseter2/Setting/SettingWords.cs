@@ -32,7 +32,8 @@ namespace Reseter2.Setting
 
        public void HashSumm(MemoryStream memory)
         {
-             hash = Hash.ComputeHash(memory);
+            if(Hash == null) Hash = MD5.Create();
+            hash = Hash.ComputeHash(memory);
         }
 
         public bool HashCheck(MemoryStream memory)

@@ -112,6 +112,7 @@ namespace Reseter2.Words
         { 
             TreeNode treeNode = new TreeNode();
             treeNode.Text = NameNode();
+            treeNode.Name = NameNode();
             treeNode.Tag = this;
             treeNode.ImageIndex = Comp.GetImage();
             treeNode.SelectedImageIndex = Comp.GetImage();
