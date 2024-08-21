@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace Reseter2
         
         private bool FocusContext;
         private object selectItem;
+        public delegate void saveSetting();
+        public event saveSetting Save;  
         public Form1()
         {
 
@@ -51,6 +54,8 @@ namespace Reseter2
            
 
             InitializeComponent();
+            settingWordsControl1.treeView = treeView1;
+            this.Save += settingWordsControl1.Save; 
             checkControl1.updateCheck += CheckControl1_updateCheck;
             flowLayoutPanel1.AutoScrollMinSize = new Size(0, 683) ;
             flowLayoutPanel1.VerticalScroll.Visible  = true;
@@ -149,17 +154,7 @@ namespace Reseter2
             bilderWords.ShowDialog();
         }
 
-        private void bt_wordsBilder_Click(object sender, EventArgs e)
-        {
-            BilderWords bilderWords = new BilderWords();
-            DialogResult result = bilderWords.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                treeView1.Nodes.Clear();
-                treeView1.Nodes.AddRange(WordsList.ListNodes());
-            }
-
-        }
+       
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -409,5 +404,21 @@ namespace Reseter2
             }
         }
 
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Save();
+            SGlobalSetting.settingExpand.SaveExpand(treeView1.Nodes);
+            SGlobalSetting.SaveSettig();
+            SGlobalSetting.LoadSetting();
+            WordsList.MainCategory = SGlobalSetting.LoadWords();
+            treeView1.Nodes.Clear();
+            treeView1.Nodes.AddRange(WordsList.ListNodes());
+            SGlobalSetting.settingExpand.ExpendAll(treeView1.Nodes);
+        }
     }
 }

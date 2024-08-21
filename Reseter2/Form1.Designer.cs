@@ -40,6 +40,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.bt_resetAll = new System.Windows.Forms.Button();
+            this.checkControl1 = new Reseter2.CheckControl();
+            this.treeView1 = new Reseter2.NewTreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -53,16 +55,21 @@
             this.sm_RebootItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sm_SaveItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.bt_wordsBilder = new System.Windows.Forms.Button();
-            this.checkControl1 = new Reseter2.CheckControl();
-            this.treeView1 = new Reseter2.NewTreeView();
+            this.settingRebootControl1 = new Reseter2.Setting.SettingRebootControl();
+            this.settingSCCMControl1 = new Reseter2.Setting.SettingSCCMControl();
+            this.settingWordsControl1 = new Reseter2.Setting.SettingWordsControl();
+            this.button4 = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.cm_history.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tb_comp
@@ -79,16 +86,19 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Имя ПК";        
+            this.label1.Text = "Имя ПК";
             // 
             // bt_reset
             // 
-            this.bt_reset.Location = new System.Drawing.Point(280, 9);
+            this.bt_reset.BackColor = System.Drawing.Color.IndianRed;
+            this.bt_reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bt_reset.ForeColor = System.Drawing.SystemColors.Control;
+            this.bt_reset.Location = new System.Drawing.Point(283, 10);
             this.bt_reset.Name = "bt_reset";
             this.bt_reset.Size = new System.Drawing.Size(122, 23);
             this.bt_reset.TabIndex = 2;
             this.bt_reset.Text = "Перезагрузить";
-            this.bt_reset.UseVisualStyleBackColor = true;
+            this.bt_reset.UseVisualStyleBackColor = false;
             this.bt_reset.Click += new System.EventHandler(this.bt_reset_Click);
             // 
             // timer1
@@ -162,13 +172,46 @@
             // 
             // bt_resetAll
             // 
+            this.bt_resetAll.BackColor = System.Drawing.Color.IndianRed;
+            this.bt_resetAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bt_resetAll.ForeColor = System.Drawing.SystemColors.Control;
             this.bt_resetAll.Location = new System.Drawing.Point(224, 6);
             this.bt_resetAll.Name = "bt_resetAll";
             this.bt_resetAll.Size = new System.Drawing.Size(168, 23);
             this.bt_resetAll.TabIndex = 1;
             this.bt_resetAll.Text = "Перезагрузить выделенное";
-            this.bt_resetAll.UseVisualStyleBackColor = true;
+            this.bt_resetAll.UseVisualStyleBackColor = false;
             this.bt_resetAll.Click += new System.EventHandler(this.bt_resetAll_Click);
+            // 
+            // checkControl1
+            // 
+            this.checkControl1.Location = new System.Drawing.Point(14, 7);
+            this.checkControl1.Name = "checkControl1";
+            this.checkControl1.Size = new System.Drawing.Size(18, 18);
+            this.checkControl1.TabIndex = 2;
+            // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.treeView1.HideSelection = false;
+            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageList = this.imageList1;
+            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.treeView1.Indent = 27;
+            this.treeView1.ItemHeight = 24;
+            this.treeView1.Location = new System.Drawing.Point(3, 32);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.SelectedImageIndex = 0;
+            this.treeView1.ShowLines = false;
+            this.treeView1.ShowNodeToolTips = true;
+            this.treeView1.Size = new System.Drawing.Size(396, 653);
+            this.treeView1.StateImageList = this.imageList2;
+            this.treeView1.TabIndex = 0;
+            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
+            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
+            this.treeView1.MouseCaptureChanged += new System.EventHandler(this.treeView1_MouseCaptureChanged);
             // 
             // imageList1
             // 
@@ -302,7 +345,10 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.bt_wordsBilder);
+            this.tabPage4.Controls.Add(this.settingRebootControl1);
+            this.tabPage4.Controls.Add(this.settingSCCMControl1);
+            this.tabPage4.Controls.Add(this.settingWordsControl1);
+            this.tabPage4.Controls.Add(this.button4);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -311,48 +357,41 @@
             this.tabPage4.Text = "Настройки";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // bt_wordsBilder
+            // settingRebootControl1
             // 
-            this.bt_wordsBilder.Location = new System.Drawing.Point(113, 6);
-            this.bt_wordsBilder.Name = "bt_wordsBilder";
-            this.bt_wordsBilder.Size = new System.Drawing.Size(155, 23);
-            this.bt_wordsBilder.TabIndex = 0;
-            this.bt_wordsBilder.Text = "Редактор справочника";
-            this.bt_wordsBilder.UseVisualStyleBackColor = true;
-            this.bt_wordsBilder.Click += new System.EventHandler(this.bt_wordsBilder_Click);
+            this.settingRebootControl1.Location = new System.Drawing.Point(6, 299);
+            this.settingRebootControl1.Name = "settingRebootControl1";
+            this.settingRebootControl1.Size = new System.Drawing.Size(391, 130);
+            this.settingRebootControl1.TabIndex = 7;
             // 
-            // checkControl1
+            // settingSCCMControl1
             // 
-            this.checkControl1.Location = new System.Drawing.Point(14, 7);
-            this.checkControl1.Name = "checkControl1";
-            this.checkControl1.Size = new System.Drawing.Size(18, 18);
-            this.checkControl1.TabIndex = 2;
+            this.settingSCCMControl1.Location = new System.Drawing.Point(6, 115);
+            this.settingSCCMControl1.Name = "settingSCCMControl1";
+            this.settingSCCMControl1.Size = new System.Drawing.Size(391, 178);
+            this.settingSCCMControl1.TabIndex = 6;
             // 
-            // treeView1
+            // settingWordsControl1
             // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.treeView1.HideSelection = false;
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.imageList1;
-            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.treeView1.Indent = 27;
-            this.treeView1.ItemHeight = 24;
-            this.treeView1.Location = new System.Drawing.Point(3, 32);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.ShowLines = false;
-            this.treeView1.ShowNodeToolTips = true;
-            this.treeView1.Size = new System.Drawing.Size(396, 653);
-            this.treeView1.StateImageList = this.imageList2;
-            this.treeView1.TabIndex = 0;
-            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
-            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
-            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
-            this.treeView1.MouseCaptureChanged += new System.EventHandler(this.treeView1_MouseCaptureChanged);
+            this.settingWordsControl1.Location = new System.Drawing.Point(6, 6);
+            this.settingWordsControl1.Name = "settingWordsControl1";
+            this.settingWordsControl1.Size = new System.Drawing.Size(391, 103);
+            this.settingWordsControl1.TabIndex = 5;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(317, 435);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Сохранить";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.pictureBox1);
+            this.tabPage5.Controls.Add(this.label16);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
@@ -360,6 +399,23 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "О программе";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(11, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(8, 59);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(50, 13);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Reseter2";
             // 
             // Form1
             // 
@@ -383,6 +439,9 @@
             this.tabPage3.PerformLayout();
             this.cm_history.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -409,7 +468,6 @@
         private System.Windows.Forms.ContextMenuStrip cm_history;
         private System.Windows.Forms.ToolStripMenuItem sm_RebootItem;
         private System.Windows.Forms.ToolStripMenuItem sm_SaveItem;
-        private System.Windows.Forms.Button bt_wordsBilder;
         private System.Windows.Forms.Button bt_resetAll;
         public System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ImageList imageList2;
@@ -417,6 +475,12 @@
         private CheckControl checkControl1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label16;
+        private Setting.SettingWordsControl settingWordsControl1;
+        private Setting.SettingRebootControl settingRebootControl1;
+        private Setting.SettingSCCMControl settingSCCMControl1;
     }
 }
 

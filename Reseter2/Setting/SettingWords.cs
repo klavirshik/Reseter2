@@ -22,7 +22,7 @@ namespace Reseter2.Setting
         private byte[] hash;
         public SettingWords()
         {
-            PathBase = "base.dat";
+            PathBase = "base.wb";
         }
 
         public SettingWords(string pathBase)

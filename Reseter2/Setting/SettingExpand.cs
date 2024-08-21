@@ -38,7 +38,7 @@ namespace Reseter2.Setting
             }
             else
             {
-                Expand(nodes[i].Nodes, folder, number+1);
+                Expand(nodes[i].Nodes, folder, ++number);
             }
             
         }
