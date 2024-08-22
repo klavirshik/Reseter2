@@ -15,7 +15,16 @@ namespace Reseter2.Setting
         public string password;
         public bool on;
         public bool windowsAuth;
-
+        
+        public SettingSCCM()
+        {
+            server = string.Empty;
+            dataBase = string.Empty;
+            username = string.Empty;
+            password = string.Empty;
+            on = false;
+            windowsAuth = false;
+        }
 
     }
 }

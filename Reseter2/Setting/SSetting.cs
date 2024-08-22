@@ -13,6 +13,7 @@ namespace Reseter2.Setting
         public SettingWords settingWords;
         public List<HistoryItem> historyItems;
         public SettingExpand settingExpand;
-        
+        public SettingSCCM settingSCCM;
+        public SettingReboot settingReboot;
     }
 }

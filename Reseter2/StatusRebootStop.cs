@@ -11,7 +11,7 @@ namespace Reseter2
         private PingResult PingResult;
         public StatusRebootStop(ReseterTask reseterTask) : base(reseterTask)
         {
-            resetertask.SetNameStage("Остановленно", 6);
+            resetertask.SetNameStage("Остановленно", 6, false);
             PingResult = resetertask.pingResult;
             resetertask.historyItem.SetEndTime(DateTime.Now);       
             reseterTask.sw.Stop();

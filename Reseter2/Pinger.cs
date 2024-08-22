@@ -49,7 +49,7 @@ namespace Reseter2
                     pinger.Dispose();
                 }
             }
-            if (pingable) TimeoutCount++;
+            if (!succes) TimeoutCount++;
            return new PingResult(ping, TimeoutCount, Ip, pingable, succes); 
         }
 

@@ -94,6 +94,7 @@
     <Compile Include="reseter.cs" />
     <Compile Include="ReseteTask.cs" />
     <Compile Include="Setting\SettingExpand.cs" />
+    <Compile Include="Setting\SettingReboot.cs" />
     <Compile Include="Setting\SettingRebootControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

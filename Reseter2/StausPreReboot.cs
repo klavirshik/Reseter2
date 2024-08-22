@@ -1,4 +1,5 @@
 ﻿using Reseter2.History;
+using Reseter2.Setting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,16 +38,16 @@ namespace Reseter2
             {
                 timeOut++;
             }
-            if(timeOut > 2)
+            if(timeOut > SGlobalSetting.settingReboot.checkConnect)
             {
-                resetertask.StatusTask = new StatusRebootError(resetertask);
+                resetertask.StatusTask = new StatusRebootError(resetertask, "Error NET");
                 HistoryList.Updated();
             }
                 
         }
         public override string GetName()
         {
-            return "Check net";
+            return "Check NET";
         }
 
     }

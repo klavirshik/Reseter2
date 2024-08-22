@@ -8,10 +8,14 @@ namespace Reseter2
 {
     internal class StatusRebootError : AStatusTask
     {
+        private string _error;
         private PingResult PingResult = new PingResult(0, 0, null, false);
-        public StatusRebootError(ReseterTask reseterTask) : base(reseterTask)
+        public StatusRebootError(ReseterTask reseterTask, string error = "Error") : base(reseterTask)
         {
-            resetertask.SetNameStage("Ошибка перезагрузки", 5);
+            _error = error;
+            string messges = "Ошибка перезагрузки";
+            if (error != "Error") messges = messges + "(" + error + ")";
+            resetertask.SetNameStage(messges, 5, false);
             resetertask.historyItem.SetEndTime(DateTime.Now);
             reseterTask.sw.Stop();
         }
@@ -26,7 +30,7 @@ namespace Reseter2
         public override string GetName()
         {
 
-            return "Error";
+            return _error;
         }
     }
 }

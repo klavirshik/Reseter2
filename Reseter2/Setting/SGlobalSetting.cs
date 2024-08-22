@@ -20,6 +20,8 @@ namespace Reseter2.Setting
        
         public static SettingWords settingWords = new SettingWords();
         public static SettingExpand settingExpand = new SettingExpand();
+        public static SettingSCCM settingSCCM = new SettingSCCM();
+        public static SettingReboot settingReboot = new SettingReboot();
 
        //public static void LoadSetting()
        // {
@@ -36,6 +38,8 @@ namespace Reseter2.Setting
             SSetting setting = (SSetting)output;
             if (setting.settingWords != null) settingWords = setting.settingWords;
             if (setting.settingExpand != null) settingExpand = setting.settingExpand;
+            if (setting.settingSCCM != null) settingSCCM = setting.settingSCCM;
+            if (setting.settingReboot != null) settingReboot = setting.settingReboot;
             HistoryList.Hitem = setting.historyItems;
 
            // return output;
@@ -47,7 +51,9 @@ namespace Reseter2.Setting
             sSetting.settingWords = settingWords;
             sSetting.historyItems = HistoryList.Hitem;
             sSetting.settingExpand = settingExpand;
-            if(Save("res.dat", sSetting))
+            sSetting.settingSCCM = settingSCCM;
+            sSetting.settingReboot = settingReboot;
+            if (Save("res.dat", sSetting))
             {
                 return true;
             }

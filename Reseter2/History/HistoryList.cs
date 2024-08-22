@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reseter2.Setting;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +24,7 @@ namespace Reseter2.History
 
             HistoryItem historyItem = new HistoryItem(reseterTask);
             Hitem.Insert(0, historyItem);
+            ClearFirst();
             Update();
             
             return historyItem;
@@ -35,6 +37,17 @@ namespace Reseter2.History
         static public void Clear()
         {
             Hitem.Clear();
+        }
+
+        static public void ClearFirst()
+        {
+            if(Hitem.Count > SGlobalSetting.settingReboot.sizeHistoryItem) 
+            {
+                Hitem.RemoveAt(Hitem.Count() - 1);
+                ClearFirst();
+            }
+            
+            
         }
     }
 }

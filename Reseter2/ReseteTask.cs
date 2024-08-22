@@ -20,7 +20,7 @@ namespace Reseter2
         public Stopwatch sw = new Stopwatch();
         public PingResult pingResult;
         public HistoryItem historyItem;
-
+        
 
 
         public ReseterTask(IComp comp, TaskControl taskCntrl)
@@ -28,7 +28,6 @@ namespace Reseter2
 
             Comp = comp;
             taskControl = taskCntrl;
-            System.Diagnostics.Debug.WriteLine(comp.GetResetName());
             if (comp.GetResetName() == null || comp.GetResetName().Length == 0)
             {
                 //Pingers = new Pinger("");
@@ -37,7 +36,7 @@ namespace Reseter2
                 Pingers = new Pinger(Comp.GetResetName());
                 StatusTask = new StatusPreReboot(this);
                 historyItem = HistoryList.Add(this);
-                StatusTask = new StatusRebootError(this);
+                StatusTask = new StatusRebootError(this, "Uncorrect");
 
             }
             else
@@ -97,9 +96,9 @@ namespace Reseter2
             StatusTask.RebootReturn();
         }
 
-        public void SetNameStage(string nameStage, int indexImg)
+        public void SetNameStage(string nameStage, int indexImg, bool pauseOn = true)
         {
-            taskControl.SetNameStage(nameStage, indexImg);
+            taskControl.SetNameStage(nameStage, indexImg, pauseOn);
         }
         public PingResult Ping()
         {

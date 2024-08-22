@@ -30,26 +30,30 @@
         {
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.nb_checkConnect = new System.Windows.Forms.NumericUpDown();
+            this.nb_timeOutReboot = new System.Windows.Forms.NumericUpDown();
+            this.nb_timeCheckBeforReboot = new System.Windows.Forms.NumericUpDown();
+            this.nb_sizeHistoryItem = new System.Windows.Forms.NumericUpDown();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nb_checkConnect)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nb_timeOutReboot)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nb_timeCheckBeforReboot)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nb_sizeHistoryItem)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.nb_sizeHistoryItem);
+            this.groupBox3.Controls.Add(this.nb_timeCheckBeforReboot);
+            this.groupBox3.Controls.Add(this.nb_timeOutReboot);
+            this.groupBox3.Controls.Add(this.nb_checkConnect);
             this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Controls.Add(this.textBox9);
             this.groupBox3.Controls.Add(this.label14);
-            this.groupBox3.Controls.Add(this.textBox8);
             this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.textBox7);
             this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.textBox6);
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(386, 124);
@@ -66,13 +70,6 @@
             this.label15.TabIndex = 11;
             this.label15.Text = "Кол-во записей истории";
             // 
-            // textBox9
-            // 
-            this.textBox9.Location = new System.Drawing.Point(184, 96);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(182, 20);
-            this.textBox9.TabIndex = 10;
-            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -81,13 +78,6 @@
             this.label14.Size = new System.Drawing.Size(196, 13);
             this.label14.TabIndex = 9;
             this.label14.Text = "Время контроля после перезагрузки";
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(209, 70);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(157, 20);
-            this.textBox8.TabIndex = 8;
             // 
             // label13
             // 
@@ -98,13 +88,6 @@
             this.label13.TabIndex = 7;
             this.label13.Text = "Время ожидание перезагрузки";
             // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(184, 44);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(182, 20);
-            this.textBox7.TabIndex = 6;
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -114,12 +97,61 @@
             this.label12.TabIndex = 5;
             this.label12.Text = "Кол-во попыток проверки связи";
             // 
-            // textBox6
+            // nb_checkConnect
             // 
-            this.textBox6.Location = new System.Drawing.Point(184, 18);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(182, 20);
-            this.textBox6.TabIndex = 4;
+            this.nb_checkConnect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nb_checkConnect.Location = new System.Drawing.Point(184, 18);
+            this.nb_checkConnect.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.nb_checkConnect.Name = "nb_checkConnect";
+            this.nb_checkConnect.Size = new System.Drawing.Size(182, 20);
+            this.nb_checkConnect.TabIndex = 13;
+            // 
+            // nb_timeOutReboot
+            // 
+            this.nb_timeOutReboot.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nb_timeOutReboot.Location = new System.Drawing.Point(184, 44);
+            this.nb_timeOutReboot.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nb_timeOutReboot.Name = "nb_timeOutReboot";
+            this.nb_timeOutReboot.Size = new System.Drawing.Size(182, 20);
+            this.nb_timeOutReboot.TabIndex = 14;
+            // 
+            // nb_timeCheckBeforReboot
+            // 
+            this.nb_timeCheckBeforReboot.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nb_timeCheckBeforReboot.Location = new System.Drawing.Point(208, 70);
+            this.nb_timeCheckBeforReboot.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nb_timeCheckBeforReboot.Name = "nb_timeCheckBeforReboot";
+            this.nb_timeCheckBeforReboot.Size = new System.Drawing.Size(158, 20);
+            this.nb_timeCheckBeforReboot.TabIndex = 15;
+            // 
+            // nb_sizeHistoryItem
+            // 
+            this.nb_sizeHistoryItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nb_sizeHistoryItem.Location = new System.Drawing.Point(184, 96);
+            this.nb_sizeHistoryItem.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nb_sizeHistoryItem.Name = "nb_sizeHistoryItem";
+            this.nb_sizeHistoryItem.Size = new System.Drawing.Size(182, 20);
+            this.nb_sizeHistoryItem.TabIndex = 16;
             // 
             // SettingRebootControl
             // 
@@ -130,6 +162,10 @@
             this.Size = new System.Drawing.Size(391, 130);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nb_checkConnect)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nb_timeOutReboot)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nb_timeCheckBeforReboot)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nb_sizeHistoryItem)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -138,12 +174,12 @@
 
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.NumericUpDown nb_timeOutReboot;
+        private System.Windows.Forms.NumericUpDown nb_checkConnect;
+        private System.Windows.Forms.NumericUpDown nb_sizeHistoryItem;
+        private System.Windows.Forms.NumericUpDown nb_timeCheckBeforReboot;
     }
 }

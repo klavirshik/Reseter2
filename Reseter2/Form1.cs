@@ -24,7 +24,9 @@ namespace Reseter2
         private bool FocusContext;
         private object selectItem;
         public delegate void saveSetting();
-        public event saveSetting Save;  
+        public event saveSetting Save;
+        public delegate void updateSetting();
+        public event updateSetting UpdateSetting;
         public Form1()
         {
 
@@ -55,7 +57,17 @@ namespace Reseter2
 
             InitializeComponent();
             settingWordsControl1.treeView = treeView1;
-            this.Save += settingWordsControl1.Save; 
+            this.Save += settingWordsControl1.Save;
+            this.Save += settingSCCMControl1.Save;
+            this.Save += settingRebootControl1.Save;
+
+            this.UpdateSetting += settingWordsControl1.UpdateSetting;
+            this.UpdateSetting += settingSCCMControl1.UpdateSetting;
+            this.UpdateSetting += settingRebootControl1.UpdateSetting;
+
+            // cb_comp.DropDownStyle = ComboBoxStyle.DropDown;
+
+
             checkControl1.updateCheck += CheckControl1_updateCheck;
             flowLayoutPanel1.AutoScrollMinSize = new Size(0, 683) ;
             flowLayoutPanel1.VerticalScroll.Visible  = true;
@@ -80,7 +92,8 @@ namespace Reseter2
 
         private void bt_reset_Click(object sender, EventArgs e)
         {
-            Reseter.AddTask(tb_comp.Text) ;
+            Reseter.AddTask(cb_comp.Text);
+            tabControl1.SelectedIndex = 0;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -112,6 +125,7 @@ namespace Reseter2
             if(selectItem is HistoryItem historyItem)
             {
                 Reseter.AddTask(historyItem.GetComp());
+                tabControl1.SelectedIndex = 0;
             }
         }
 
@@ -420,5 +434,14 @@ namespace Reseter2
             treeView1.Nodes.AddRange(WordsList.ListNodes());
             SGlobalSetting.settingExpand.ExpendAll(treeView1.Nodes);
         }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 3) 
+            {
+                UpdateSetting();
+            }
+        }
     }
 }
+

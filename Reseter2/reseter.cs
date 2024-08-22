@@ -60,8 +60,14 @@ namespace Reseter2
 
         public static async void Clear(ReseterTask reseterTask, TaskControl taskControl)
         {
-            reseterTask.StatusTask = new StatusCanceled(reseterTask);
-            reseterTask.historyItem.SetEndTime(DateTime.Now);
+            if(!(reseterTask.StatusTask is StatusRebootError ||
+               reseterTask.StatusTask is StatusRebootStop  ||
+               reseterTask.StatusTask is StatusRebootSucces))
+            {
+                reseterTask.StatusTask = new StatusCanceled(reseterTask);
+                reseterTask.historyItem.SetEndTime(DateTime.Now);
+            }
+            
             HistoryList.Updated();
             flow_conteiner.Controls.Remove(taskControl);
             list_task.Remove(reseterTask);

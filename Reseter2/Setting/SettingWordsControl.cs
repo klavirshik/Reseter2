@@ -20,7 +20,12 @@ namespace Reseter2.Setting
         public SettingWordsControl()
         {
             InitializeComponent();
-            if(SGlobalSetting.settingWords != null)
+            UpdateSetting();
+        }
+
+        public void UpdateSetting()
+        {
+            if (SGlobalSetting.settingWords != null)
             {
                 path.Text = SGlobalSetting.settingWords.PathBase;
             }
