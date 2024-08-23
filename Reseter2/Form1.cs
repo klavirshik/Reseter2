@@ -21,7 +21,7 @@ namespace Reseter2
     {
         //private FormHistory formHistory;
         //System.Windows.Forms.CheckBox
-        
+        private bool unSave;
         private bool FocusContext;
         private object selectItem;
         public delegate void saveSetting();
@@ -473,8 +473,20 @@ namespace Reseter2
         {
             if (tabControl1.SelectedIndex == 3) 
             {
+                unSave = true;
                 UpdateSetting();
             }
+            else
+            {
+                if(unSave && (settingRebootControl1.edited() ||
+                    settingSCCMControl1.edited() ||
+                    settingWordsControl1.edited()))
+                    {
+                    MessageBox.Show("Изменения не сохраненны. Продолжить?");  
+                    }
+                unSave = false;
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)

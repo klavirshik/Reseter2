@@ -52,6 +52,12 @@ namespace Reseter2.Setting
             }
         }
 
+        public bool edited()
+        {
+            return (SGlobalSetting.settingWords.PathBase != path.Text);
+
+        }
+
         public void Save()
         {
             if(SGlobalSetting.settingWords.PathBase != path.Text)

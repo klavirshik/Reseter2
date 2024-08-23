@@ -56,6 +56,18 @@ namespace Reseter2.Setting
         {
             AuthControl(!cb_windowsAuth.Checked);
         }
+
+        public bool edited()
+        {
+            return (SGlobalSetting.settingSCCM.server != ib_server.Text ||
+            SGlobalSetting.settingSCCM.dataBase != ib_dataBase.Text ||
+            SGlobalSetting.settingSCCM.username != ib_username.Text ||
+            SGlobalSetting.settingSCCM.password != ib_password.Text ||
+            SGlobalSetting.settingSCCM.on != cb_on.Checked ||
+            SGlobalSetting.settingSCCM.windowsAuth != cb_windowsAuth.Checked);
+
+        }
+
         public void Save()
         {
             SGlobalSetting.settingSCCM.server = ib_server.Text;

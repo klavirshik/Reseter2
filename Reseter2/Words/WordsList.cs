@@ -38,6 +38,8 @@ namespace Reseter2.Words
             return treeNodes;
         }
 
+       
+
         public static TreeNode[] ListNodes(WordsCategory ChangeCategory)
         {
             TreeNode[] treeNodes = new TreeNode[ChangeCategory.Count()];

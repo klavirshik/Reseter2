@@ -30,6 +30,7 @@ namespace Reseter2.Setting
             }
         }
 
+
         public void Save()
         {
             SGlobalSetting.settingReboot.checkConnect = (int)nb_checkConnect.Value;
@@ -39,6 +40,15 @@ namespace Reseter2.Setting
 
         }
 
-      
+        public bool edited()
+        {
+            return (SGlobalSetting.settingReboot.checkConnect != (int)nb_checkConnect.Value ||
+             SGlobalSetting.settingReboot.timeOutReboot != (int)nb_timeOutReboot.Value ||
+             SGlobalSetting.settingReboot.timeCheckBeforReboot != (int)nb_timeCheckBeforReboot.Value ||
+             SGlobalSetting.settingReboot.sizeHistoryItem != (int)nb_sizeHistoryItem.Value);
+
+        }
+
+
     }
 }
