@@ -16,7 +16,9 @@ namespace Reseter2.Setting
     partial class SettingWordsControl : UserControl
     {
 
-        public NewTreeView treeView;
+       
+        public delegate void DUpdateTree();
+        public DUpdateTree UpdateTree;
         public SettingWordsControl()
         {
             InitializeComponent();
@@ -37,11 +39,7 @@ namespace Reseter2.Setting
             DialogResult result = bilderWords.ShowDialog();
             if (result == DialogResult.OK)
             {
-                if (treeView != null)
-                {
-                treeView.Nodes.Clear();
-                treeView.Nodes.AddRange(WordsList.ListNodes());
-                } 
+                UpdateTree();
             }
         }
 

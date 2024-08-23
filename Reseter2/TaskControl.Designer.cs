@@ -46,7 +46,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lb_time = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.cm_task = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cm_taskSave = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.cm_task.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -197,11 +200,28 @@
             this.imageList1.Images.SetKeyName(6, "5icon-64.png");
             this.imageList1.Images.SetKeyName(7, "7icon-64.png");
             // 
+            // cm_task
+            // 
+            this.cm_task.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cm_taskSave});
+            this.cm_task.Name = "cm_task";
+            this.cm_task.ShowImageMargin = false;
+            this.cm_task.Size = new System.Drawing.Size(109, 26);
+            this.cm_task.Text = "Сохранить";
+            // 
+            // cm_taskSave
+            // 
+            this.cm_taskSave.Name = "cm_taskSave";
+            this.cm_taskSave.Size = new System.Drawing.Size(108, 22);
+            this.cm_taskSave.Text = "Сохранить";
+            this.cm_taskSave.Click += new System.EventHandler(this.cm_taskSave_Click);
+            // 
             // TaskControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ContextMenuStrip = this.cm_task;
             this.Controls.Add(this.lb_time);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button3);
@@ -220,6 +240,7 @@
             this.Name = "TaskControl";
             this.Size = new System.Drawing.Size(371, 77);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.cm_task.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -243,5 +264,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lb_time;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ContextMenuStrip cm_task;
+        private System.Windows.Forms.ToolStripMenuItem cm_taskSave;
     }
 }

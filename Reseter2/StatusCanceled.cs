@@ -28,5 +28,9 @@ namespace Reseter2
         {
             return "Canceled";
         }
+        public override int ActionIs()
+        {
+            return 0;
+        }
     }
 }

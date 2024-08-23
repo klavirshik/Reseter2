@@ -50,5 +50,9 @@ namespace Reseter2
         {
             return "Send RST";
         }
+        public override int ActionIs()
+        {
+            return 1;
+        }
     }
 }

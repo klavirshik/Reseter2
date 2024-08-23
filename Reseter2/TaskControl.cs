@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reseter2.Words;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Reseter2
 {
@@ -15,6 +17,8 @@ namespace Reseter2
     partial class TaskControl : UserControl
     {
         ReseterTask reseterTask;
+        public delegate void DUpdateTree();
+        public DUpdateTree UpdateTree;
         public TaskControl()
         {
             reseterTask = null;
@@ -75,6 +79,16 @@ namespace Reseter2
         private void button2_Click(object sender, EventArgs e)
         {
             reseterTask.RebootReturn();
+        }
+
+        private void cm_taskSave_Click(object sender, EventArgs e)
+        {
+           BilderWords bilderWords = new BilderWords(reseterTask.Comp);
+           DialogResult result = bilderWords.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+               UpdateTree();
+            }
         }
     }
 }

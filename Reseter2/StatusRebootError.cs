@@ -32,5 +32,9 @@ namespace Reseter2
 
             return _error;
         }
+        public override int ActionIs()
+        {
+            return 0;
+        }
     }
 }

@@ -50,5 +50,9 @@ namespace Reseter2
         {
             return "Rebooting";
         }
+        public override int ActionIs()
+        {
+            return 1;
+        }
     }
 }

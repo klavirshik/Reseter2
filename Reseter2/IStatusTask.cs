@@ -29,6 +29,6 @@ namespace Reseter2
             resetertask.historyItem = HistoryList.Add(resetertask);
             HistoryList.Updated();
         }
-        
+        public abstract int ActionIs();
     }
 }

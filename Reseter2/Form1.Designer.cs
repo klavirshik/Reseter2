@@ -35,6 +35,11 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.ss_activ = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ss_close = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
@@ -56,6 +61,8 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.cm_words = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.WordsReboot = new System.Windows.Forms.ToolStripMenuItem();
             this.cb_comp = new System.Windows.Forms.ComboBox();
             this.checkControl1 = new Reseter2.CheckControl();
             this.treeView1 = new Reseter2.NewTreeView();
@@ -64,12 +71,14 @@
             this.settingWordsControl1 = new Reseter2.Setting.SettingWordsControl();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.cm_history.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.cm_words.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -120,7 +129,9 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.statusStrip1);
             this.tabPage1.Controls.Add(this.flowLayoutPanel1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -129,15 +140,59 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Задания";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(236, 665);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(165, 23);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Очистить все завершенные";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ss_activ,
+            this.ss_close,
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(3, 663);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(396, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // ss_activ
+            // 
+            this.ss_activ.Name = "ss_activ";
+            this.ss_activ.Size = new System.Drawing.Size(61, 17);
+            this.ss_activ.Text = "Активные";
+            this.ss_activ.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // ss_close
+            // 
+            this.ss_close.Name = "ss_close";
+            this.ss_close.Size = new System.Drawing.Size(85, 17);
+            this.ss_close.Text = "Завершенные";
+            this.ss_close.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Window;
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(396, 682);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(396, 657);
             this.flowLayoutPanel1.TabIndex = 0;
             this.flowLayoutPanel1.WrapContents = false;
             // 
@@ -283,27 +338,28 @@
             // 
             // cm_history
             // 
+            this.cm_history.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.cm_history.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sm_RebootItem,
             this.sm_SaveItem});
             this.cm_history.Name = "cm_history";
             this.cm_history.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.cm_history.ShowCheckMargin = true;
-            this.cm_history.Size = new System.Drawing.Size(177, 48);
+            this.cm_history.ShowImageMargin = false;
+            this.cm_history.Size = new System.Drawing.Size(156, 70);
             this.cm_history.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.cm_history_Closed);
             this.cm_history.Opening += new System.ComponentModel.CancelEventHandler(this.cm_history_Opening);
             // 
             // sm_RebootItem
             // 
             this.sm_RebootItem.Name = "sm_RebootItem";
-            this.sm_RebootItem.Size = new System.Drawing.Size(176, 22);
+            this.sm_RebootItem.Size = new System.Drawing.Size(155, 22);
             this.sm_RebootItem.Text = "Перезагрузить";
             this.sm_RebootItem.Click += new System.EventHandler(this.sm_RebootItem_Click);
             // 
             // sm_SaveItem
             // 
             this.sm_SaveItem.Name = "sm_SaveItem";
-            this.sm_SaveItem.Size = new System.Drawing.Size(176, 22);
+            this.sm_SaveItem.Size = new System.Drawing.Size(155, 22);
             this.sm_SaveItem.Text = "Сохранить";
             this.sm_SaveItem.Click += new System.EventHandler(this.sm_SaveItem_Click);
             // 
@@ -360,12 +416,28 @@
             this.label16.TabIndex = 0;
             this.label16.Text = "Reseter2";
             // 
+            // cm_words
+            // 
+            this.cm_words.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.WordsReboot});
+            this.cm_words.Name = "cm_words";
+            this.cm_words.ShowImageMargin = false;
+            this.cm_words.Size = new System.Drawing.Size(125, 26);
+            // 
+            // WordsReboot
+            // 
+            this.WordsReboot.Name = "WordsReboot";
+            this.WordsReboot.Size = new System.Drawing.Size(124, 22);
+            this.WordsReboot.Text = "Перезарузить";
+            this.WordsReboot.Click += new System.EventHandler(this.WordsReboot_Click);
+            // 
             // cb_comp
             // 
             this.cb_comp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cb_comp.DropDownHeight = 1;
             this.cb_comp.FormattingEnabled = true;
+            this.cb_comp.IntegralHeight = false;
             this.cb_comp.Items.AddRange(new object[] {
             "889",
             "fdfd"});
@@ -443,6 +515,9 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -452,6 +527,7 @@
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.cm_words.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -490,6 +566,13 @@
         private Setting.SettingRebootControl settingRebootControl1;
         private Setting.SettingSCCMControl settingSCCMControl1;
         private System.Windows.Forms.ComboBox cb_comp;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel ss_activ;
+        private System.Windows.Forms.ToolStripStatusLabel ss_close;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ContextMenuStrip cm_words;
+        private System.Windows.Forms.ToolStripMenuItem WordsReboot;
     }
 }
 

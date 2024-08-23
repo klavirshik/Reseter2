@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Reseter2
 {
     public partial class Form1 : Form
@@ -56,7 +57,6 @@ namespace Reseter2
            
 
             InitializeComponent();
-            settingWordsControl1.treeView = treeView1;
             this.Save += settingWordsControl1.Save;
             this.Save += settingSCCMControl1.Save;
             this.Save += settingRebootControl1.Save;
@@ -64,14 +64,14 @@ namespace Reseter2
             this.UpdateSetting += settingWordsControl1.UpdateSetting;
             this.UpdateSetting += settingSCCMControl1.UpdateSetting;
             this.UpdateSetting += settingRebootControl1.UpdateSetting;
-
+            this.settingWordsControl1.UpdateTree = UpdateTree;
             // cb_comp.DropDownStyle = ComboBoxStyle.DropDown;
 
 
             checkControl1.updateCheck += CheckControl1_updateCheck;
-            flowLayoutPanel1.AutoScrollMinSize = new Size(0, 683) ;
+            flowLayoutPanel1.AutoScrollMinSize = new Size(0, 658) ;
             flowLayoutPanel1.VerticalScroll.Visible  = true;
-            Reseter.SetForm(flowLayoutPanel1);
+            Reseter.SetForm(flowLayoutPanel1, this);
             HistoryList.Update += Update_lb;
             lb_history.DataSource = HistoryList.Hitem;
             lb_history.DisplayMember = "ToStr";
@@ -82,13 +82,15 @@ namespace Reseter2
             //treeView1.SelectedNode.
             //treeView1.MouseCaptureChanged.;
             tabControl1.SelectedIndex = 1;
-
-
         }
 
        
 
-  
+        public void UpdateTree()
+        {
+            treeView1.Nodes.Clear();
+            treeView1.Nodes.AddRange(WordsList.ListNodes());
+        }
 
         private void bt_reset_Click(object sender, EventArgs e)
         {
@@ -98,7 +100,25 @@ namespace Reseter2
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Reseter.Tick();
+            int Act;
+            int Cls;
+            Reseter.Tick(out Act,out Cls) ;
+            if (Act>0)
+            {
+                ss_activ.Text = "Активно:" + Act;
+            }
+            else
+            {
+                ss_activ.Text = "";
+            }
+            if (Cls > 0)
+            {
+                ss_close.Text = "Завершено:" + Cls;
+            }
+            else
+            {
+                ss_close.Text = "";
+            }
         }
         public void Update_lb()
         {
@@ -276,7 +296,7 @@ namespace Reseter2
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             
-            if (e.Node.Tag is WordsComp)
+            if (e.Button == MouseButtons.Left && e.Node.Tag is WordsComp)
             {
                 WordsComp wordsComp = (WordsComp)e.Node.Tag;
                 
@@ -294,13 +314,23 @@ namespace Reseter2
             
             TreeView tree = (TreeView)sender;
 
-            if(e.Button == MouseButtons.Right)
+            Rectangle BoundsNode = new(e.Node.Bounds.X - 43, e.Node.Bounds.Y, e.Node.Bounds.Width + 43, e.Node.Bounds.Height);
+            if (e.Button == MouseButtons.Right)
             {
-                tree.SelectedNode = e.Node;
+                if (BoundsNode.Contains(e.Location) && e.Node.Tag is WordsComp)
+                {
+                    tree.SelectedNode = e.Node;
+                    cm_words.Show(tree.PointToScreen(e.Location));
+                }
+                else
+                {
+                    tree.SelectedNode = null;
+                }
+              
             }
             //tree.BeginUpdate();
-            Rectangle BoundsIcon = new Rectangle(e.Node.Bounds.X -43, e.Node.Bounds.Y + 2, 17, 18);
-            if (BoundsIcon.Contains(e.Location))
+            Rectangle BoundsIcon = new(e.Node.Bounds.X -43, e.Node.Bounds.Y + 2, 17, 18);
+            if (e.Button == MouseButtons.Left && BoundsIcon.Contains(e.Location))
             {
                 e.Node.Checked = !e.Node.Checked;
                 if (e.Node.Checked)
@@ -360,7 +390,11 @@ namespace Reseter2
             {
                 comps.AddRange(treeViewCheckOn(treeView1.Nodes[i]));
             }
-            
+            if(comps.Count == 0)
+            {
+                MessageBox.Show("Не выбранно ни одного ПК");
+                return;
+            }
             DialogResult result = MessageBox.Show("Будет перезагруженно " + comps.Count() + " компьютеров.\nПродолжить?",
                                                    "Запуск многопоточной перезагрузки.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes) { 
@@ -441,6 +475,27 @@ namespace Reseter2
             {
                 UpdateSetting();
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Reseter.ClearCanceled();
+        }
+
+        private void WordsReboot_Click(object sender, EventArgs e)
+        {
+            if(treeView1.SelectedNode.Tag is WordsComp)
+            {
+                WordsComp wordsComp = (WordsComp)treeView1.SelectedNode.Tag;
+
+                DialogResult result = MessageBox.Show("Перезагрузить ПК: " + wordsComp.NameNode(), "Создание новой задачи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    Reseter.AddTask(wordsComp.GetComp());
+                    tabControl1.SelectedIndex = 0;
+                }
+            }
+           
         }
     }
 }

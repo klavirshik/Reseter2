@@ -29,5 +29,9 @@ namespace Reseter2
         {
             return "Succes";
         }
+        public override int ActionIs()
+        {
+            return 0;
+        }
     }
 }

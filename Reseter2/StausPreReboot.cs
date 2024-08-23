@@ -50,5 +50,10 @@ namespace Reseter2
             return "Check NET";
         }
 
+        public override int ActionIs()
+        {
+            return 1;
+        }
+
     }
 }

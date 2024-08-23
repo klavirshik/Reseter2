@@ -15,7 +15,7 @@ namespace Reseter2
         public DateTime StartTime = DateTime.Now;
         public IComp Comp { get; }
         public AStatusTask StatusTask { get; set; }
-        private TaskControl taskControl;
+        public TaskControl taskControl;
         private Pinger Pingers;
         public Stopwatch sw = new Stopwatch();
         public PingResult pingResult;

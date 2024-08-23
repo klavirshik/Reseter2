@@ -41,6 +41,7 @@ namespace Reseter2.Words
             WordsComp item = new WordsComp(compId);
             WordsList.AddItem(item, ChangeCategory);   
             treeView1.Nodes.AddRange(WordsList.ListNodes(ChangeCategory));
+            treeView1.SelectedNode = treeView1.Nodes[treeView1.Nodes.Count-1];
         }
 
         private void LoadForm()
