@@ -38,8 +38,10 @@
             this.bt_deleteItem = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.listBox = new System.Windows.Forms.ListBox();
+            this.bt_newPC = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.bt_newCat = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,11 +121,11 @@
             this.treeView1.ImageIndex = 0;
             this.treeView1.ImageList = this.imageList1;
             this.treeView1.ItemHeight = 16;
-            this.treeView1.Location = new System.Drawing.Point(9, 68);
+            this.treeView1.Location = new System.Drawing.Point(9, 42);
             this.treeView1.Name = "treeView1";
             this.treeView1.SelectedImageIndex = 1;
             this.treeView1.ShowLines = false;
-            this.treeView1.Size = new System.Drawing.Size(207, 444);
+            this.treeView1.Size = new System.Drawing.Size(207, 470);
             this.treeView1.TabIndex = 4;
             this.treeView1.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeSelect);
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
@@ -143,34 +145,55 @@
             this.imageList1.Images.SetKeyName(7, "18favicon.ico");
             this.imageList1.Images.SetKeyName(8, "40favicon.ico");
             // 
-            // listBox
+            // bt_newPC
             // 
-            this.listBox.FormattingEnabled = true;
-            this.listBox.Items.AddRange(new object[] {
-            "Компьютер",
-            "Категорию"});
-            this.listBox.Location = new System.Drawing.Point(9, 32);
-            this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(207, 30);
-            this.listBox.TabIndex = 10;
-            this.listBox.DoubleClick += new System.EventHandler(this.bt_new_Click);
+            this.bt_newPC.Location = new System.Drawing.Point(76, 13);
+            this.bt_newPC.Name = "bt_newPC";
+            this.bt_newPC.Size = new System.Drawing.Size(34, 23);
+            this.bt_newPC.TabIndex = 10;
+            this.bt_newPC.Tag = "pc";
+            this.bt_newPC.Text = "+";
+            this.bt_newPC.UseVisualStyleBackColor = true;
+            this.bt_newPC.Click += new System.EventHandler(this.bt_new_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 13);
+            this.label1.Location = new System.Drawing.Point(9, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 13);
+            this.label1.Size = new System.Drawing.Size(65, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Добавить элемент";
+            this.label1.Text = "Компьютер";
+            // 
+            // bt_newCat
+            // 
+            this.bt_newCat.Location = new System.Drawing.Point(180, 13);
+            this.bt_newCat.Name = "bt_newCat";
+            this.bt_newCat.Size = new System.Drawing.Size(34, 23);
+            this.bt_newCat.TabIndex = 12;
+            this.bt_newCat.Tag = "cat";
+            this.bt_newCat.Text = "+";
+            this.bt_newCat.UseVisualStyleBackColor = true;
+            this.bt_newCat.Click += new System.EventHandler(this.bt_new_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(120, 18);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Категория";
             // 
             // BilderWords
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(504, 556);
+            this.Controls.Add(this.bt_newCat);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.bt_newPC);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.bt_deleteItem);
             this.Controls.Add(this.bt_save);
@@ -198,7 +221,9 @@
         private System.Windows.Forms.Button bt_deleteItem;
         private System.Windows.Forms.TreeView treeView1;
         public System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.ListBox listBox;
+        private System.Windows.Forms.Button bt_newPC;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button bt_newCat;
+        private System.Windows.Forms.Label label2;
     }
 }

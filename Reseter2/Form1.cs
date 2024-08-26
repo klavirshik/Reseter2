@@ -90,6 +90,7 @@ namespace Reseter2
         {
             treeView1.Nodes.Clear();
             treeView1.Nodes.AddRange(WordsList.ListNodes());
+            checkControl1.set_state(false);
         }
 
         private void bt_reset_Click(object sender, EventArgs e)
@@ -399,6 +400,8 @@ namespace Reseter2
                                                    "Запуск многопоточной перезагрузки.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes) { 
                 Reseter.AddTask(comps);
+                checkControl1.set_state(false);
+                CheckControl1_updateCheck(false);
                 tabControl1.SelectedIndex = 0;
             }
         }
@@ -412,8 +415,7 @@ namespace Reseter2
                 DialogResult result = bilderWords.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    treeView1.Nodes.Clear();
-                    treeView1.Nodes.AddRange(WordsList.ListNodes());
+                    UpdateTree();
                 }
             }
         }
@@ -464,17 +466,20 @@ namespace Reseter2
             SGlobalSetting.SaveSettig();
             SGlobalSetting.LoadSetting();
             WordsList.MainCategory = SGlobalSetting.LoadWords();
-            treeView1.Nodes.Clear();
-            treeView1.Nodes.AddRange(WordsList.ListNodes());
+            UpdateTree();
             SGlobalSetting.settingExpand.ExpendAll(treeView1.Nodes);
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex == 3) 
+            if (tabControl1.SelectedIndex == 3)
             {
-                unSave = true;
-                UpdateSetting();
+                if (!unSave)
+                {
+                    unSave = true;
+                    UpdateSetting();
+                }
+                
             }
             else
             {
@@ -482,9 +487,18 @@ namespace Reseter2
                     settingSCCMControl1.edited() ||
                     settingWordsControl1.edited()))
                     {
-                    MessageBox.Show("Изменения не сохраненны. Продолжить?");  
+                    DialogResult result = MessageBox.Show("Изменения не сохраненны. Продолжить?", "Изменения не сохраненны.", MessageBoxButtons.OKCancel, MessageBoxIcon.Question); 
+                    switch (result)
+                    {
+                        case DialogResult.Cancel:
+                            tabControl1.SelectedIndex = 3;
+                            break;
+                        case DialogResult.OK:
+                            unSave = false;
+                            break;
                     }
-                unSave = false;
+                    }
+                
             }
 
         }

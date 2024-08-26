@@ -15,7 +15,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace Reseter2.Words
 {
@@ -262,9 +262,10 @@ namespace Reseter2.Words
             
             object item = null;
             TreeNode treeNode = new TreeNode();
-            switch (listBox.SelectedIndex)
+            Button sendBt = (Button)sender; 
+            switch (sendBt.Tag)
             {
-                case 1:
+                case  "cat":
                     item = new WordsCategory("Новая категория");
                     index = 0;
                     WordsList.InsertItem(index, (WordsCategory)item, ParentCategory);
@@ -272,7 +273,7 @@ namespace Reseter2.Words
                     treeNode.SelectedImageIndex = 0;
                     treeNode.Text = "Новая категория";
                     break;
-                case 0:
+                case "pc":
                     item = new WordsComp(new CompId("Новый ПК"));
                     index = ParentCategory.Count();
                     WordsList.InsertItem(index, (WordsComp)item, ParentCategory);
@@ -281,7 +282,7 @@ namespace Reseter2.Words
                     treeNode.Text = "Новый ПК";
                     break;
             }
-           listBox.SelectedIndex = -1;
+          
            treeNode.Tag = item;
            ParentNodes.Insert(index,treeNode);
           

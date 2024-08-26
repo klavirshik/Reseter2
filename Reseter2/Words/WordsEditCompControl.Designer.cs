@@ -80,10 +80,13 @@
             // 
             this.lb_description.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_description.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lb_description.Location = new System.Drawing.Point(6, 147);
+            this.lb_description.MaxLength = 350;
             this.lb_description.Multiline = true;
             this.lb_description.Name = "lb_description";
-            this.lb_description.Size = new System.Drawing.Size(245, 63);
+            this.lb_description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.lb_description.Size = new System.Drawing.Size(245, 134);
             this.lb_description.TabIndex = 6;
             // 
             // label4
@@ -151,7 +154,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lb_name);
             this.Name = "WordsEditCompControl";
-            this.Size = new System.Drawing.Size(254, 213);
+            this.Size = new System.Drawing.Size(254, 284);
             this.VisibleChanged += new System.EventHandler(this.WordsEditCompControl_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
