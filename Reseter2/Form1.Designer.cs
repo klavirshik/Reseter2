@@ -325,7 +325,7 @@
             this.lb_history.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_history.ContextMenuStrip = this.cm_history;
-            this.lb_history.Font = new System.Drawing.Font("Cascadia Code", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_history.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
             this.lb_history.FormattingEnabled = true;
             this.lb_history.ItemHeight = 15;
             this.lb_history.Location = new System.Drawing.Point(3, 21);
@@ -345,21 +345,21 @@
             this.cm_history.Name = "cm_history";
             this.cm_history.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.cm_history.ShowImageMargin = false;
-            this.cm_history.Size = new System.Drawing.Size(156, 70);
+            this.cm_history.Size = new System.Drawing.Size(130, 48);
             this.cm_history.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.cm_history_Closed);
             this.cm_history.Opening += new System.ComponentModel.CancelEventHandler(this.cm_history_Opening);
             // 
             // sm_RebootItem
             // 
             this.sm_RebootItem.Name = "sm_RebootItem";
-            this.sm_RebootItem.Size = new System.Drawing.Size(155, 22);
+            this.sm_RebootItem.Size = new System.Drawing.Size(129, 22);
             this.sm_RebootItem.Text = "Перезагрузить";
             this.sm_RebootItem.Click += new System.EventHandler(this.sm_RebootItem_Click);
             // 
             // sm_SaveItem
             // 
             this.sm_SaveItem.Name = "sm_SaveItem";
-            this.sm_SaveItem.Size = new System.Drawing.Size(155, 22);
+            this.sm_SaveItem.Size = new System.Drawing.Size(129, 22);
             this.sm_SaveItem.Text = "Сохранить";
             this.sm_SaveItem.Click += new System.EventHandler(this.sm_SaveItem_Click);
             // 

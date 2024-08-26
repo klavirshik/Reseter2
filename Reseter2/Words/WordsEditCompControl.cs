@@ -33,10 +33,11 @@ namespace Reseter2.Words
             wordsComp = wordscomp;
             treeNode = treenode;
             comboBox1.SelectedIndex = treeNode.ImageIndex;
+           
         }
         public void Save()  
         {
-           
+          // lb_description.
         }
 
         private void WordsEditCompControl_VisibleChanged(object sender, EventArgs e)
