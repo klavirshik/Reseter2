@@ -29,6 +29,7 @@ namespace Reseter2
         public event saveSetting Save;
         public delegate void updateSetting();
         public event updateSetting UpdateSetting;
+      
         public Form1()
         {
 
@@ -96,7 +97,18 @@ namespace Reseter2
 
         private void bt_reset_Click(object sender, EventArgs e)
         {
-            Reseter.AddTask(cb_comp.Text);
+            if(cb_comp.SelectedIndex < 0)
+            {
+                Reseter.AddTask(cb_comp.Text);
+            }
+            else
+            {
+                Reseter.AddTask(SSeaher.seaherMetod.Result(cb_comp.SelectedIndex));
+            }
+            cb_comp.SelectedIndex = -1;
+            cb_comp.Text = "";
+
+
             tabControl1.SelectedIndex = 0;
         }
 
@@ -137,10 +149,7 @@ namespace Reseter2
             lb_history.DisplayMember = "ToStr";
         }
 
-        private void RebootItem_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void sm_RebootItem_Click(object sender, EventArgs e)
         {
@@ -527,13 +536,27 @@ namespace Reseter2
 
         private void cb_comp_TextUpdate(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.Default;
             if(sender is ComboBox)
             {
-                ComboBox comboBox = sender as ComboBox;
-                SSeaher.seaherMetod.Change(comboBox.Text);
+                ComboBox comboBox = (ComboBox)sender;
+                SSeaher.seaherMetod.Change(cb_comp_ResultUpdate, comboBox.Text);
             }
-
             
+        }
+        public void cb_comp_ResultUpdate(List<string> Items)
+        {
+            if(cb_comp.Items.Count != Items.Count) cb_comp.DroppedDown = false;
+             cb_comp.Items.Clear();
+             cb_comp.Items.AddRange(Items.ToArray());
+           // cb_comp.AutoCompleteCustomSource.Clear();
+           // cb_comp.AutoCompleteCustomSource.AddRange(Items.ToArray());
+
+            // cb_comp.AutoCompleteMode = AutoCompleteMode.None;
+            cb_comp.SelectionStart = cb_comp.Text.Length;
+             cb_comp.DroppedDown = true;
+            cb_comp.SelectedIndex = -1;
+             
         }
     }
 }

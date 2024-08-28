@@ -1,4 +1,5 @@
 ﻿using Reseter2.History;
+using Reseter2.Seacher;
 using Reseter2.Words;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace Reseter2.Setting
             if (setting.settingSCCM != null) settingSCCM = setting.settingSCCM;
             if (setting.settingReboot != null) settingReboot = setting.settingReboot;
             HistoryList.Hitem = setting.historyItems;
-
+            SSeaher.LoadSetting();
            // return output;
         }
 
