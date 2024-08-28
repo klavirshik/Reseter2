@@ -97,7 +97,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="reseter.cs" />
     <Compile Include="ReseteTask.cs" />
-    <Compile Include="SCCMsearch\SCCMmain.cs" />
+    <Compile Include="SCCMsearch\AuthLogin.cs" />
+    <Compile Include="SCCMsearch\AuthWin.cs" />
+    <Compile Include="SCCMsearch\IAuthType.cs" />
+    <Compile Include="SCCMsearch\SQLconnector.cs" />
+    <Compile Include="Seacher\ISeaherMetod.cs" />
+    <Compile Include="Seacher\SeahcLocal.cs" />
+    <Compile Include="Seacher\SSeaher.cs" />
     <Compile Include="Setting\SettingExpand.cs" />
     <Compile Include="Setting\SettingReboot.cs" />
     <Compile Include="Setting\SettingRebootControl.cs">
@@ -244,5 +250,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

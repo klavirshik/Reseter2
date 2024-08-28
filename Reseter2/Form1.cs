@@ -1,4 +1,5 @@
 ﻿using Reseter2.History;
+using Reseter2.Seacher;
 using Reseter2.Setting;
 using Reseter2.Words;
 using System;
@@ -522,6 +523,17 @@ namespace Reseter2
                 }
             }
            
+        }
+
+        private void cb_comp_TextUpdate(object sender, EventArgs e)
+        {
+            if(sender is ComboBox)
+            {
+                ComboBox comboBox = sender as ComboBox;
+                SSeaher.seaherMetod.Change(comboBox.Text);
+            }
+
+            
         }
     }
 }
