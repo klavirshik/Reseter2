@@ -63,7 +63,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.cm_words = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.WordsReboot = new System.Windows.Forms.ToolStripMenuItem();
-            this.cb_comp = new System.Windows.Forms.ComboBox();
+            this.tb_comp = new System.Windows.Forms.TextBox();
             this.checkControl1 = new Reseter2.CheckControl();
             this.treeView1 = new Reseter2.NewTreeView();
             this.settingRebootControl1 = new Reseter2.Setting.SettingRebootControl();
@@ -431,22 +431,15 @@
             this.WordsReboot.Text = "Перезарузить";
             this.WordsReboot.Click += new System.EventHandler(this.WordsReboot_Click);
             // 
-            // cb_comp
+            // tb_comp
             // 
-            this.cb_comp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cb_comp.DropDownHeight = 100;
-            this.cb_comp.FormattingEnabled = true;
-            this.cb_comp.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cb_comp.Items.AddRange(new object[] {
-            "Введите запрос"});
-            this.cb_comp.Location = new System.Drawing.Point(67, 11);
-            this.cb_comp.MaxDropDownItems = 7;
-            this.cb_comp.MaxLength = 100;
-            this.cb_comp.Name = "cb_comp";
-            this.cb_comp.Size = new System.Drawing.Size(210, 21);
-            this.cb_comp.TabIndex = 5;
-            this.cb_comp.TextUpdate += new System.EventHandler(this.cb_comp_TextUpdate);
+            this.tb_comp.Location = new System.Drawing.Point(67, 11);
+            this.tb_comp.Name = "tb_comp";
+            this.tb_comp.Size = new System.Drawing.Size(210, 20);
+            this.tb_comp.TabIndex = 5;
+            this.tb_comp.TextChanged += new System.EventHandler(this.cb_comp_TextUpdate);
+            this.tb_comp.Enter += new System.EventHandler(this.tb_comp_Enter);
+            this.tb_comp.Leave += new System.EventHandler(this.tb_comp_Leave);
             // 
             // checkControl1
             // 
@@ -504,7 +497,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(410, 753);
-            this.Controls.Add(this.cb_comp);
+            this.Controls.Add(this.tb_comp);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.bt_reset);
             this.Controls.Add(this.label1);
@@ -565,7 +558,6 @@
         private Setting.SettingWordsControl settingWordsControl1;
         private Setting.SettingRebootControl settingRebootControl1;
         private Setting.SettingSCCMControl settingSCCMControl1;
-        private System.Windows.Forms.ComboBox cb_comp;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel ss_activ;
         private System.Windows.Forms.ToolStripStatusLabel ss_close;
@@ -573,6 +565,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ContextMenuStrip cm_words;
         private System.Windows.Forms.ToolStripMenuItem WordsReboot;
+        private System.Windows.Forms.TextBox tb_comp;
     }
 }
 

@@ -22,6 +22,7 @@ namespace Reseter2
     {
         //private FormHistory formHistory;
         //System.Windows.Forms.CheckBox
+        private System.Windows.Forms.ListBox listBox;
         private bool unSave;
         private bool FocusContext;
         private object selectItem;
@@ -56,9 +57,22 @@ namespace Reseter2
             SGlobalSetting.LoadSetting();
             
             WordsList.MainCategory = SGlobalSetting.LoadWords();
+
+            this.listBox = new ListBox();
+            this.Controls.Add(listBox);
            
+           // this.listBox.
 
             InitializeComponent();
+
+             this.listBox.Location = new Point(tb_comp.Location.X, tb_comp.Location.Y+ tb_comp.Height);
+            this.listBox.Width = tb_comp.Width;
+            this.listBox.Height = tb_comp.Height*5;
+            this.listBox.Items.Add("Введите строку");
+            this.listBox.Leave += tb_comp_Leave;
+            this.listBox.Enter += tb_comp_Enter;
+            this.listBox.Visible = false;
+            
             this.Save += settingWordsControl1.Save;
             this.Save += settingSCCMControl1.Save;
             this.Save += settingRebootControl1.Save;
@@ -97,16 +111,16 @@ namespace Reseter2
 
         private void bt_reset_Click(object sender, EventArgs e)
         {
-            if(cb_comp.SelectedIndex < 0)
-            {
-                Reseter.AddTask(cb_comp.Text);
-            }
-            else
-            {
-                Reseter.AddTask(SSeaher.seaherMetod.Result(cb_comp.SelectedIndex));
-            }
-            cb_comp.SelectedIndex = -1;
-            cb_comp.Text = "";
+            //if(cb_comp.SelectedIndex < 0)
+            //{
+            //    Reseter.AddTask(cb_comp.Text);
+            //}
+            //else
+            //{
+            //    Reseter.AddTask(SSeaher.seaherMetod.Result(cb_comp.SelectedIndex));
+            //}
+            //cb_comp.SelectedIndex = -1;
+            //cb_comp.Text = "";
 
 
             tabControl1.SelectedIndex = 0;
@@ -546,18 +560,32 @@ namespace Reseter2
         }
         public void cb_comp_ResultUpdate(List<string> Items)
         {
-            if(cb_comp.Items.Count != Items.Count) cb_comp.DroppedDown = false;
-             cb_comp.Items.Clear();
-             cb_comp.Items.AddRange(Items.ToArray());
-           // cb_comp.AutoCompleteCustomSource.Clear();
-           // cb_comp.AutoCompleteCustomSource.AddRange(Items.ToArray());
+           //if (Items.Count > 0)
 
-            // cb_comp.AutoCompleteMode = AutoCompleteMode.None;
-            cb_comp.SelectionStart = cb_comp.Text.Length;
-             cb_comp.DroppedDown = true;
-            cb_comp.SelectedIndex = -1;
+           //if(cb_comp.Items.Count != Items.Count) cb_comp.DroppedDown = false;
+           //  cb_comp.Items.Clear();
+           //  cb_comp.Items.AddRange(Items.ToArray());
+             //cb_comp.AutoCompleteCustomSource.Clear();
+           //// cb_comp.AutoCompleteCustomSource.AddRange(Items.ToArray());
+
+           // // cb_comp.AutoCompleteMode = AutoCompleteMode.None;
+           // cb_comp.SelectionStart = cb_comp.Text.Length;
+           //  cb_comp.DroppedDown = true;
+           // cb_comp.SelectedIndex = -1;
              
         }
+
+        private void tb_comp_Leave(object sender, EventArgs e)
+        {
+            if(listBox.Focused || tb_comp.Focused) listBox.Visible = false;
+        }
+
+        private void tb_comp_Enter(object sender, EventArgs e)
+        {
+            listBox.Visible = true;
+        }
+
+      
     }
 }
 
