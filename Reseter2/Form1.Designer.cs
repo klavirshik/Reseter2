@@ -195,6 +195,7 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(396, 657);
             this.flowLayoutPanel1.TabIndex = 0;
             this.flowLayoutPanel1.WrapContents = false;
+            this.flowLayoutPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseClick);
             // 
             // tabPage2
             // 
@@ -376,6 +377,7 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Настройки";
             this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseClick);
             // 
             // button4
             // 
@@ -398,6 +400,7 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "О программе";
             this.tabPage5.UseVisualStyleBackColor = true;
+            this.tabPage5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseClick);
             // 
             // pictureBox1
             // 
@@ -437,9 +440,11 @@
             this.tb_comp.Name = "tb_comp";
             this.tb_comp.Size = new System.Drawing.Size(210, 20);
             this.tb_comp.TabIndex = 5;
+            this.tb_comp.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tb_comp_MouseClick);
             this.tb_comp.TextChanged += new System.EventHandler(this.cb_comp_TextUpdate);
             this.tb_comp.Enter += new System.EventHandler(this.tb_comp_Enter);
             this.tb_comp.Leave += new System.EventHandler(this.tb_comp_Leave);
+            this.tb_comp.MouseCaptureChanged += new System.EventHandler(this.control_MouseCaptureChanged);
             // 
             // checkControl1
             // 

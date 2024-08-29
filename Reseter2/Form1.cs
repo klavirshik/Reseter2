@@ -22,7 +22,6 @@ namespace Reseter2
     {
         //private FormHistory formHistory;
         //System.Windows.Forms.CheckBox
-        private System.Windows.Forms.ListBox listBox;
         private bool unSave;
         private bool FocusContext;
         private object selectItem;
@@ -30,7 +29,8 @@ namespace Reseter2
         public event saveSetting Save;
         public delegate void updateSetting();
         public event updateSetting UpdateSetting;
-      
+        private ListBox ListComp;
+        private bool listFocus;
         public Form1()
         {
 
@@ -38,15 +38,15 @@ namespace Reseter2
             //FileStream file = new FileStream("res.dat", FileMode.OpenOrCreate);
             //try
             //{
-           
+
             //HistoryList.Hitem = (List<HistoryItem>)binaryFormatter.Deserialize(file);
             //file.Close();
             //file.Dispose();
-            
+
             //}
             //catch
             //{
-                
+
             //    file.Close();
             //    file.Dispose();
             //    MessageBox.Show("Ошибка чтения конфигурационных файлов.\n Перезапустите программу.", "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -55,24 +55,21 @@ namespace Reseter2
 
 
             SGlobalSetting.LoadSetting();
-            
-            WordsList.MainCategory = SGlobalSetting.LoadWords();
 
-            this.listBox = new ListBox();
-            this.Controls.Add(listBox);
-           
-           // this.listBox.
+            WordsList.MainCategory = SGlobalSetting.LoadWords();
+            ListComp = new ListBox();
+            this.Controls.Add(ListComp);
+            ListComp.LostFocus += tb_comp_Leave;
+            ListComp.GotFocus += tb_comp_Enter;
+
+
+
+            // ListComp.Enter += tb_comp_Enter;
+            // ListComp.MouseClick += tb_comp_MouseClick;
+
+
 
             InitializeComponent();
-
-             this.listBox.Location = new Point(tb_comp.Location.X, tb_comp.Location.Y+ tb_comp.Height);
-            this.listBox.Width = tb_comp.Width;
-            this.listBox.Height = tb_comp.Height*5;
-            this.listBox.Items.Add("Введите строку");
-            this.listBox.Leave += tb_comp_Leave;
-            this.listBox.Enter += tb_comp_Enter;
-            this.listBox.Visible = false;
-            
             this.Save += settingWordsControl1.Save;
             this.Save += settingSCCMControl1.Save;
             this.Save += settingRebootControl1.Save;
@@ -81,12 +78,19 @@ namespace Reseter2
             this.UpdateSetting += settingSCCMControl1.UpdateSetting;
             this.UpdateSetting += settingRebootControl1.UpdateSetting;
             this.settingWordsControl1.UpdateTree = UpdateTree;
-            // cb_comp.DropDownStyle = ComboBoxStyle.DropDown;
+
+
+
+            ListComp.Location = new Point(tb_comp.Location.X, tb_comp.Location.Y + tb_comp.Height);
+            ListComp.Width = tb_comp.Width;
+            ListComp.Visible = false;
+
+            //tb_comp.Controls.Add(ListComp);
 
 
             checkControl1.updateCheck += CheckControl1_updateCheck;
-            flowLayoutPanel1.AutoScrollMinSize = new Size(0, 658) ;
-            flowLayoutPanel1.VerticalScroll.Visible  = true;
+            flowLayoutPanel1.AutoScrollMinSize = new Size(0, 658);
+            flowLayoutPanel1.VerticalScroll.Visible = true;
             Reseter.SetForm(flowLayoutPanel1, this);
             HistoryList.Update += Update_lb;
             lb_history.DataSource = HistoryList.Hitem;
@@ -100,7 +104,7 @@ namespace Reseter2
             tabControl1.SelectedIndex = 1;
         }
 
-       
+
 
         public void UpdateTree()
         {
@@ -130,8 +134,8 @@ namespace Reseter2
         {
             int Act;
             int Cls;
-            Reseter.Tick(out Act,out Cls) ;
-            if (Act>0)
+            Reseter.Tick(out Act, out Cls);
+            if (Act > 0)
             {
                 ss_activ.Text = "Активно:" + Act;
             }
@@ -163,11 +167,11 @@ namespace Reseter2
             lb_history.DisplayMember = "ToStr";
         }
 
-        
+
 
         private void sm_RebootItem_Click(object sender, EventArgs e)
         {
-            if(selectItem is HistoryItem historyItem)
+            if (selectItem is HistoryItem historyItem)
             {
                 Reseter.AddTask(historyItem.GetComp());
                 tabControl1.SelectedIndex = 0;
@@ -176,17 +180,17 @@ namespace Reseter2
 
         private void lb_history_MouseMove(object sender, MouseEventArgs e)
         {
-           lb_history.SelectedIndex = lb_history.IndexFromPoint(e.Location);
+            lb_history.SelectedIndex = lb_history.IndexFromPoint(e.Location);
         }
 
         private void lb_history_MouseLeave(object sender, EventArgs e)
         {
 
-            if(!FocusContext)
+            if (!FocusContext)
             {
                 lb_history.SelectedIndex = -1;
             }
-            
+
         }
 
         private void cm_history_Opening(object sender, CancelEventArgs e)
@@ -197,13 +201,13 @@ namespace Reseter2
 
         private void lb_history_MouseDown(object sender, MouseEventArgs e)
         {
-            
-           // lb_history.SelectedIndex = lb_history.IndexFromPoint(e.Location);
+
+            // lb_history.SelectedIndex = lb_history.IndexFromPoint(e.Location);
         }
 
         private void cm_history_Closed(object sender, ToolStripDropDownClosedEventArgs e)
         {
-           // selectItem = null;
+            // selectItem = null;
             FocusContext = false;
         }
 
@@ -213,7 +217,7 @@ namespace Reseter2
             bilderWords.ShowDialog();
         }
 
-       
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -229,11 +233,11 @@ namespace Reseter2
         private void treeView1_AfterCheck(object sender, TreeViewEventArgs e)
         {
 
-          
+
             //   treeView1_treeViewChangeCheckBox(e.Node);
 
         }
-        
+
         private void treeView1_treeViewChangeCheckBox(TreeNode treeNode)
         {
             for (int i = 0; i < treeNode.Nodes.Count; i++)
@@ -255,7 +259,7 @@ namespace Reseter2
         {
             if (treeNode.Nodes.Count == 0)
             {
-                if(treeNode.Checked)
+                if (treeNode.Checked)
                 {
                     return 1;
                 }
@@ -270,20 +274,20 @@ namespace Reseter2
                 int nodeCheked = 0;
                 for (int i = 0; i < treeNode.Nodes.Count; i++)
                 {
-                    if(treeView1_treeViewChangeRootCheckBox(treeNode.Nodes[i]) == 2) nedoCheked = true;
+                    if (treeView1_treeViewChangeRootCheckBox(treeNode.Nodes[i]) == 2) nedoCheked = true;
                     if (treeNode.Nodes[i].StateImageIndex == 1) nodeCheked++;
                     //treeNo
-                    
+
                 }
                 int Cheked = 0;
-                
+
                 if (treeNode.Nodes.Count == nodeCheked)
                 {
                     Cheked = 1;
                     treeNode.Checked = true;
                     treeNode.StateImageIndex = 1;
                 }
-                else if(nodeCheked == 0)
+                else if (nodeCheked == 0)
                 {
                     Cheked = 0;
                     treeNode.Checked = false;
@@ -296,37 +300,37 @@ namespace Reseter2
                     Cheked = 2;
                 }
 
-               
+
                 return Cheked;
-            
-             }
+
+            }
 
         }
 
         private void treeView1_ChangePrentRootCheckBox(TreeNode treeNode)
         {
-            
+
             if (treeNode.Parent != null)
-            {       
-                    //treeView1_treeViewChangeRootCheckBox(treeNode.Parent);
-                    treeView1_ChangePrentRootCheckBox(treeNode.Parent);   
+            {
+                //treeView1_treeViewChangeRootCheckBox(treeNode.Parent);
+                treeView1_ChangePrentRootCheckBox(treeNode.Parent);
             }
         }
 
         private void treeView1_DoubleClick(object sender, EventArgs e)
         {
-           
+
         }
 
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            
+
             if (e.Button == MouseButtons.Left && e.Node.Tag is WordsComp)
             {
                 WordsComp wordsComp = (WordsComp)e.Node.Tag;
-                
-                DialogResult result = MessageBox.Show("Перезагрузить ПК: " + wordsComp.NameNode(),"Создание новой задачи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if(result == DialogResult.Yes)
+
+                DialogResult result = MessageBox.Show("Перезагрузить ПК: " + wordsComp.NameNode(), "Создание новой задачи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
                 {
                     Reseter.AddTask(wordsComp.GetComp());
                     tabControl1.SelectedIndex = 0;
@@ -336,7 +340,7 @@ namespace Reseter2
 
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            
+
             TreeView tree = (TreeView)sender;
 
             Rectangle BoundsNode = new(e.Node.Bounds.X - 43, e.Node.Bounds.Y, e.Node.Bounds.Width + 43, e.Node.Bounds.Height);
@@ -351,10 +355,10 @@ namespace Reseter2
                 {
                     tree.SelectedNode = null;
                 }
-              
+
             }
             //tree.BeginUpdate();
-            Rectangle BoundsIcon = new(e.Node.Bounds.X -43, e.Node.Bounds.Y + 2, 17, 18);
+            Rectangle BoundsIcon = new(e.Node.Bounds.X - 43, e.Node.Bounds.Y + 2, 17, 18);
             if (e.Button == MouseButtons.Left && BoundsIcon.Contains(e.Location))
             {
                 e.Node.Checked = !e.Node.Checked;
@@ -365,19 +369,19 @@ namespace Reseter2
                 else
                 {
                     e.Node.StateImageIndex = 0;
-                }   
+                }
                 treeView1_treeViewChangeCheckBox(e.Node);
                 treeView1_ChangePrentRootCheckBox(e.Node);
                 CheckControl1_interdmet();
             }
 
-         
-          
-          //  for (int i = 0; i < tree.Nodes.Count; i++)
-          //  {
-          //      treeView1_treeViewChangeRootCheckBox(tree.Nodes[i]);
-          //  }
-          
+
+
+            //  for (int i = 0; i < tree.Nodes.Count; i++)
+            //  {
+            //      treeView1_treeViewChangeRootCheckBox(tree.Nodes[i]);
+            //  }
+
 
         }
 
@@ -389,7 +393,7 @@ namespace Reseter2
             //TreeView tree = (TreeView)sender;
 
             //treeView1_treeViewChangeCheckBox(tree.Nodes[0]);
-            
+
         }
 
         private List<IComp> treeViewCheckOn(TreeNode node)
@@ -415,14 +419,15 @@ namespace Reseter2
             {
                 comps.AddRange(treeViewCheckOn(treeView1.Nodes[i]));
             }
-            if(comps.Count == 0)
+            if (comps.Count == 0)
             {
                 MessageBox.Show("Не выбранно ни одного ПК");
                 return;
             }
             DialogResult result = MessageBox.Show("Будет перезагруженно " + comps.Count() + " компьютеров.\nПродолжить?",
                                                    "Запуск многопоточной перезагрузки.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes) { 
+            if (result == DialogResult.Yes)
+            {
                 Reseter.AddTask(comps);
                 checkControl1.set_state(false);
                 CheckControl1_updateCheck(false);
@@ -455,24 +460,24 @@ namespace Reseter2
         private void CheckControl1_interdmet()
         {
             int chek_inter = 0;
-            
+
             int summ = 0;
             for (int i = 0; i < treeView1.Nodes.Count; i++)
             {
                 int check = treeView1_treeViewChangeRootCheckBox(treeView1.Nodes[i]);
-                 if (2 == check) chek_inter++;
-                 if (1 == check) summ++;
+                if (2 == check) chek_inter++;
+                if (1 == check) summ++;
             }
-           
-            if(treeView1.Nodes.Count == summ )
+
+            if (treeView1.Nodes.Count == summ)
             {
                 checkControl1.set_state(true);
             }
-            else if(0 == summ)
+            else if (0 == summ)
             {
                 checkControl1.set_state(false);
             }
-             if ((summ < treeView1.Nodes.Count && summ > 0) || chek_inter > 0)
+            if ((summ < treeView1.Nodes.Count && summ > 0) || chek_inter > 0)
             {
                 checkControl1.set_intedmet();
             }
@@ -503,15 +508,15 @@ namespace Reseter2
                     unSave = true;
                     UpdateSetting();
                 }
-                
+
             }
             else
             {
-                if(unSave && (settingRebootControl1.edited() ||
+                if (unSave && (settingRebootControl1.edited() ||
                     settingSCCMControl1.edited() ||
                     settingWordsControl1.edited()))
-                    {
-                    DialogResult result = MessageBox.Show("Изменения не сохраненны. Продолжить?", "Изменения не сохраненны.", MessageBoxButtons.OKCancel, MessageBoxIcon.Question); 
+                {
+                    DialogResult result = MessageBox.Show("Изменения не сохраненны. Продолжить?", "Изменения не сохраненны.", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                     switch (result)
                     {
                         case DialogResult.Cancel:
@@ -521,8 +526,8 @@ namespace Reseter2
                             unSave = false;
                             break;
                     }
-                    }
-                
+                }
+
             }
 
         }
@@ -534,7 +539,7 @@ namespace Reseter2
 
         private void WordsReboot_Click(object sender, EventArgs e)
         {
-            if(treeView1.SelectedNode.Tag is WordsComp)
+            if (treeView1.SelectedNode.Tag is WordsComp)
             {
                 WordsComp wordsComp = (WordsComp)treeView1.SelectedNode.Tag;
 
@@ -545,47 +550,84 @@ namespace Reseter2
                     tabControl1.SelectedIndex = 0;
                 }
             }
-           
+
         }
 
         private void cb_comp_TextUpdate(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.Default;
-            if(sender is ComboBox)
+            if (sender is ComboBox)
             {
                 ComboBox comboBox = (ComboBox)sender;
                 SSeaher.seaherMetod.Change(cb_comp_ResultUpdate, comboBox.Text);
             }
-            
+
         }
         public void cb_comp_ResultUpdate(List<string> Items)
         {
-           //if (Items.Count > 0)
+            // if(cb_comp.Items.Count != Items.Count) cb_comp.DroppedDown = false;
+            //  cb_comp.Items.Clear();
+            //  cb_comp.Items.AddRange(Items.ToArray());
+            //// cb_comp.AutoCompleteCustomSource.Clear();
+            //// cb_comp.AutoCompleteCustomSource.AddRange(Items.ToArray());
 
-           //if(cb_comp.Items.Count != Items.Count) cb_comp.DroppedDown = false;
-           //  cb_comp.Items.Clear();
-           //  cb_comp.Items.AddRange(Items.ToArray());
-             //cb_comp.AutoCompleteCustomSource.Clear();
-           //// cb_comp.AutoCompleteCustomSource.AddRange(Items.ToArray());
+            // // cb_comp.AutoCompleteMode = AutoCompleteMode.None;
+            // cb_comp.SelectionStart = cb_comp.Text.Length;
+            //  cb_comp.DroppedDown = true;
 
-           // // cb_comp.AutoCompleteMode = AutoCompleteMode.None;
-           // cb_comp.SelectionStart = cb_comp.Text.Length;
-           //  cb_comp.DroppedDown = true;
-           // cb_comp.SelectedIndex = -1;
-             
-        }
+            // cb_comp.SelectedIndex = -1;
 
-        private void tb_comp_Leave(object sender, EventArgs e)
-        {
-            if(listBox.Focused || tb_comp.Focused) listBox.Visible = false;
         }
 
         private void tb_comp_Enter(object sender, EventArgs e)
         {
-            listBox.Visible = true;
+            ListComp.Visible = true;
         }
 
-      
+        private void tb_comp_MouseClick(object sender, MouseEventArgs e)
+        {
+            ListComp.Visible = true;
+            System.Console.WriteLine("click");
+        }
+
+        private void tb_comp_Leave(object sender, EventArgs e)
+        {
+           // System.Console.WriteLine("leav" + ListComp.Focused.ToString());
+            // if (!listFocus) ListComp.Visible = false;
+            //listFocus = false;
+
+          //  if (!ListComp.Focused) ListComp.Visible = false;
+        }
+
+        private void tabControl1_MouseClick(object sender, MouseEventArgs e)
+        {
+            //ListComp.foc
+           // ListComp.Visible = false;
+        }
+
+        private void control_MouseCaptureChanged(object sender, EventArgs e)
+        {
+            Point clickPoint = ListComp.PointToClient(Cursor.Position);
+            if (!ListComp.Bounds.Contains(clickPoint))
+            {
+              //  System.Console.WriteLine("out");
+            }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if ((m.Msg == 0x210 && m.WParam.ToInt32() == 513) || m.Msg == 0x201)
+            {
+                Point clickPoint = this.PointToClient(Cursor.Position);
+                if (!ListComp.Bounds.Contains(clickPoint))
+                {
+                    ListComp.Visible = false;
+                }
+                System.Console.WriteLine("clickers");
+                
+            }
+            base.WndProc(ref m);
+        }
     }
 }
 
