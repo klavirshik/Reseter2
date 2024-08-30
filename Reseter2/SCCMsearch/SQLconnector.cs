@@ -12,7 +12,7 @@ namespace Reseter2.SCCMsearch
     {
         private MySql.Data.MySqlClient.MySqlConnection Connection;
         private IAuthType AuthType;
-        SQLconnector()
+        public SQLconnector()
         {
             if (SGlobalSetting.settingSCCM.windowsAuth)
             {

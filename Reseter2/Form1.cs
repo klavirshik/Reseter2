@@ -30,7 +30,7 @@ namespace Reseter2
         public delegate void updateSetting();
         public event updateSetting UpdateSetting;
         private ListBox ListComp;
-        private bool listFocus;
+        private IComp CompSelected = null;
         public Form1()
         {
 
@@ -59,14 +59,7 @@ namespace Reseter2
             WordsList.MainCategory = SGlobalSetting.LoadWords();
             ListComp = new ListBox();
             this.Controls.Add(ListComp);
-            ListComp.LostFocus += tb_comp_Leave;
             ListComp.GotFocus += tb_comp_Enter;
-
-
-
-            // ListComp.Enter += tb_comp_Enter;
-            // ListComp.MouseClick += tb_comp_MouseClick;
-
 
 
             InitializeComponent();
@@ -84,7 +77,10 @@ namespace Reseter2
             ListComp.Location = new Point(tb_comp.Location.X, tb_comp.Location.Y + tb_comp.Height);
             ListComp.Width = tb_comp.Width;
             ListComp.Visible = false;
-
+            ListComp.Height = ListComp.ItemHeight * 2;
+            ListComp.Items.Add("Введите запрос");
+            ListComp.SelectedIndexChanged += ListComp_ChangeIndex;
+            ListComp.Enabled = false;
             //tb_comp.Controls.Add(ListComp);
 
 
@@ -115,19 +111,31 @@ namespace Reseter2
 
         private void bt_reset_Click(object sender, EventArgs e)
         {
-            //if(cb_comp.SelectedIndex < 0)
-            //{
-            //    Reseter.AddTask(cb_comp.Text);
-            //}
-            //else
-            //{
-            //    Reseter.AddTask(SSeaher.seaherMetod.Result(cb_comp.SelectedIndex));
-            //}
-            //cb_comp.SelectedIndex = -1;
-            //cb_comp.Text = "";
-
-
-            tabControl1.SelectedIndex = 0;
+            if (CompSelected == null)
+            {
+                DialogResult result = MessageBox.Show("Перезагрузить ПК: " + tb_comp.Text, "Создание новой задачи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    Reseter.AddTask(tb_comp.Text);
+                    tabControl1.SelectedIndex = 0;
+                    ListComp.SelectedIndex = -1;
+                    tb_comp.Text = "";
+                    tabControl1.SelectedIndex = 0;
+                }
+                
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("Перезагрузить ПК: " + CompSelected.GetNetNameStr(), "Создание новой задачи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    Reseter.AddTask(CompSelected);
+                    tabControl1.SelectedIndex = 0;
+                    ListComp.SelectedIndex = -1;
+                    tb_comp.Text = "";
+                    tabControl1.SelectedIndex = 0;
+                }   
+            }       
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -317,10 +325,6 @@ namespace Reseter2
             }
         }
 
-        private void treeView1_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
 
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -382,17 +386,6 @@ namespace Reseter2
             //      treeView1_treeViewChangeRootCheckBox(tree.Nodes[i]);
             //  }
 
-
-        }
-
-
-
-        private void treeView1_MouseCaptureChanged(object sender, EventArgs e)
-        {
-            // System.Diagnostics.Debug.WriteLine(sender.ToString());
-            //TreeView tree = (TreeView)sender;
-
-            //treeView1_treeViewChangeCheckBox(tree.Nodes[0]);
 
         }
 
@@ -483,11 +476,6 @@ namespace Reseter2
             }
         }
 
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             Save();
@@ -556,62 +544,41 @@ namespace Reseter2
         private void cb_comp_TextUpdate(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.Default;
-            if (sender is ComboBox)
+            if (sender is TextBox)
             {
-                ComboBox comboBox = (ComboBox)sender;
-                SSeaher.seaherMetod.Change(cb_comp_ResultUpdate, comboBox.Text);
+                TextBox textBox = (TextBox)sender;
+                SSeaher.seaherMetod.Change(cb_comp_ResultUpdate, textBox.Text);
+                CompSelected = null;
             }
 
         }
-        public void cb_comp_ResultUpdate(List<string> Items)
+        public void cb_comp_ResultUpdate(List<string> Items, bool enable)
         {
-            // if(cb_comp.Items.Count != Items.Count) cb_comp.DroppedDown = false;
-            //  cb_comp.Items.Clear();
-            //  cb_comp.Items.AddRange(Items.ToArray());
-            //// cb_comp.AutoCompleteCustomSource.Clear();
-            //// cb_comp.AutoCompleteCustomSource.AddRange(Items.ToArray());
-
-            // // cb_comp.AutoCompleteMode = AutoCompleteMode.None;
-            // cb_comp.SelectionStart = cb_comp.Text.Length;
-            //  cb_comp.DroppedDown = true;
-
-            // cb_comp.SelectedIndex = -1;
+            if (ListComp.Items.Count != Items.Count) ListComp.Height = ListComp.ItemHeight * (Items.Count+1) ;
+            ListComp.Items.Clear();
+            ListComp.Items.AddRange(Items.ToArray());
+            ListComp.Enabled = enable;
+           // ListComp.Visible = true;
+              
 
         }
 
         private void tb_comp_Enter(object sender, EventArgs e)
         {
-            ListComp.Visible = true;
+           // ListComp.Visible = true;
         }
 
         private void tb_comp_MouseClick(object sender, MouseEventArgs e)
         {
             ListComp.Visible = true;
-            System.Console.WriteLine("click");
         }
 
-        private void tb_comp_Leave(object sender, EventArgs e)
-        {
-           // System.Console.WriteLine("leav" + ListComp.Focused.ToString());
-            // if (!listFocus) ListComp.Visible = false;
-            //listFocus = false;
 
-          //  if (!ListComp.Focused) ListComp.Visible = false;
-        }
-
-        private void tabControl1_MouseClick(object sender, MouseEventArgs e)
+        private void ListComp_ChangeIndex(object sender, EventArgs e)
         {
-            //ListComp.foc
-           // ListComp.Visible = false;
-        }
-
-        private void control_MouseCaptureChanged(object sender, EventArgs e)
-        {
-            Point clickPoint = ListComp.PointToClient(Cursor.Position);
-            if (!ListComp.Bounds.Contains(clickPoint))
-            {
-              //  System.Console.WriteLine("out");
-            }
+            CompSelected = SSeaher.seaherMetod.Result(ListComp.SelectedIndex);
+            tb_comp.Text = ListComp.SelectedItem.ToString();
+            
         }
 
         protected override void WndProc(ref Message m)
@@ -623,7 +590,7 @@ namespace Reseter2
                 {
                     ListComp.Visible = false;
                 }
-                System.Console.WriteLine("clickers");
+               // System.Console.WriteLine("clickers");
                 
             }
             base.WndProc(ref m);

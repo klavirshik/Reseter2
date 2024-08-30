@@ -11,5 +11,8 @@ namespace Reseter2.Seacher
     {
         public void Change(ResultUpdate sender, string seach);
         public IComp Result(int index);
+        public void Activate();
+        public void Deactivate();
+
     }
 }

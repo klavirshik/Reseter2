@@ -14,7 +14,7 @@ namespace Reseter2.Seacher
         {
             if(SGlobalSetting.settingSCCM.on)
             {
-
+                seaherMetod = new SeachSCCM();
             }
             else
             {

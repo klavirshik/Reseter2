@@ -102,6 +102,7 @@
     <Compile Include="SCCMsearch\IAuthType.cs" />
     <Compile Include="SCCMsearch\SQLconnector.cs" />
     <Compile Include="Seacher\ISeaherMetod.cs" />
+    <Compile Include="Seacher\SeachSCCM.cs" />
     <Compile Include="Seacher\SeahcLocal.cs" />
     <Compile Include="Seacher\SSeaher.cs" />
     <Compile Include="Setting\SettingExpand.cs" />
