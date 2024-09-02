@@ -49,22 +49,25 @@ namespace Reseter2.Seacher
         }
         public List<string> ResultSeach(string seach)
         {
-            
-            string sql = "SELECT * FROM " + SGlobalSetting.settingSCCM.dataBase + " WHERE pcname LIKE " + seach;
-            MySqlCommand sqlCom = new MySqlCommand(sql, Connection);
-           // Connection.Open();
-            sqlCom.ExecuteNonQuery();
-            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(sqlCom);
-            DataTable dt = new DataTable();
-            dataAdapter.Fill(dt);
+            if(Connection != null)
+            {
+                string sql = "SELECT * FROM " + SGlobalSetting.settingSCCM.dataBase + " WHERE pcname LIKE " + seach;
+                MySqlCommand sqlCom = new MySqlCommand(sql, Connection);
+                // Connection.Open();
+                sqlCom.ExecuteNonQuery();
+                MySqlDataAdapter dataAdapter = new MySqlDataAdapter(sqlCom);
+                DataTable dt = new DataTable();
+                dataAdapter.Fill(dt);
 
-            var myData = dt.Select();
-            //for (int i = 0; i < myData.Length; i++)
-            //{
-            //    for (int j = 0; j < myData[i].ItemArray.Length; j++)
-            //        richTextBox1.Text += myData[i].ItemArray[j] + " ";
-            //    richTextBox1.Text += "\n";
-            //}
+                var myData = dt.Select();
+                //for (int i = 0; i < myData.Length; i++)
+                //{
+                //    for (int j = 0; j < myData[i].ItemArray.Length; j++)
+                //        richTextBox1.Text += myData[i].ItemArray[j] + " ";
+                //    richTextBox1.Text += "\n";
+                //}
+            }
+
             return null;
         }
         public void Activate()
@@ -76,6 +79,7 @@ namespace Reseter2.Seacher
                 {
                     Connection = new MySql.Data.MySqlClient.MySqlConnection(stringConnect);
                     Connection.Open();
+                    Console.WriteLine("Подключились");
                 }
                 catch
                 {

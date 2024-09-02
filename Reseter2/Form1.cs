@@ -31,6 +31,7 @@ namespace Reseter2
         public event updateSetting UpdateSetting;
         private ListBox ListComp;
         private IComp CompSelected = null;
+        private int PreSelected = -1;
         public Form1()
         {
 
@@ -60,7 +61,9 @@ namespace Reseter2
             ListComp = new ListBox();
             this.Controls.Add(ListComp);
             ListComp.GotFocus += tb_comp_Enter;
-
+            ListComp.DrawMode = DrawMode.OwnerDrawFixed;
+            ListComp.DrawItem += ListComp_DrawItem;
+            //ListComp.SetSelected(1,true);
 
             InitializeComponent();
             this.Save += settingWordsControl1.Save;
@@ -543,6 +546,7 @@ namespace Reseter2
 
         private void cb_comp_TextUpdate(object sender, EventArgs e)
         {
+
             Cursor.Current = Cursors.Default;
             if (sender is TextBox)
             {
@@ -554,12 +558,14 @@ namespace Reseter2
         }
         public void cb_comp_ResultUpdate(List<string> Items, bool enable)
         {
+            PreSelected = -1;
             if (ListComp.Items.Count != Items.Count) ListComp.Height = ListComp.ItemHeight * (Items.Count+1) ;
             ListComp.Items.Clear();
             ListComp.Items.AddRange(Items.ToArray());
             ListComp.Enabled = enable;
-           // ListComp.Visible = true;
-              
+           
+            // ListComp.Visible = true;
+
 
         }
 
@@ -581,6 +587,24 @@ namespace Reseter2
             
         }
 
+
+        private void ListComp_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if(e.Index != -1) {
+                if(e.Index == PreSelected)
+                {
+                    e.Graphics.FillRectangle(Brushes.LightGray, e.Bounds);
+                }
+                   
+                if(e.Index == ListComp.SelectedIndex)
+                {
+                    e.Graphics.FillRectangle(Brushes.LightBlue, e.Bounds);
+                }
+                e.Graphics.DrawString(ListComp.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds.Location);
+
+            }
+        }
+
         protected override void WndProc(ref Message m)
         {
             if ((m.Msg == 0x210 && m.WParam.ToInt32() == 513) || m.Msg == 0x201)
@@ -594,6 +618,36 @@ namespace Reseter2
                 
             }
             base.WndProc(ref m);
+        }
+
+        private void tb_comp_KeyDown(object sender, KeyEventArgs e)
+        {
+           Console.WriteLine(e.KeyValue.ToString());
+           switch (e.KeyValue)
+            {
+                case 40:
+                    if(PreSelected < ListComp.Items.Count-1) ++PreSelected;
+                    e.SuppressKeyPress = true;
+                    ListComp.Refresh();
+                    break;
+                case 38:
+                    if (PreSelected >  0) --PreSelected;
+                    e.SuppressKeyPress = true;
+                    ListComp.Refresh();
+                    break;
+                case 13:
+                    if (PreSelected >= 0)
+                    {
+                        ListComp.SelectedIndex = PreSelected;
+                        e.SuppressKeyPress = true;
+                        ListComp.Refresh();
+                       
+                    }
+                  break;  
+            }
+                
+               
+                
         }
     }
 }

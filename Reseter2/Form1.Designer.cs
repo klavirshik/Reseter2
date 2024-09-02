@@ -490,6 +490,7 @@
             this.tb_comp.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tb_comp_MouseClick);
             this.tb_comp.TextChanged += new System.EventHandler(this.cb_comp_TextUpdate);
             this.tb_comp.Enter += new System.EventHandler(this.tb_comp_Enter);
+            this.tb_comp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_comp_KeyDown);
             // 
             // Form1
             // 
