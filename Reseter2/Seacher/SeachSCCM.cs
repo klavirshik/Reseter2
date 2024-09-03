@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Reseter2.Seacher.SeahcLocal;
@@ -61,6 +62,26 @@ namespace Reseter2.Seacher
             }
            
         }
+
+        private string QueryBilder(string query)
+        {
+            string result = "";
+            Regex regexCyrillic = new(@"\p{IsCyrillic}*", RegexOptions.IgnoreCase);
+            Regex regexNumrable = new(@"\d*", RegexOptions.IgnoreCase);
+            if (regexCyrillic.Matches(query).Count > 0)
+            {
+                result = "SELECT * FROM " + SGlobalSetting.settingSCCM.dataBase + " WHERE pcname LIKE '%" + query + "%'";
+            }
+            else if(regexNumrable.Matches(query).Count > 0)
+            {
+                result = "SELECT * FROM " + SGlobalSetting.settingSCCM.dataBase + " WHERE pcname LIKE '%" + query + "%'";
+            }
+            else
+            {
+                result = "SELECT * FROM " + SGlobalSetting.settingSCCM.dataBase + " WHERE login LIKE '%" + query + "%'";
+            }
+            return null;
+        }
         public List<string> ResultSeach(string seach)
         {
             int y = 0;
@@ -70,7 +91,7 @@ namespace Reseter2.Seacher
             {
                 try
                 {
-                    string sql = "SELECT * FROM " + SGlobalSetting.settingSCCM.dataBase + " WHERE pcname LIKE '%" + seach + "%'";
+                    string sql = QueryBilder(seach);
                     MySqlCommand sqlCom = new MySqlCommand(sql, Connection);
                     // Connection.Open();
                     sqlCom.ExecuteNonQuery();
