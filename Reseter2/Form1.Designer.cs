@@ -483,6 +483,7 @@
             // 
             // tb_comp
             // 
+            this.tb_comp.BackColor = System.Drawing.SystemColors.Window;
             this.tb_comp.Location = new System.Drawing.Point(67, 11);
             this.tb_comp.Name = "tb_comp";
             this.tb_comp.Size = new System.Drawing.Size(210, 20);

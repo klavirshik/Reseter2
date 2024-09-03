@@ -32,27 +32,9 @@ namespace Reseter2
         private ListBox ListComp;
         private IComp CompSelected = null;
         private int PreSelected = -1;
+        private bool StopRefreshSeacher = false;
         public Form1()
         {
-
-            //BinaryFormatter binaryFormatter = new BinaryFormatter();
-            //FileStream file = new FileStream("res.dat", FileMode.OpenOrCreate);
-            //try
-            //{
-
-            //HistoryList.Hitem = (List<HistoryItem>)binaryFormatter.Deserialize(file);
-            //file.Close();
-            //file.Dispose();
-
-            //}
-            //catch
-            //{
-
-            //    file.Close();
-            //    file.Dispose();
-            //    MessageBox.Show("Ошибка чтения конфигурационных файлов.\n Перезапустите программу.", "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    this.Close();
-            //}
 
 
             SGlobalSetting.LoadSetting();
@@ -63,8 +45,10 @@ namespace Reseter2
             ListComp.GotFocus += tb_comp_Enter;
             ListComp.DrawMode = DrawMode.OwnerDrawFixed;
             ListComp.DrawItem += ListComp_DrawItem;
+            ListComp.KeyDown += tb_comp_KeyDown;
+            
             //ListComp.SetSelected(1,true);
-
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             InitializeComponent();
             this.Save += settingWordsControl1.Save;
             this.Save += settingSCCMControl1.Save;
@@ -76,7 +60,7 @@ namespace Reseter2
             this.settingWordsControl1.UpdateTree = UpdateTree;
 
 
-
+            ListComp.SelectionMode = SelectionMode.One;
             ListComp.Location = new Point(tb_comp.Location.X, tb_comp.Location.Y + tb_comp.Height);
             ListComp.Width = tb_comp.Width;
             ListComp.Visible = false;
@@ -84,6 +68,7 @@ namespace Reseter2
             ListComp.Items.Add("Введите запрос");
             ListComp.SelectedIndexChanged += ListComp_ChangeIndex;
             ListComp.Enabled = false;
+            
             //tb_comp.Controls.Add(ListComp);
 
 
@@ -116,13 +101,19 @@ namespace Reseter2
         {
             if (CompSelected == null)
             {
-                DialogResult result = MessageBox.Show("Перезагрузить ПК: " + tb_comp.Text, "Создание новой задачи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("Перезагрузить ПК: " + tb_comp.Text.Trim(), "Создание новой задачи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    Reseter.AddTask(tb_comp.Text);
+                    Reseter.AddTask(tb_comp.Text.Trim());
                     tabControl1.SelectedIndex = 0;
                     ListComp.SelectedIndex = -1;
+                    StopRefreshSeacher = true;
                     tb_comp.Text = "";
+                    ListComp.Items.Clear();    
+                    ListComp.Items.Add("Введите запрос");
+                    ListComp.Height = ListComp.ItemHeight * 2;
+                    StopRefreshSeacher = false;
+                    ListComp.Visible = false;
                     tabControl1.SelectedIndex = 0;
                 }
                 
@@ -135,7 +126,13 @@ namespace Reseter2
                     Reseter.AddTask(CompSelected);
                     tabControl1.SelectedIndex = 0;
                     ListComp.SelectedIndex = -1;
+                    StopRefreshSeacher = true;
                     tb_comp.Text = "";
+                    ListComp.Items.Clear();
+                    ListComp.Items.Add("Введите запрос");
+                    ListComp.Height = ListComp.ItemHeight * 2;
+                    StopRefreshSeacher = false;
+                    ListComp.Visible = false;
                     tabControl1.SelectedIndex = 0;
                 }   
             }       
@@ -547,12 +544,13 @@ namespace Reseter2
         private void cb_comp_TextUpdate(object sender, EventArgs e)
         {
 
-            Cursor.Current = Cursors.Default;
-            if (sender is TextBox)
+            //Cursor.Current = Cursors.Default;
+            if (sender is TextBox && !StopRefreshSeacher)
             {
                 TextBox textBox = (TextBox)sender;
                 SSeaher.seaherMetod.Change(cb_comp_ResultUpdate, textBox.Text);
                 CompSelected = null;
+                ListComp.Visible = true;
             }
 
         }
@@ -582,27 +580,52 @@ namespace Reseter2
 
         private void ListComp_ChangeIndex(object sender, EventArgs e)
         {
-            CompSelected = SSeaher.seaherMetod.Result(ListComp.SelectedIndex);
-            tb_comp.Text = ListComp.SelectedItem.ToString();
-            
+            if(ListComp.SelectedIndex < 0)
+            {
+                CompSelected = null;
+            }
+            else
+            {
+                CompSelected = SSeaher.seaherMetod.Result(ListComp.SelectedIndex);
+                PreSelected = ListComp.SelectedIndex;
+               // Console.WriteLine(ListComp.SelectedItem.ToString());
+                StopRefreshSeacher = true;
+                tb_comp.Text = ListComp.SelectedItem.ToString();
+                StopRefreshSeacher = false;
+                ListComp.Refresh();
+            }
+           
+           
         }
 
 
         private void ListComp_DrawItem(object sender, DrawItemEventArgs e)
         {
-            if(e.Index != -1) {
+      
+            if (e.Index != -1) {
                 if(e.Index == PreSelected)
                 {
                     e.Graphics.FillRectangle(Brushes.LightGray, e.Bounds);
                 }
+                else
+                {
+                    e.Graphics.FillRectangle(Brushes.White, e.Bounds);
+                }
                    
+                //if(MouseButtons == MouseButtons.Left  && e.Bounds.Contains(ListComp.PointToClient(MousePosition)))
                 if(e.Index == ListComp.SelectedIndex)
                 {
-                    e.Graphics.FillRectangle(Brushes.LightBlue, e.Bounds);
+                    e.Graphics.FillRectangle(Brushes.DodgerBlue, e.Bounds);
+                    e.Graphics.DrawString(ListComp.Items[e.Index].ToString(), e.Font, Brushes.White, e.Bounds.Location);
                 }
-                e.Graphics.DrawString(ListComp.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds.Location);
+                else
+                {
+                    e.Graphics.DrawString(ListComp.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds.Location);
+                }
+
 
             }
+           
         }
 
         protected override void WndProc(ref Message m)
@@ -622,26 +645,38 @@ namespace Reseter2
 
         private void tb_comp_KeyDown(object sender, KeyEventArgs e)
         {
-           Console.WriteLine(e.KeyValue.ToString());
+          
            switch (e.KeyValue)
             {
                 case 40:
-                    if(PreSelected < ListComp.Items.Count-1) ++PreSelected;
+                    if(PreSelected < ListComp.Items.Count - 1)
+                    {
+                        ++PreSelected;
+                    } 
                     e.SuppressKeyPress = true;
                     ListComp.Refresh();
                     break;
                 case 38:
-                    if (PreSelected >  0) --PreSelected;
+                    if (PreSelected >  0)
+                    {
+                        --PreSelected;
+                    }
+                   
                     e.SuppressKeyPress = true;
                     ListComp.Refresh();
                     break;
                 case 13:
+                    if(PreSelected == ListComp.SelectedIndex)
+                    {
+                        bt_reset_Click(null, null);
+                        break;
+                    }
                     if (PreSelected >= 0)
                     {
                         ListComp.SelectedIndex = PreSelected;
                         e.SuppressKeyPress = true;
                         ListComp.Refresh();
-                       
+
                     }
                   break;  
             }

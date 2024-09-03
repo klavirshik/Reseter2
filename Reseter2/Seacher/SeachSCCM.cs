@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,8 +18,10 @@ namespace Reseter2.Seacher
     {
         private MySql.Data.MySqlClient.MySqlConnection Connection;
         private IAuthType AuthType;
+        private List<IComp> comps = new List<IComp>();
         private ResultUpdate Update;
         private bool enable;
+        private string error;
         public SeachSCCM()
         {
             if (SGlobalSetting.settingSCCM.windowsAuth)
@@ -35,40 +38,73 @@ namespace Reseter2.Seacher
         {
             Activate();
             Update = sender;
-            if (seach.Length > 2)
+            if (Connection.State == ConnectionState.Open)
             {
+                
+                if (seach.Length > 2)
+                {
 
-               Update(ResultSeach(seach), enable);
+                    Update(ResultSeach(seach), enable);
+                }
+                else
+                {
+                    List<string> result = new List<string>();
+                    result.Add("Введите запрос, к бд подключенно");
+                    Update(result, false);
+                }
             }
             else
             {
                 List<string> result = new List<string>();
-                result.Add("Введите запрос");
+                result.Add(error);
                 Update(result, false);
             }
+           
         }
         public List<string> ResultSeach(string seach)
         {
-            if(Connection != null)
+            int y = 0;
+            comps.Clear();
+            List<string> result = new List<string>();
+            if (Connection.State == ConnectionState.Open)
             {
-                string sql = "SELECT * FROM " + SGlobalSetting.settingSCCM.dataBase + " WHERE pcname LIKE " + seach;
-                MySqlCommand sqlCom = new MySqlCommand(sql, Connection);
-                // Connection.Open();
-                sqlCom.ExecuteNonQuery();
-                MySqlDataAdapter dataAdapter = new MySqlDataAdapter(sqlCom);
-                DataTable dt = new DataTable();
-                dataAdapter.Fill(dt);
+                try
+                {
+                    string sql = "SELECT * FROM " + SGlobalSetting.settingSCCM.dataBase + " WHERE pcname LIKE '%" + seach + "%'";
+                    MySqlCommand sqlCom = new MySqlCommand(sql, Connection);
+                    // Connection.Open();
+                    sqlCom.ExecuteNonQuery();
+                    MySqlDataAdapter dataAdapter = new MySqlDataAdapter(sqlCom);
+                    DataTable dt = new DataTable();
+                    dataAdapter.Fill(dt);
 
-                var myData = dt.Select();
-                //for (int i = 0; i < myData.Length; i++)
-                //{
-                //    for (int j = 0; j < myData[i].ItemArray.Length; j++)
-                //        richTextBox1.Text += myData[i].ItemArray[j] + " ";
-                //    richTextBox1.Text += "\n";
-                //}
+                    DataRow[] myData = dt.Select();
+                    for (int i = 0; i < myData.Length; i++)
+                    {
+                        IComp comp = new CompId(myData[i].ItemArray[1].ToString());
+                        comp.SetName(myData[i].ItemArray[2].ToString());
+                        comps.Add(comp);
+                        result.Add(comp.GetName() + "(" + comp.GetNetNameStr() + ")");
+                        ++y;
+                    }
+                    enable = true;
+                }
+                catch
+                {
+                    y = 1;
+                    enable = false;
+                    result.Clear();
+                    result.Add("Ошибка выполнения запроса");
+                }
+
+            }
+            if (y == 0)
+            {
+                enable = false;
+                result.Add("Ничего не найдено");
             }
 
-            return null;
+                return result;
         }
         public void Activate()
         {
@@ -80,10 +116,12 @@ namespace Reseter2.Seacher
                     Connection = new MySql.Data.MySqlClient.MySqlConnection(stringConnect);
                     Connection.Open();
                     Console.WriteLine("Подключились");
+                    error = "Подключенно";
                 }
                 catch
                 {
                     Console.WriteLine("Повторное бы подключение");
+                    error = "Не удалось подключиться к базе";
                 }
             }
             
@@ -95,9 +133,9 @@ namespace Reseter2.Seacher
             Connection = null;
         }
 
-        public IComp Result(int Index)
+        public IComp Result(int index)
         {
-            return null;
+            return comps[index];
         }
     }
 }
