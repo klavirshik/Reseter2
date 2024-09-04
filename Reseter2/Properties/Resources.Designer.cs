@@ -59,15 +59,5 @@ namespace Reseter2.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        internal static byte[] MySql_Data {
-            get {
-                object obj = ResourceManager.GetObject("MySql_Data", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

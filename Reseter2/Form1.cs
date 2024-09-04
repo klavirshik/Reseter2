@@ -51,7 +51,6 @@ namespace Reseter2
             //ListComp.SetSelected(1,true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             InitializeComponent();
-            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
             this.Save += settingWordsControl1.Save;
             this.Save += settingSCCMControl1.Save;
             this.Save += settingRebootControl1.Save;
@@ -89,15 +88,6 @@ namespace Reseter2
             //treeView1.SelectedNode.
             //treeView1.MouseCaptureChanged.;
             tabControl1.SelectedIndex = 1;
-        }
-
-        Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            if (args.Name.Contains("MySql.Data.dll"))
-            {
-                return Assembly.Load(Reseter2.Properties.Resources.MySql_Data);
-            }
-            return null;
         }
 
         public void UpdateTree()

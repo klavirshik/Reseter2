@@ -1,6 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
-using MySqlX.XDevAPI.Relational;
+﻿using System.Data.SqlClient;
 using Reseter2.SCCMsearch;
 using Reseter2.Setting;
 using System;
@@ -11,22 +9,23 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Xml.Linq;
 using static Reseter2.Seacher.SeahcLocal;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Threading;
 
 namespace Reseter2.Seacher
 {
     internal class SeachSCCM : ISeaherMetod
     {
-        private MySql.Data.MySqlClient.MySqlConnection Connection;
+        private SqlConnection Connection;
         private IAuthType AuthType;
         private List<IComp> comps = new List<IComp>();
         private ResultUpdate Update;
         private bool enable;
         private string error;
         private Mode mode;
+        private Timer TimerDisconnect;
 
         private enum Mode{
             PCname,
@@ -123,10 +122,10 @@ namespace Reseter2.Seacher
                 try
                 {
                     string sql = QueryBilder(seach);
-                    MySqlCommand sqlCom = new MySqlCommand(sql, Connection);
+                    SqlCommand sqlCom = new SqlCommand(sql, Connection);
                     // Connection.Open();
                     sqlCom.ExecuteNonQuery();
-                    MySqlDataAdapter dataAdapter = new MySqlDataAdapter(sqlCom);
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(sqlCom);
                     DataTable dt = new DataTable();
                     dataAdapter.Fill(dt);
 
@@ -156,8 +155,8 @@ namespace Reseter2.Seacher
                 enable = false;
                 result.Add("Ничего не найдено");
             }
-
-                return result;
+            TimerDisconnect.Change(30000, 30000);
+            return result;
         }
         public void Activate()
         {
@@ -166,10 +165,12 @@ namespace Reseter2.Seacher
                 string stringConnect = "server=" + SGlobalSetting.settingSCCM.server + ";database=" + SGlobalSetting.settingSCCM.dataBase + ";" + AuthType.AuthString() + ";charset=utf8";
                 try
                 {
-                    Connection = new MySql.Data.MySqlClient.MySqlConnection(stringConnect);
+                    Connection = new SqlConnection(stringConnect);
                     Connection.Open();
                     Console.WriteLine("Подключились");
                     error = "Подключенно";
+                    TimerCallback TimerDelegate = new TimerCallback(Deactivate);
+                    TimerDisconnect = new Timer(TimerDelegate, null, 30000,30000);
                 }
                 catch
                 {
@@ -180,10 +181,14 @@ namespace Reseter2.Seacher
             
         }
 
-        public void Deactivate()
+        public void Deactivate(object obj)
         {
             Connection.Close();
             Connection = null;
+            TimerDisconnect.Dispose();
+            List<string> result = new List<string>();
+            result.Add("Введите запрос");
+            Update(result, false, 14);
         }
 
         public IComp Result(int index)
@@ -210,7 +215,7 @@ namespace Reseter2.Seacher
                 string stringConnect = "server=" + server + ";database=" + basa + ";" + AuthType.AuthString();
                 try
                 {
-                    Connection = new MySql.Data.MySqlClient.MySqlConnection(stringConnect);
+                    Connection = new SqlConnection(stringConnect);
                     Connection.Open();
                     error = "Подключенно";
                 }
@@ -224,9 +229,9 @@ namespace Reseter2.Seacher
                 try
                 {
                     string sql = "SELECT * FROM dbo._RES_COLL_SMS00001 LIMIT 1";
-                    MySqlCommand sqlCom = new MySqlCommand(sql, Connection);
+                    SqlCommand sqlCom = new SqlCommand(sql, Connection);
                     sqlCom.ExecuteNonQuery();
-                    MySqlDataAdapter dataAdapter = new MySqlDataAdapter(sqlCom);
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(sqlCom);
                     DataTable dt = new DataTable();
                     dataAdapter.Fill(dt);
 

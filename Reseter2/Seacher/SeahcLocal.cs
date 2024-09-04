@@ -82,7 +82,5 @@ namespace Reseter2.Seacher
             }
             return buf;
         }
-        public void Activate() { }
-        public void Deactivate() { }
     }
 }
