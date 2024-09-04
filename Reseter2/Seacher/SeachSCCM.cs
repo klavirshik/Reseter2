@@ -97,19 +97,17 @@ namespace Reseter2.Seacher
             MatchCollection jjj = regexNumrable.Matches(query);
             if (regexCyrillic.Matches(query).Count > 0)
             {
-                result = "SELECT test.pcname, test.login, username_tb.username, test.action FROM username_tb JOIN test ON username_tb.login=test.login WHERE LOWER(username_tb.username) LIKE LOWER('%" + query + "%') LIMIT 15";
+                result = "SELECT dbo._RES_COLL_SMS00001.Name, dbo._RES_COLL_SMS00001.UserName, dbo.v_R_User.Full_User_Name0, dbo._RES_COLL_SMS00001.LastActiveTime FROM dbo.v_R_User JOIN dbo._RES_COLL_SMS00001 ON dbo.v_R_User.User_Name0=dbo._RES_COLL_SMS00001.UserName WHERE LOWER(dbo.v_R_User.Full_User_Name0) LIKE LOWER('%" + query + "%') LIMIT 15";
                 mode = Mode.Username;
             }
             else if(regexNumrable.Matches(query).Count > 0)
-            {
-
-                
-                result = "SELECT test.pcname, test.login, username_tb.username, test.action FROM test LEFT JOIN username_tb ON test.login = username_tb.login WHERE LOWER(test.pcname) LIKE LOWER('%" + query + "%') LIMIT 15";
+            {   
+                result = "SELECT dbo._RES_COLL_SMS00001.Name, dbo._RES_COLL_SMS00001.UserName, dbo.v_R_User.Full_User_Name0, dbo._RES_COLL_SMS00001.LastActiveTime FROM dbo._RES_COLL_SMS00001 LEFT JOIN dbo.v_R_User ON dbo._RES_COLL_SMS00001.UserName = dbo.v_R_User.User_Name0 WHERE LOWER(dbo._RES_COLL_SMS00001.Name) LIKE LOWER('%" + query + "%') LIMIT 15";
                 mode = Mode.PCname;
             }
             else
             {
-                result = "SELECT test.pcname, test.login, username_tb.username, test.action FROM test LEFT JOIN username_tb ON test.login = username_tb.login WHERE LOWER(test.pcname) LIKE LOWER('%" + query + "%') OR LOWER(test.login) LIKE LOWER('%" + query + "%') LIMIT 15" +
+                result = "SELECT dbo._RES_COLL_SMS00001.Name, dbo._RES_COLL_SMS00001.UserName, dbo.v_R_User.Full_User_Name0, dbo._RES_COLL_SMS00001.LastActiveTime FROM dbo._RES_COLL_SMS00001 LEFT JOIN dbo.v_R_User ON dbo._RES_COLL_SMS00001.UserName = dbo.v_R_User.User_Name0 WHERE LOWER(dbo._RES_COLL_SMS00001.Name) LIKE LOWER('%" + query + "%') OR LOWER(dbo._RES_COLL_SMS00001.UserName) LIKE LOWER('%" + query + "%') LIMIT 15" +
                     ""; ;
                 mode = Mode.Login;
             }
@@ -209,7 +207,7 @@ namespace Reseter2.Seacher
         {
             if (Connection == null)
             {
-                string stringConnect = "server=" + server + ";database=" + basa + ";" + AuthType.AuthString() + ";charset=utf8";
+                string stringConnect = "server=" + server + ";database=" + basa + ";" + AuthType.AuthString();
                 try
                 {
                     Connection = new MySql.Data.MySqlClient.MySqlConnection(stringConnect);
@@ -221,11 +219,11 @@ namespace Reseter2.Seacher
                     error = "Не удалось подключиться к серверу";
                 }
             }
-            if (Connection.State == ConnectionState.Open)
+            if (Connection.State == ConnectionState.Open && Connection != null)
             {
                 try
                 {
-                    string sql = "SELECT * FROM test LIMIT 1";
+                    string sql = "SELECT * FROM dbo._RES_COLL_SMS00001 LIMIT 1";
                     MySqlCommand sqlCom = new MySqlCommand(sql, Connection);
                     sqlCom.ExecuteNonQuery();
                     MySqlDataAdapter dataAdapter = new MySqlDataAdapter(sqlCom);

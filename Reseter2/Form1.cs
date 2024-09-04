@@ -93,7 +93,7 @@ namespace Reseter2
 
         Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            if (args.Name.Contains("MySql.Data"))
+            if (args.Name.Contains("MySql.Data.dll"))
             {
                 return Assembly.Load(Reseter2.Properties.Resources.MySql_Data);
             }

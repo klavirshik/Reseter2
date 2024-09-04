@@ -27,12 +27,13 @@ namespace Reseter2.SCCMsearch
         {
             get
             {
-                return "";
+                return uid;
             }
         }
         public string AuthString()
         {
-            return "uid=" + Password + ";";
+            Console.WriteLine(Password);
+            return "Integrated Security=true;";
         }
     }
 }
