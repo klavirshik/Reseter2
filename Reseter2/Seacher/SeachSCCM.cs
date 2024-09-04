@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using MySqlX.XDevAPI.Relational;
 using Reseter2.SCCMsearch;
 using Reseter2.Setting;
@@ -11,7 +12,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static Reseter2.Seacher.SeahcLocal;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Reseter2.Seacher
 {
@@ -23,6 +26,14 @@ namespace Reseter2.Seacher
         private ResultUpdate Update;
         private bool enable;
         private string error;
+        private Mode mode;
+
+        private enum Mode{
+            PCname,
+            Login,
+            Username
+        }
+
         public SeachSCCM()
         {
             if (SGlobalSetting.settingSCCM.windowsAuth)
@@ -35,52 +46,74 @@ namespace Reseter2.Seacher
             }
            
         }
+
+        public SeachSCCM(bool AuthMetod, string User = "", string Pass = "")
+        {
+            if (AuthMetod)
+            {
+                AuthType = new AuthWin();
+            }
+            else
+            {
+                AuthType = new AuthLogin(User, Pass);
+            }
+
+        }
         public void Change(ResultUpdate sender, string seach)
         {
             Activate();
             Update = sender;
             if (Connection.State == ConnectionState.Open)
             {
-                
+                List<string> result;
                 if (seach.Length > 2)
                 {
-
-                    Update(ResultSeach(seach), enable);
+                    result = ResultSeach(seach);
+                    int itemHeight = 14;
+                    if(enable) itemHeight = 40;
+                    Update(result, enable, itemHeight);
                 }
                 else
                 {
-                    List<string> result = new List<string>();
+                    result = new List<string>();
                     result.Add("Введите запрос, к бд подключенно");
-                    Update(result, false);
+                    Update(result, false, 14);
                 }
             }
             else
             {
                 List<string> result = new List<string>();
                 result.Add(error);
-                Update(result, false);
+                Update(result, false,14);
             }
            
         }
 
         private string QueryBilder(string query)
         {
-            string result = "";
-            Regex regexCyrillic = new(@"\p{IsCyrillic}*", RegexOptions.IgnoreCase);
-            Regex regexNumrable = new(@"\d*", RegexOptions.IgnoreCase);
+            string result;
+            Regex regexCyrillic = new(@"\p{IsCyrillic}+", RegexOptions.IgnoreCase);
+            Regex regexNumrable = new(@"\d+", RegexOptions.IgnoreCase);
+            MatchCollection jjj = regexNumrable.Matches(query);
             if (regexCyrillic.Matches(query).Count > 0)
             {
-                result = "SELECT * FROM " + SGlobalSetting.settingSCCM.dataBase + " WHERE pcname LIKE '%" + query + "%'";
+                result = "SELECT test.pcname, test.login, username_tb.username, test.action FROM username_tb JOIN test ON username_tb.login=test.login WHERE LOWER(username_tb.username) LIKE LOWER('%" + query + "%') LIMIT 15";
+                mode = Mode.Username;
             }
             else if(regexNumrable.Matches(query).Count > 0)
             {
-                result = "SELECT * FROM " + SGlobalSetting.settingSCCM.dataBase + " WHERE pcname LIKE '%" + query + "%'";
+
+                
+                result = "SELECT test.pcname, test.login, username_tb.username, test.action FROM test LEFT JOIN username_tb ON test.login = username_tb.login WHERE LOWER(test.pcname) LIKE LOWER('%" + query + "%') LIMIT 15";
+                mode = Mode.PCname;
             }
             else
             {
-                result = "SELECT * FROM " + SGlobalSetting.settingSCCM.dataBase + " WHERE login LIKE '%" + query + "%'";
+                result = "SELECT test.pcname, test.login, username_tb.username, test.action FROM test LEFT JOIN username_tb ON test.login = username_tb.login WHERE LOWER(test.pcname) LIKE LOWER('%" + query + "%') OR LOWER(test.login) LIKE LOWER('%" + query + "%') LIMIT 15" +
+                    ""; ;
+                mode = Mode.Login;
             }
-            return null;
+            return result;
         }
         public List<string> ResultSeach(string seach)
         {
@@ -102,10 +135,11 @@ namespace Reseter2.Seacher
                     DataRow[] myData = dt.Select();
                     for (int i = 0; i < myData.Length; i++)
                     {
-                        IComp comp = new CompId(myData[i].ItemArray[1].ToString());
-                        comp.SetName(myData[i].ItemArray[2].ToString());
+                        IComp comp = new CompId(myData[i].ItemArray[0].ToString());
+                        comp.SetName(myData[i].ItemArray[1].ToString());
+                        comp.SetDescription(myData[i].ItemArray[2].ToString());
                         comps.Add(comp);
-                        result.Add(comp.GetName() + "(" + comp.GetNetNameStr() + ")");
+                        result.Add("ПК:"+ comp.GetNetNameStr() + "   Логин:" + comp.GetName() + "\r\n" + comp.GetDescription() + "\r\nLastLogin:" + myData[i].ItemArray[3].ToString());
                         ++y;
                     }
                     enable = true;
@@ -131,7 +165,7 @@ namespace Reseter2.Seacher
         {
             if (Connection == null)
             {
-                string stringConnect = "server=" + SGlobalSetting.settingSCCM.server + ";database=" + SGlobalSetting.settingSCCM.dataBase + ";" + AuthType.AuthString();
+                string stringConnect = "server=" + SGlobalSetting.settingSCCM.server + ";database=" + SGlobalSetting.settingSCCM.dataBase + ";" + AuthType.AuthString() + ";charset=utf8";
                 try
                 {
                     Connection = new MySql.Data.MySqlClient.MySqlConnection(stringConnect);
@@ -158,5 +192,61 @@ namespace Reseter2.Seacher
         {
             return comps[index];
         }
+        public string ResultString(int index)
+        {
+            switch (mode)
+            {
+                case Mode.Login:
+                    return comps[index].GetName();
+                case Mode.Username:
+                    return comps[index].GetDescription();
+                case Mode.PCname:
+                    return comps[index].GetNetNameStr();
+            }
+            return "";
+        }
+        public string CheckConnect(string server, string basa)
+        {
+            if (Connection == null)
+            {
+                string stringConnect = "server=" + server + ";database=" + basa + ";" + AuthType.AuthString() + ";charset=utf8";
+                try
+                {
+                    Connection = new MySql.Data.MySqlClient.MySqlConnection(stringConnect);
+                    Connection.Open();
+                    error = "Подключенно";
+                }
+                catch
+                {
+                    error = "Не удалось подключиться к серверу";
+                }
+            }
+            if (Connection.State == ConnectionState.Open)
+            {
+                try
+                {
+                    string sql = "SELECT * FROM test LIMIT 1";
+                    MySqlCommand sqlCom = new MySqlCommand(sql, Connection);
+                    sqlCom.ExecuteNonQuery();
+                    MySqlDataAdapter dataAdapter = new MySqlDataAdapter(sqlCom);
+                    DataTable dt = new DataTable();
+                    dataAdapter.Fill(dt);
+
+                    DataRow[] myData = dt.Select();
+                    if(myData.Length > 0)
+                    {
+                        error = "Соединие успешно установленно";
+                    }
+                    
+                }
+                catch
+                {
+                  error = "Ошибка выполнения запроса \nКакая то не правильная база";
+                }
+
+            }
+            return error;
+        }
+
     }
 }

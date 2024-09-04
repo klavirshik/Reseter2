@@ -56,7 +56,7 @@
   <ItemGroup>
     <Reference Include="MySql.Data, Version=9.0.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\MySql.Data.dll</HintPath>
+      <HintPath>Properties\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -100,7 +100,6 @@
     <Compile Include="SCCMsearch\AuthLogin.cs" />
     <Compile Include="SCCMsearch\AuthWin.cs" />
     <Compile Include="SCCMsearch\IAuthType.cs" />
-    <Compile Include="SCCMsearch\SQLconnector.cs" />
     <Compile Include="Seacher\ISeaherMetod.cs" />
     <Compile Include="Seacher\SeachSCCM.cs" />
     <Compile Include="Seacher\SeahcLocal.cs" />
@@ -195,6 +194,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Setting\SettingRebootControl.resx">
       <DependentUpon>SettingRebootControl.cs</DependentUpon>
@@ -237,6 +237,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="bin\Debug\MySql.Data.dll" />
+    <None Include="Properties\MySql.Data.dll" />
     <Content Include="reseter.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reseter2.Seacher;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -77,6 +78,12 @@ namespace Reseter2.Setting
             SGlobalSetting.settingSCCM.on = cb_on.Checked;
             SGlobalSetting.settingSCCM.windowsAuth = cb_windowsAuth.Checked;
 
+        }
+
+        private void bt_checkConnect_Click(object sender, EventArgs e)
+        {
+            SeachSCCM SeacherCheck = new(cb_windowsAuth.Checked, ib_username.Text, ib_password.Text);
+            MessageBox.Show(SeacherCheck.CheckConnect(ib_server.Text,ib_dataBase.Text));
         }
     }
 }

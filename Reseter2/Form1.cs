@@ -9,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -36,7 +37,7 @@ namespace Reseter2
         public Form1()
         {
 
-
+            
             SGlobalSetting.LoadSetting();
 
             WordsList.MainCategory = SGlobalSetting.LoadWords();
@@ -50,6 +51,7 @@ namespace Reseter2
             //ListComp.SetSelected(1,true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             InitializeComponent();
+            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
             this.Save += settingWordsControl1.Save;
             this.Save += settingSCCMControl1.Save;
             this.Save += settingRebootControl1.Save;
@@ -64,6 +66,7 @@ namespace Reseter2
             ListComp.Location = new Point(tb_comp.Location.X, tb_comp.Location.Y + tb_comp.Height);
             ListComp.Width = tb_comp.Width;
             ListComp.Visible = false;
+            ListComp.ItemHeight = 14;
             ListComp.Height = ListComp.ItemHeight * 2;
             ListComp.Items.Add("Введите запрос");
             ListComp.SelectedIndexChanged += ListComp_ChangeIndex;
@@ -88,7 +91,14 @@ namespace Reseter2
             tabControl1.SelectedIndex = 1;
         }
 
-
+        Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            if (args.Name.Contains("MySql.Data"))
+            {
+                return Assembly.Load(Reseter2.Properties.Resources.MySql_Data);
+            }
+            return null;
+        }
 
         public void UpdateTree()
         {
@@ -101,22 +111,30 @@ namespace Reseter2
         {
             if (CompSelected == null)
             {
-                DialogResult result = MessageBox.Show("Перезагрузить ПК: " + tb_comp.Text.Trim(), "Создание новой задачи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
+                if (tb_comp.Text.Length > 0)
                 {
-                    Reseter.AddTask(tb_comp.Text.Trim());
-                    tabControl1.SelectedIndex = 0;
-                    ListComp.SelectedIndex = -1;
-                    StopRefreshSeacher = true;
-                    tb_comp.Text = "";
-                    ListComp.Items.Clear();    
-                    ListComp.Items.Add("Введите запрос");
-                    ListComp.Height = ListComp.ItemHeight * 2;
-                    StopRefreshSeacher = false;
-                    ListComp.Visible = false;
-                    tabControl1.SelectedIndex = 0;
+                    DialogResult result = MessageBox.Show("Перезагрузить ПК: " + tb_comp.Text.Trim(), "Создание новой задачи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        Reseter.AddTask(tb_comp.Text.Trim());
+                        tabControl1.SelectedIndex = 0;
+                        ListComp.SelectedIndex = -1;
+                        StopRefreshSeacher = true;
+                        tb_comp.Text = "";
+                        ListComp.Items.Clear();
+                        ListComp.Items.Add("Введите запрос");
+                        ListComp.Enabled = false;
+                        ListComp.ItemHeight = 14;
+                        ListComp.Height = ListComp.ItemHeight * 2;
+                        StopRefreshSeacher = false;
+                        ListComp.Visible = false;
+                        tabControl1.SelectedIndex = 0;
+                    }
                 }
-                
+                else
+                {
+                    MessageBox.Show("Введите имя ПК","Ошибка перезагрузки",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                }
             }
             else
             {
@@ -130,6 +148,8 @@ namespace Reseter2
                     tb_comp.Text = "";
                     ListComp.Items.Clear();
                     ListComp.Items.Add("Введите запрос");
+                    ListComp.ItemHeight = 14;
+                    ListComp.Enabled = false;
                     ListComp.Height = ListComp.ItemHeight * 2;
                     StopRefreshSeacher = false;
                     ListComp.Visible = false;
@@ -554,10 +574,11 @@ namespace Reseter2
             }
 
         }
-        public void cb_comp_ResultUpdate(List<string> Items, bool enable)
+        public void cb_comp_ResultUpdate(List<string> Items, bool enable, int itemHeight)
         {
             PreSelected = -1;
-            if (ListComp.Items.Count != Items.Count) ListComp.Height = ListComp.ItemHeight * (Items.Count+1) ;
+            ListComp.ItemHeight = itemHeight;
+            ListComp.Height = ListComp.ItemHeight * (Items.Count+1) ;
             ListComp.Items.Clear();
             ListComp.Items.AddRange(Items.ToArray());
             ListComp.Enabled = enable;
@@ -590,7 +611,7 @@ namespace Reseter2
                 PreSelected = ListComp.SelectedIndex;
                // Console.WriteLine(ListComp.SelectedItem.ToString());
                 StopRefreshSeacher = true;
-                tb_comp.Text = ListComp.SelectedItem.ToString();
+                tb_comp.Text = SSeaher.seaherMetod.ResultString(ListComp.SelectedIndex);
                 StopRefreshSeacher = false;
                 ListComp.Refresh();
             }
@@ -603,7 +624,8 @@ namespace Reseter2
         {
       
             if (e.Index != -1) {
-                if(e.Index == PreSelected)
+                Point BoundNew = new(e.Bounds.Location.X, e.Bounds.Y + 1);
+                if (e.Index == PreSelected)
                 {
                     e.Graphics.FillRectangle(Brushes.LightGray, e.Bounds);
                 }
@@ -616,11 +638,11 @@ namespace Reseter2
                 if(e.Index == ListComp.SelectedIndex)
                 {
                     e.Graphics.FillRectangle(Brushes.DodgerBlue, e.Bounds);
-                    e.Graphics.DrawString(ListComp.Items[e.Index].ToString(), e.Font, Brushes.White, e.Bounds.Location);
+                    e.Graphics.DrawString(ListComp.Items[e.Index].ToString(), e.Font, Brushes.White, BoundNew);
                 }
                 else
                 {
-                    e.Graphics.DrawString(ListComp.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds.Location);
+                    e.Graphics.DrawString(ListComp.Items[e.Index].ToString(), e.Font, Brushes.Black, BoundNew);
                 }
 
 

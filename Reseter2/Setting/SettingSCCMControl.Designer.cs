@@ -71,6 +71,7 @@
             this.bt_checkConnect.TabIndex = 11;
             this.bt_checkConnect.Text = "Проверить связь";
             this.bt_checkConnect.UseVisualStyleBackColor = true;
+            this.bt_checkConnect.Click += new System.EventHandler(this.bt_checkConnect_Click);
             // 
             // label10
             // 

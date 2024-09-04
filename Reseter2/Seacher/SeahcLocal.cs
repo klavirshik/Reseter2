@@ -9,7 +9,7 @@ namespace Reseter2.Seacher
 {
     internal class SeahcLocal : ISeaherMetod
     {
-        internal delegate void ResultUpdate(List<string> Item, bool eneble);
+        internal delegate void ResultUpdate(List<string> Item, bool eneble, int itemHeight);
         private ResultUpdate Update;
         private List<IComp> comps = new List<IComp>();
         private bool enable;
@@ -19,13 +19,13 @@ namespace Reseter2.Seacher
             if (seach.Length > 2)
             {
                 
-                Update(ResultSeach(seach), enable);
+                Update(ResultSeach(seach), enable,14);
             } 
             else
             {
                 List<string> result = new List<string>();
                 result.Add("Введите запрос");
-                Update(result,false);
+                Update(result,false, 14);
             }
             
         }
@@ -65,6 +65,22 @@ namespace Reseter2.Seacher
         public IComp Result(int index)
         {
             return comps[index];
+        }
+
+        public string ResultString(int index)
+        {
+            string buf;
+            if (comps[index].GetName() == null)
+            {
+                buf = comps[index].GetNetNameStr();
+            }
+            else
+            {
+                buf = comps[index].GetName();
+                if (comps[index].GetNetNameStr() != null) buf += "(" + comps[index].GetNetNameStr() + ")";
+
+            }
+            return buf;
         }
         public void Activate() { }
         public void Deactivate() { }

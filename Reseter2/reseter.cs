@@ -33,16 +33,12 @@ namespace Reseter2
                 CompId compid = new CompId(ip);
                 AddTask(compid);
             }
-            catch (FormatException e)
+            catch
             {
                 CompId compid = new CompId(name);
                 AddTask(compid);
             }
-            catch
-            {
-                
-            }
-            
+      
         }
 
         public static void AddTask(List<IComp> comps)
