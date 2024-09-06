@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,6 +37,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,10 +48,32 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Release\Reseter2.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>reseter.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +85,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CheckControl.Designer.cs">
+      <DependentUpon>CheckControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="CompName.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -53,13 +98,106 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="History\HistoryItem.cs" />
+    <Compile Include="History\HistoryList.cs" />
+    <Compile Include="History\SHistory.cs" />
     <Compile Include="IComp.cs" />
     <Compile Include="IStatusTask.cs" />
+    <Compile Include="Pinger.cs" />
+    <Compile Include="PingResult.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="reseter.cs" />
     <Compile Include="ReseteTask.cs" />
+    <Compile Include="SCCMsearch\AuthLogin.cs" />
+    <Compile Include="SCCMsearch\AuthWin.cs" />
+    <Compile Include="SCCMsearch\IAuthType.cs" />
+    <Compile Include="Seacher\ISeaherMetod.cs" />
+    <Compile Include="Seacher\SeachSCCM.cs" />
+    <Compile Include="Seacher\SeahcLocal.cs" />
+    <Compile Include="Seacher\SSeaher.cs" />
+    <Compile Include="Setting\SettingExpand.cs" />
+    <Compile Include="Setting\SettingReboot.cs" />
+    <Compile Include="Setting\SettingRebootControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Setting\SettingRebootControl.Designer.cs">
+      <DependentUpon>SettingRebootControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\SettingSCCM.cs" />
+    <Compile Include="Setting\SettingSCCMControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Setting\SettingSCCMControl.Designer.cs">
+      <DependentUpon>SettingSCCMControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\SettingWords.cs" />
+    <Compile Include="Setting\SettingWordsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Setting\SettingWordsControl.Designer.cs">
+      <DependentUpon>SettingWordsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\SSetting.cs" />
+    <Compile Include="Shutdown.cs" />
+    <Compile Include="StatusCanceled.cs" />
+    <Compile Include="StatusReboot.cs" />
+    <Compile Include="StatusRebootError.cs" />
+    <Compile Include="StatusRebooting.cs" />
+    <Compile Include="StatusRebootStop.cs" />
+    <Compile Include="StatusRebootSucces.cs" />
     <Compile Include="StausPreReboot.cs" />
+    <Compile Include="TaskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TaskControl.Designer.cs">
+      <DependentUpon>TaskControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TewTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Setting\SGlobalSetting.cs" />
+    <Compile Include="Words\BilderWords.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Words\BilderWords.Designer.cs">
+      <DependentUpon>BilderWords.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Words\IWordsContol.cs" />
+    <Compile Include="Words\IWordsItem.cs" />
+    <Compile Include="Words\WordsCategory.cs" />
+    <Compile Include="Words\WordsCategoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Words\WordsCategoryControl.Designer.cs">
+      <DependentUpon>WordsCategoryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Words\WordsComp.cs" />
+    <Compile Include="Words\WordsEditCompControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Words\WordsEditCompControl.Designer.cs">
+      <DependentUpon>WordsEditCompControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Words\WordsEditCategoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Words\WordsEditCategoryControl.Designer.cs">
+      <DependentUpon>WordsEditCategoryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Words\WordsItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Words\WordsItemControl.Designer.cs">
+      <DependentUpon>WordsItemControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Words\WordsList.cs" />
+    <EmbeddedResource Include="CheckControl.resx">
+      <DependentUpon>CheckControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -68,7 +206,36 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Setting\SettingRebootControl.resx">
+      <DependentUpon>SettingRebootControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\SettingSCCMControl.resx">
+      <DependentUpon>SettingSCCMControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\SettingWordsControl.resx">
+      <DependentUpon>SettingWordsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaskControl.resx">
+      <DependentUpon>TaskControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Words\BilderWords.resx">
+      <DependentUpon>BilderWords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Words\WordsCategoryControl.resx">
+      <DependentUpon>WordsCategoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Words\WordsEditCompControl.resx">
+      <DependentUpon>WordsEditCompControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Words\WordsEditCategoryControl.resx">
+      <DependentUpon>WordsEditCategoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Words\WordsItemControl.resx">
+      <DependentUpon>WordsItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -82,5 +249,22 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\MySql.Data.dll" />
+    <Content Include="reseter.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
