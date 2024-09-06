@@ -191,8 +191,14 @@ namespace Reseter2
         {
             if (selectItem is HistoryItem historyItem)
             {
-                Reseter.AddTask(historyItem.GetComp());
-                tabControl1.SelectedIndex = 0;
+                DialogResult result = MessageBox.Show("Перезагрузить ПК: " + historyItem.GetComp().GetNetNameStr(), "Создание новой задачи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    Reseter.AddTask(historyItem.GetComp());
+                    tabControl1.SelectedIndex = 0;
+
+                }
+                
             }
         }
 
@@ -591,22 +597,7 @@ namespace Reseter2
 
         private void ListComp_ChangeIndex(object sender, EventArgs e)
         {
-            if(ListComp.SelectedIndex < 0)
-            {
-                CompSelected = null;
-            }
-            else
-            {
-                CompSelected = SSeaher.seaherMetod.Result(ListComp.SelectedIndex);
-                PreSelected = ListComp.SelectedIndex;
-               // Console.WriteLine(ListComp.SelectedItem.ToString());
-                StopRefreshSeacher = true;
-                tb_comp.Text = SSeaher.seaherMetod.ResultString(ListComp.SelectedIndex);
-                StopRefreshSeacher = false;
-                ListComp.Refresh();
-            }
-           
-           
+
         }
 
 
@@ -700,6 +691,16 @@ namespace Reseter2
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void WordsCopy_Click(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode.Tag is WordsComp)
+            {
+                WordsComp wordsComp = (WordsComp)treeView1.SelectedNode.Tag;
+
+                Clipboard.SetText(wordsComp.GetNetName());
+            }
         }
     }
 }

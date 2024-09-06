@@ -148,7 +148,16 @@ namespace Reseter2.Setting
                 {
                     Memory.Close();
                     Memory.Dispose();
-                    return Save(output);
+
+                    bool save = Save(output);
+                    if (save) {
+                        WordsList.MainCategory = output;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -179,7 +188,17 @@ namespace Reseter2.Setting
                                 file.Close();
                                 file.Dispose();
                              
-                                return SaveCheck(settingWords.PathBase, output);
+                                
+                                bool save = SaveCheck(settingWords.PathBase, output); ;
+                                if (save)
+                                {
+                                    WordsList.MainCategory = output;
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
                             }
                      
                             WordsList.MainCategory = output;

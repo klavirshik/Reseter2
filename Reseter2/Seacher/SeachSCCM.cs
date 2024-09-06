@@ -62,7 +62,7 @@ namespace Reseter2.Seacher
         {
             Activate();
             Update = sender;
-            if (Connection.State == ConnectionState.Open)
+            if (Connection != null && Connection.State == ConnectionState.Open)
             {
                 List<string> result;
                 if (seach.Length > 2)
@@ -96,17 +96,24 @@ namespace Reseter2.Seacher
             MatchCollection jjj = regexNumrable.Matches(query);
             if (regexCyrillic.Matches(query).Count > 0)
             {
-                result = "SELECT dbo._RES_COLL_SMS00001.Name, dbo._RES_COLL_SMS00001.UserName, dbo.v_R_User.Full_User_Name0, dbo._RES_COLL_SMS00001.LastActiveTime FROM dbo.v_R_User JOIN dbo._RES_COLL_SMS00001 ON dbo.v_R_User.User_Name0=dbo._RES_COLL_SMS00001.UserName WHERE LOWER(dbo.v_R_User.Full_User_Name0) LIKE LOWER('%" + query + "%') LIMIT 15";
+                result = "SELECT TOP (15) " +
+                    "dbo._RES_COLL_SMS00001.Name," +
+                    " dbo._RES_COLL_SMS00001.UserName," +
+                    " dbo.v_R_User.Full_User_Name0," +
+                    " dbo._RES_COLL_SMS00001.LastActiveTime" +
+                    " FROM dbo.v_R_User " +
+                    "JOIN dbo._RES_COLL_SMS00001 ON dbo.v_R_User.User_Name0=dbo._RES_COLL_SMS00001.UserName" +
+                    " WHERE LOWER(dbo.v_R_User.Full_User_Name0) LIKE LOWER(N'%" + query + "%')";
                 mode = Mode.Username;
             }
             else if(regexNumrable.Matches(query).Count > 0)
             {   
-                result = "SELECT dbo._RES_COLL_SMS00001.Name, dbo._RES_COLL_SMS00001.UserName, dbo.v_R_User.Full_User_Name0, dbo._RES_COLL_SMS00001.LastActiveTime FROM dbo._RES_COLL_SMS00001 LEFT JOIN dbo.v_R_User ON dbo._RES_COLL_SMS00001.UserName = dbo.v_R_User.User_Name0 WHERE LOWER(dbo._RES_COLL_SMS00001.Name) LIKE LOWER('%" + query + "%') LIMIT 15";
+                result = "SELECT TOP (15) dbo._RES_COLL_SMS00001.Name, dbo._RES_COLL_SMS00001.UserName, dbo.v_R_User.Full_User_Name0, dbo._RES_COLL_SMS00001.LastActiveTime FROM dbo._RES_COLL_SMS00001 LEFT JOIN dbo.v_R_User ON dbo._RES_COLL_SMS00001.UserName = dbo.v_R_User.User_Name0 WHERE LOWER(dbo._RES_COLL_SMS00001.Name) LIKE LOWER(N'%" + query + "%')";
                 mode = Mode.PCname;
             }
             else
             {
-                result = "SELECT dbo._RES_COLL_SMS00001.Name, dbo._RES_COLL_SMS00001.UserName, dbo.v_R_User.Full_User_Name0, dbo._RES_COLL_SMS00001.LastActiveTime FROM dbo._RES_COLL_SMS00001 LEFT JOIN dbo.v_R_User ON dbo._RES_COLL_SMS00001.UserName = dbo.v_R_User.User_Name0 WHERE LOWER(dbo._RES_COLL_SMS00001.Name) LIKE LOWER('%" + query + "%') OR LOWER(dbo._RES_COLL_SMS00001.UserName) LIKE LOWER('%" + query + "%') LIMIT 15" +
+                result = "SELECT TOP (15) dbo._RES_COLL_SMS00001.Name, dbo._RES_COLL_SMS00001.UserName, dbo.v_R_User.Full_User_Name0, dbo._RES_COLL_SMS00001.LastActiveTime FROM dbo._RES_COLL_SMS00001 LEFT JOIN dbo.v_R_User ON dbo._RES_COLL_SMS00001.UserName = dbo.v_R_User.User_Name0 WHERE LOWER(dbo._RES_COLL_SMS00001.Name) LIKE LOWER(N'%" + query + "%') OR LOWER(dbo._RES_COLL_SMS00001.UserName) LIKE LOWER(N'%" + query + "%')" +
                     ""; ;
                 mode = Mode.Login;
             }
@@ -117,7 +124,7 @@ namespace Reseter2.Seacher
             int y = 0;
             comps.Clear();
             List<string> result = new List<string>();
-            if (Connection.State == ConnectionState.Open)
+            if (Connection.State == ConnectionState.Open && Connection != null)
             {
                 try
                 {
@@ -155,14 +162,15 @@ namespace Reseter2.Seacher
                 enable = false;
                 result.Add("Ничего не найдено");
             }
-            TimerDisconnect.Change(30000, 30000);
+            TimerDisconnect.Change(90000, 90000);
             return result;
         }
         public void Activate()
         {
             if (Connection == null)
             {
-                string stringConnect = "server=" + SGlobalSetting.settingSCCM.server + ";database=" + SGlobalSetting.settingSCCM.dataBase + ";" + AuthType.AuthString() + ";charset=utf8";
+                
+                string stringConnect = "server=" + SGlobalSetting.settingSCCM.server + ";database=" + SGlobalSetting.settingSCCM.dataBase + ";" + AuthType.AuthString();
                 try
                 {
                     Connection = new SqlConnection(stringConnect);
@@ -170,7 +178,7 @@ namespace Reseter2.Seacher
                     Console.WriteLine("Подключились");
                     error = "Подключенно";
                     TimerCallback TimerDelegate = new TimerCallback(Deactivate);
-                    TimerDisconnect = new Timer(TimerDelegate, null, 30000,30000);
+                    TimerDisconnect = new Timer(TimerDelegate, null, 90000,90000);
                 }
                 catch
                 {
@@ -228,7 +236,7 @@ namespace Reseter2.Seacher
             {
                 try
                 {
-                    string sql = "SELECT * FROM dbo._RES_COLL_SMS00001 LIMIT 1";
+                    string sql = "SELECT TOP (1) * FROM dbo._RES_COLL_SMS00001";
                     SqlCommand sqlCom = new SqlCommand(sql, Connection);
                     sqlCom.ExecuteNonQuery();
                     SqlDataAdapter dataAdapter = new SqlDataAdapter(sqlCom);

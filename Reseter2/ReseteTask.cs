@@ -66,7 +66,8 @@ namespace Reseter2
                     {
                         p = pingResult.Ping.ToString() + "ms";
                     }
-                    taskControl.DataContrl(p, pingResult.TimeoutPing.ToString(), pingResult.Ip, sw.Elapsed);
+                    if (pingResult.Ip != null) Comp.SetIP(pingResult.Ip);
+                    taskControl.DataContrl(p, pingResult.TimeoutPing.ToString(), pingResult.Ip, Comp.GetNetName() , sw.Elapsed);
                     StatusTask.Next();
                     task = Task.Run(StatusTask.Tick);
                 }

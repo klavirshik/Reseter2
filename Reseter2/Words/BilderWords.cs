@@ -304,7 +304,7 @@ namespace Reseter2.Words
             }
             else
             {
-                WordsList.MainCategory = ChangeCategory;
+               // WordsList.MainCategory = ChangeCategory;
                 this.DialogResult = DialogResult.OK;
             }      
                
@@ -410,6 +410,11 @@ namespace Reseter2.Words
         private void bt_close_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void BilderWords_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

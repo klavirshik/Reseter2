@@ -42,11 +42,25 @@ namespace Reseter2
            
         }
 
-        public void DataContrl(string ping, string timeout, IPAddress ip, TimeSpan time)
+        public void DataContrl(string ping, string timeout, IPAddress ip, string netname, TimeSpan time)
         {
             lb_ping.Text = ping;
             lb_timeout.Text = timeout;
-            if(ip != null)lb_ip.Text = ip.ToString();  
+            lb_ip.Text = reseterTask.Comp.GetNetNameStr();
+
+            if (netname != null)
+            {
+                lb_ip.Text = netname;
+                if (ip != null && netname != null) lb_ip.Text = lb_ip.Text + "(" + ip.ToString() + ")";
+            }
+            else
+            {
+                if (ip != null) lb_ip.Text = ip.ToString();
+            }
+            
+            
+           
+             
             lb_time.Text = time.ToString(@"mm\:ss");
            
         }

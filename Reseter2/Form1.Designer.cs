@@ -44,8 +44,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.bt_resetAll = new System.Windows.Forms.Button();
-            this.checkControl1 = new Reseter2.CheckControl();
-            this.treeView1 = new Reseter2.NewTreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -59,11 +57,12 @@
             this.sm_RebootItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sm_SaveItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.settingRebootControl1 = new Reseter2.Setting.SettingRebootControl();
-            this.settingSCCMControl1 = new Reseter2.Setting.SettingSCCMControl();
-            this.settingWordsControl1 = new Reseter2.Setting.SettingWordsControl();
             this.button4 = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -79,10 +78,12 @@
             this.cm_words = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.WordsReboot = new System.Windows.Forms.ToolStripMenuItem();
             this.tb_comp = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
+            this.checkControl1 = new Reseter2.CheckControl();
+            this.treeView1 = new Reseter2.NewTreeView();
+            this.settingRebootControl1 = new Reseter2.Setting.SettingRebootControl();
+            this.settingSCCMControl1 = new Reseter2.Setting.SettingSCCMControl();
+            this.settingWordsControl1 = new Reseter2.Setting.SettingWordsControl();
+            this.WordsCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -247,35 +248,6 @@
             this.bt_resetAll.UseVisualStyleBackColor = false;
             this.bt_resetAll.Click += new System.EventHandler(this.bt_resetAll_Click);
             // 
-            // checkControl1
-            // 
-            this.checkControl1.Location = new System.Drawing.Point(14, 7);
-            this.checkControl1.Name = "checkControl1";
-            this.checkControl1.Size = new System.Drawing.Size(18, 18);
-            this.checkControl1.TabIndex = 2;
-            // 
-            // treeView1
-            // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.treeView1.HideSelection = false;
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.imageList1;
-            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.treeView1.Indent = 27;
-            this.treeView1.ItemHeight = 24;
-            this.treeView1.Location = new System.Drawing.Point(3, 32);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.ShowLines = false;
-            this.treeView1.ShowNodeToolTips = true;
-            this.treeView1.Size = new System.Drawing.Size(396, 653);
-            this.treeView1.StateImageList = this.imageList2;
-            this.treeView1.TabIndex = 0;
-            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
-            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
-            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
-            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -327,40 +299,40 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Cascadia Code", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(327, 3);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label6.Location = new System.Drawing.Point(327, 5);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(37, 15);
+            this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 5;
             this.label6.Text = "Конец";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Cascadia Code", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(269, 3);
+            this.label5.Font = new System.Drawing.Font("Consolas", 8.25F);
+            this.label5.Location = new System.Drawing.Point(269, 5);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 15);
+            this.label5.Size = new System.Drawing.Size(43, 13);
             this.label5.TabIndex = 4;
             this.label5.Text = "Статус";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Cascadia Code", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(112, 3);
+            this.label4.Font = new System.Drawing.Font("Consolas", 8.25F);
+            this.label4.Location = new System.Drawing.Point(112, 5);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(25, 15);
+            this.label4.Size = new System.Drawing.Size(25, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "Имя";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Cascadia Code", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(3, 3);
+            this.label3.Font = new System.Drawing.Font("Consolas", 8.25F);
+            this.label3.Location = new System.Drawing.Point(3, 5);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 15);
+            this.label3.Size = new System.Drawing.Size(79, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Время старта";
             // 
@@ -369,12 +341,11 @@
             this.lb_history.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_history.ContextMenuStrip = this.cm_history;
-            this.lb_history.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
+            this.lb_history.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_history.FormattingEnabled = true;
-            this.lb_history.ItemHeight = 15;
             this.lb_history.Location = new System.Drawing.Point(3, 21);
             this.lb_history.Name = "lb_history";
-            this.lb_history.Size = new System.Drawing.Size(396, 634);
+            this.lb_history.Size = new System.Drawing.Size(396, 628);
             this.lb_history.TabIndex = 0;
             this.lb_history.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lb_history_MouseDown);
             this.lb_history.MouseLeave += new System.EventHandler(this.lb_history_MouseLeave);
@@ -421,27 +392,6 @@
             this.tabPage4.Text = "Настройки";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // settingRebootControl1
-            // 
-            this.settingRebootControl1.Location = new System.Drawing.Point(6, 299);
-            this.settingRebootControl1.Name = "settingRebootControl1";
-            this.settingRebootControl1.Size = new System.Drawing.Size(391, 130);
-            this.settingRebootControl1.TabIndex = 7;
-            // 
-            // settingSCCMControl1
-            // 
-            this.settingSCCMControl1.Location = new System.Drawing.Point(6, 115);
-            this.settingSCCMControl1.Name = "settingSCCMControl1";
-            this.settingSCCMControl1.Size = new System.Drawing.Size(391, 178);
-            this.settingSCCMControl1.TabIndex = 6;
-            // 
-            // settingWordsControl1
-            // 
-            this.settingWordsControl1.Location = new System.Drawing.Point(6, 6);
-            this.settingWordsControl1.Name = "settingWordsControl1";
-            this.settingWordsControl1.Size = new System.Drawing.Size(391, 103);
-            this.settingWordsControl1.TabIndex = 5;
-            // 
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(317, 435);
@@ -468,6 +418,44 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "О программе";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 640);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(159, 39);
+            this.label20.TabIndex = 6;
+            this.label20.Text = "Цензура, идеи, тестирование \r\nИлюхин Георгий Николаевич \r\ngeorgii.iliukhin@gmail." +
+    "com";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(222, 640);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(170, 39);
+            this.label19.TabIndex = 5;
+            this.label19.Text = "Разработка\r\nСимаков Владимир Михайлович\r\nklavirshik@yandex.ru";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 221);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(62, 13);
+            this.label18.TabIndex = 4;
+            this.label18.Text = "Версия 2.0";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 208);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(325, 13);
+            this.label17.TabIndex = 3;
+            this.label17.Text = "Многопоточная перезагрузка рабочих станций на ОС Windows";
             // 
             // groupBox1
             // 
@@ -573,7 +561,7 @@
             // 
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(153, 6);
+            this.pictureBox1.Location = new System.Drawing.Point(153, 44);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(96, 96);
             this.pictureBox1.TabIndex = 1;
@@ -582,7 +570,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 122);
+            this.label16.Location = new System.Drawing.Point(6, 195);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(50, 13);
             this.label16.TabIndex = 0;
@@ -591,15 +579,16 @@
             // cm_words
             // 
             this.cm_words.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.WordsReboot});
+            this.WordsReboot,
+            this.WordsCopy});
             this.cm_words.Name = "cm_words";
             this.cm_words.ShowImageMargin = false;
-            this.cm_words.Size = new System.Drawing.Size(125, 26);
+            this.cm_words.Size = new System.Drawing.Size(169, 70);
             // 
             // WordsReboot
             // 
             this.WordsReboot.Name = "WordsReboot";
-            this.WordsReboot.Size = new System.Drawing.Size(124, 22);
+            this.WordsReboot.Size = new System.Drawing.Size(168, 22);
             this.WordsReboot.Text = "Перезарузить";
             this.WordsReboot.Click += new System.EventHandler(this.WordsReboot_Click);
             // 
@@ -615,43 +604,62 @@
             this.tb_comp.Enter += new System.EventHandler(this.tb_comp_Enter);
             this.tb_comp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_comp_KeyDown);
             // 
-            // label17
+            // checkControl1
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 135);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(325, 13);
-            this.label17.TabIndex = 3;
-            this.label17.Text = "Многопоточная перезагрузка рабочих станций на ОС Windows";
+            this.checkControl1.Location = new System.Drawing.Point(14, 7);
+            this.checkControl1.Name = "checkControl1";
+            this.checkControl1.Size = new System.Drawing.Size(18, 18);
+            this.checkControl1.TabIndex = 2;
             // 
-            // label18
+            // treeView1
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 148);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(62, 13);
-            this.label18.TabIndex = 4;
-            this.label18.Text = "Версия 2.0";
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.treeView1.HideSelection = false;
+            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageList = this.imageList1;
+            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.treeView1.Indent = 27;
+            this.treeView1.ItemHeight = 24;
+            this.treeView1.Location = new System.Drawing.Point(3, 32);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.SelectedImageIndex = 0;
+            this.treeView1.ShowLines = false;
+            this.treeView1.ShowNodeToolTips = true;
+            this.treeView1.Size = new System.Drawing.Size(396, 653);
+            this.treeView1.StateImageList = this.imageList2;
+            this.treeView1.TabIndex = 0;
+            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
+            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
             // 
-            // label19
+            // settingRebootControl1
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(222, 640);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(170, 39);
-            this.label19.TabIndex = 5;
-            this.label19.Text = "Разработка\r\nСимаков Владимир Михайлович\r\nklavirshik@yandex.ru";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.settingRebootControl1.Location = new System.Drawing.Point(6, 299);
+            this.settingRebootControl1.Name = "settingRebootControl1";
+            this.settingRebootControl1.Size = new System.Drawing.Size(391, 130);
+            this.settingRebootControl1.TabIndex = 7;
             // 
-            // label20
+            // settingSCCMControl1
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(6, 640);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(159, 39);
-            this.label20.TabIndex = 6;
-            this.label20.Text = "Цензура, идеи, тестирование \r\nИлюхин Георгий Николаевич \r\ngeorgii.iliukhin@gmail." +
-    "com";
+            this.settingSCCMControl1.Location = new System.Drawing.Point(6, 115);
+            this.settingSCCMControl1.Name = "settingSCCMControl1";
+            this.settingSCCMControl1.Size = new System.Drawing.Size(391, 178);
+            this.settingSCCMControl1.TabIndex = 6;
+            // 
+            // settingWordsControl1
+            // 
+            this.settingWordsControl1.Location = new System.Drawing.Point(6, 6);
+            this.settingWordsControl1.Name = "settingWordsControl1";
+            this.settingWordsControl1.Size = new System.Drawing.Size(391, 103);
+            this.settingWordsControl1.TabIndex = 5;
+            // 
+            // WordsCopy
+            // 
+            this.WordsCopy.Name = "WordsCopy";
+            this.WordsCopy.Size = new System.Drawing.Size(168, 22);
+            this.WordsCopy.Text = "Скопировать в буфер";
+            this.WordsCopy.Click += new System.EventHandler(this.WordsCopy_Click);
             // 
             // Form1
             // 
@@ -663,6 +671,7 @@
             this.Controls.Add(this.bt_reset);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Reseter2";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -743,6 +752,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.ToolStripMenuItem WordsCopy;
     }
 }
 
