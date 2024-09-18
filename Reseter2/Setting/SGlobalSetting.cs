@@ -34,14 +34,22 @@ namespace Reseter2.Setting
 
         public static void LoadSetting()
         {
+            SSetting setting;
             object output = Load("res.dat");
-            if (!(output is SSetting)) return;
-            SSetting setting = (SSetting)output;
+            if (!(output is SSetting))
+            {
+                setting = new SSetting();
+            }
+            else
+            {
+                setting = (SSetting)output;
+            }
+            
             if (setting.settingWords != null) settingWords = setting.settingWords;
             if (setting.settingExpand != null) settingExpand = setting.settingExpand;
             if (setting.settingSCCM != null) settingSCCM = setting.settingSCCM;
             if (setting.settingReboot != null) settingReboot = setting.settingReboot;
-            HistoryList.Hitem = setting.historyItems;
+            if (setting.historyItems != null) HistoryList.Hitem = setting.historyItems;
             SSeaher.LoadSetting();
            // return output;
         }

@@ -44,6 +44,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.bt_resetAll = new System.Windows.Forms.Button();
+            this.checkControl1 = new Reseter2.CheckControl();
+            this.treeView1 = new Reseter2.NewTreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -57,6 +59,9 @@
             this.sm_RebootItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sm_SaveItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.settingRebootControl1 = new Reseter2.Setting.SettingRebootControl();
+            this.settingSCCMControl1 = new Reseter2.Setting.SettingSCCMControl();
+            this.settingWordsControl1 = new Reseter2.Setting.SettingWordsControl();
             this.button4 = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label20 = new System.Windows.Forms.Label();
@@ -77,13 +82,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.cm_words = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.WordsReboot = new System.Windows.Forms.ToolStripMenuItem();
-            this.tb_comp = new System.Windows.Forms.TextBox();
-            this.checkControl1 = new Reseter2.CheckControl();
-            this.treeView1 = new Reseter2.NewTreeView();
-            this.settingRebootControl1 = new Reseter2.Setting.SettingRebootControl();
-            this.settingSCCMControl1 = new Reseter2.Setting.SettingSCCMControl();
-            this.settingWordsControl1 = new Reseter2.Setting.SettingWordsControl();
             this.WordsCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.tb_comp = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -248,6 +248,35 @@
             this.bt_resetAll.UseVisualStyleBackColor = false;
             this.bt_resetAll.Click += new System.EventHandler(this.bt_resetAll_Click);
             // 
+            // checkControl1
+            // 
+            this.checkControl1.Location = new System.Drawing.Point(14, 7);
+            this.checkControl1.Name = "checkControl1";
+            this.checkControl1.Size = new System.Drawing.Size(18, 18);
+            this.checkControl1.TabIndex = 2;
+            // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.treeView1.HideSelection = false;
+            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageList = this.imageList1;
+            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.treeView1.Indent = 27;
+            this.treeView1.ItemHeight = 24;
+            this.treeView1.Location = new System.Drawing.Point(3, 32);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.SelectedImageIndex = 0;
+            this.treeView1.ShowLines = false;
+            this.treeView1.ShowNodeToolTips = true;
+            this.treeView1.Size = new System.Drawing.Size(396, 653);
+            this.treeView1.StateImageList = this.imageList2;
+            this.treeView1.TabIndex = 0;
+            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
+            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
+            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -392,6 +421,27 @@
             this.tabPage4.Text = "Настройки";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // settingRebootControl1
+            // 
+            this.settingRebootControl1.Location = new System.Drawing.Point(6, 299);
+            this.settingRebootControl1.Name = "settingRebootControl1";
+            this.settingRebootControl1.Size = new System.Drawing.Size(391, 130);
+            this.settingRebootControl1.TabIndex = 7;
+            // 
+            // settingSCCMControl1
+            // 
+            this.settingSCCMControl1.Location = new System.Drawing.Point(6, 115);
+            this.settingSCCMControl1.Name = "settingSCCMControl1";
+            this.settingSCCMControl1.Size = new System.Drawing.Size(391, 178);
+            this.settingSCCMControl1.TabIndex = 6;
+            // 
+            // settingWordsControl1
+            // 
+            this.settingWordsControl1.Location = new System.Drawing.Point(6, 6);
+            this.settingWordsControl1.Name = "settingWordsControl1";
+            this.settingWordsControl1.Size = new System.Drawing.Size(391, 103);
+            this.settingWordsControl1.TabIndex = 5;
+            // 
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(317, 435);
@@ -442,7 +492,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 221);
+            this.label18.Location = new System.Drawing.Point(6, 235);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(62, 13);
             this.label18.TabIndex = 4;
@@ -451,7 +501,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 208);
+            this.label17.Location = new System.Drawing.Point(6, 222);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(325, 13);
             this.label17.TabIndex = 3;
@@ -561,7 +611,7 @@
             // 
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(153, 44);
+            this.pictureBox1.Location = new System.Drawing.Point(153, 51);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(96, 96);
             this.pictureBox1.TabIndex = 1;
@@ -570,7 +620,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 195);
+            this.label16.Location = new System.Drawing.Point(6, 209);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(50, 13);
             this.label16.TabIndex = 0;
@@ -583,7 +633,7 @@
             this.WordsCopy});
             this.cm_words.Name = "cm_words";
             this.cm_words.ShowImageMargin = false;
-            this.cm_words.Size = new System.Drawing.Size(169, 70);
+            this.cm_words.Size = new System.Drawing.Size(169, 48);
             // 
             // WordsReboot
             // 
@@ -591,6 +641,13 @@
             this.WordsReboot.Size = new System.Drawing.Size(168, 22);
             this.WordsReboot.Text = "Перезарузить";
             this.WordsReboot.Click += new System.EventHandler(this.WordsReboot_Click);
+            // 
+            // WordsCopy
+            // 
+            this.WordsCopy.Name = "WordsCopy";
+            this.WordsCopy.Size = new System.Drawing.Size(168, 22);
+            this.WordsCopy.Text = "Скопировать в буфер";
+            this.WordsCopy.Click += new System.EventHandler(this.WordsCopy_Click);
             // 
             // tb_comp
             // 
@@ -603,63 +660,6 @@
             this.tb_comp.TextChanged += new System.EventHandler(this.cb_comp_TextUpdate);
             this.tb_comp.Enter += new System.EventHandler(this.tb_comp_Enter);
             this.tb_comp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_comp_KeyDown);
-            // 
-            // checkControl1
-            // 
-            this.checkControl1.Location = new System.Drawing.Point(14, 7);
-            this.checkControl1.Name = "checkControl1";
-            this.checkControl1.Size = new System.Drawing.Size(18, 18);
-            this.checkControl1.TabIndex = 2;
-            // 
-            // treeView1
-            // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.treeView1.HideSelection = false;
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.imageList1;
-            this.treeView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.treeView1.Indent = 27;
-            this.treeView1.ItemHeight = 24;
-            this.treeView1.Location = new System.Drawing.Point(3, 32);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.ShowLines = false;
-            this.treeView1.ShowNodeToolTips = true;
-            this.treeView1.Size = new System.Drawing.Size(396, 653);
-            this.treeView1.StateImageList = this.imageList2;
-            this.treeView1.TabIndex = 0;
-            this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
-            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
-            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
-            // 
-            // settingRebootControl1
-            // 
-            this.settingRebootControl1.Location = new System.Drawing.Point(6, 299);
-            this.settingRebootControl1.Name = "settingRebootControl1";
-            this.settingRebootControl1.Size = new System.Drawing.Size(391, 130);
-            this.settingRebootControl1.TabIndex = 7;
-            // 
-            // settingSCCMControl1
-            // 
-            this.settingSCCMControl1.Location = new System.Drawing.Point(6, 115);
-            this.settingSCCMControl1.Name = "settingSCCMControl1";
-            this.settingSCCMControl1.Size = new System.Drawing.Size(391, 178);
-            this.settingSCCMControl1.TabIndex = 6;
-            // 
-            // settingWordsControl1
-            // 
-            this.settingWordsControl1.Location = new System.Drawing.Point(6, 6);
-            this.settingWordsControl1.Name = "settingWordsControl1";
-            this.settingWordsControl1.Size = new System.Drawing.Size(391, 103);
-            this.settingWordsControl1.TabIndex = 5;
-            // 
-            // WordsCopy
-            // 
-            this.WordsCopy.Name = "WordsCopy";
-            this.WordsCopy.Size = new System.Drawing.Size(168, 22);
-            this.WordsCopy.Text = "Скопировать в буфер";
-            this.WordsCopy.Click += new System.EventHandler(this.WordsCopy_Click);
             // 
             // Form1
             // 
