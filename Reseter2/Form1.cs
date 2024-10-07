@@ -108,9 +108,9 @@ namespace Reseter2
                     {
                         Reseter.AddTask(tb_comp.Text.Trim());
                         tabControl1.SelectedIndex = 0;
-                        ListComp.SelectedIndex = -1;
                         StopRefreshSeacher = true;
                         tb_comp.Text = "";
+                        ListComp.SelectedIndex = -1;
                         ListComp.Items.Clear();
                         ListComp.Items.Add("Введите запрос");
                         ListComp.Enabled = false;
@@ -133,9 +133,9 @@ namespace Reseter2
                 {
                     Reseter.AddTask(CompSelected);
                     tabControl1.SelectedIndex = 0;
-                    ListComp.SelectedIndex = -1;
                     StopRefreshSeacher = true;
                     tb_comp.Text = "";
+                    ListComp.SelectedIndex = -1;
                     ListComp.Items.Clear();
                     ListComp.Items.Add("Введите запрос");
                     ListComp.ItemHeight = 14;
@@ -597,7 +597,16 @@ namespace Reseter2
 
         private void ListComp_ChangeIndex(object sender, EventArgs e)
         {
-
+            if(ListComp.SelectedIndex > -1)
+            { 
+                StopRefreshSeacher = true;
+                CompSelected = SSeaher.seaherMetod.Result(ListComp.SelectedIndex);
+                tb_comp.Text = SSeaher.seaherMetod.ResultString(ListComp.SelectedIndex);
+                PreSelected = ListComp.SelectedIndex;
+                ListComp.Refresh();
+                StopRefreshSeacher = false;
+            }
+           
         }
 
 
@@ -674,10 +683,14 @@ namespace Reseter2
                         bt_reset_Click(null, null);
                         break;
                     }
-                    if (PreSelected >= 0)
+                    else if (PreSelected >= 0)
                     {
                         ListComp.SelectedIndex = PreSelected;
                         e.SuppressKeyPress = true;
+                        StopRefreshSeacher = true;
+                        CompSelected = SSeaher.seaherMetod.Result(ListComp.SelectedIndex);
+                        tb_comp.Text = SSeaher.seaherMetod.ResultString(ListComp.SelectedIndex);
+                        StopRefreshSeacher = false;
                         ListComp.Refresh();
 
                     }

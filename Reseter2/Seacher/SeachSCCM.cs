@@ -27,7 +27,7 @@ namespace Reseter2.Seacher
         private Mode mode;
         private Timer TimerDisconnect;
 
-        private enum Mode{
+        public enum Mode{
             PCname,
             Login,
             Username

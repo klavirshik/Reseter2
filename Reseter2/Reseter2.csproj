@@ -70,10 +70,11 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Klavirshik.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>9A04F507AAE2666E7DAF9DC3357A574132BA2697</ManifestCertificateThumbprint>
@@ -249,7 +250,6 @@
     <EmbeddedResource Include="Words\WordsItemControl.resx">
       <DependentUpon>WordsItemControl.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Klavirshik.pfx" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -12,6 +12,7 @@ namespace Reseter2.Seacher
         internal delegate void ResultUpdate(List<string> Item, bool eneble, int itemHeight);
         private ResultUpdate Update;
         private List<IComp> comps = new List<IComp>();
+        private List<string> ResultStr = new List<string>();
         private bool enable;
         public void Change(ResultUpdate sender, string seach)
         {
@@ -33,6 +34,7 @@ namespace Reseter2.Seacher
         {
             int i = 0;
             comps.Clear();
+            ResultStr.Clear();
             List<string> result = new List<string>();
             foreach(HistoryItem item in HistoryList.Hitem)
             {
@@ -47,6 +49,23 @@ namespace Reseter2.Seacher
                     {
                         result.Add(item.NameNode());
                         comps.Add(item.GetComp());
+                        int razdelitel = item.NameNode().IndexOf('(');
+                        if (razdelitel != -1)
+                        {
+                            int beginString = item.NameNode().ToUpper().IndexOf(seach.ToUpper());
+                            if (razdelitel < beginString)
+                            {
+                                ResultStr.Add(item.NameNode().Substring(razdelitel + 1, item.NameNode().Length - razdelitel - 2));
+                            }
+                            else
+                            {
+                                ResultStr.Add(item.NameNode().Substring(0, razdelitel));
+                            }
+                        }
+                        else
+                        {
+                            ResultStr.Add(item.NameNode());
+                        }
                         ++i;
                         enable = true;
                         if (i>6) return result;
@@ -69,18 +88,20 @@ namespace Reseter2.Seacher
 
         public string ResultString(int index)
         {
-            string buf;
-            if (comps[index].GetName() == null)
-            {
-                buf = comps[index].GetNetNameStr();
-            }
-            else
-            {
-                buf = comps[index].GetName();
-                if (comps[index].GetNetNameStr() != null) buf += "(" + comps[index].GetNetNameStr() + ")";
 
-            }
-            return buf;
+            return ResultStr[index];
+            //string buf;
+            //if (comps[index].GetName() == null)
+            //{
+            //    buf = comps[index].GetNetNameStr();
+            //}
+            //else
+            //{
+            //    buf = comps[index].GetName();
+            //    if (comps[index].GetNetNameStr() != null) buf += "(" + comps[index].GetNetNameStr() + ")";
+
+            //}
+            //return buf;
         }
     }
 }
