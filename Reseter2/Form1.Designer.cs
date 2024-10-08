@@ -496,7 +496,7 @@
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(62, 13);
             this.label18.TabIndex = 4;
-            this.label18.Text = "Версия 2.0";
+            this.label18.Text = "Версия 2.1";
             // 
             // label17
             // 

@@ -602,6 +602,7 @@ namespace Reseter2
                 StopRefreshSeacher = true;
                 CompSelected = SSeaher.seaherMetod.Result(ListComp.SelectedIndex);
                 tb_comp.Text = SSeaher.seaherMetod.ResultString(ListComp.SelectedIndex);
+                tb_comp.SelectionStart = tb_comp.Text.Length;
                 PreSelected = ListComp.SelectedIndex;
                 ListComp.Refresh();
                 StopRefreshSeacher = false;
